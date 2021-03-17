@@ -1,0 +1,14 @@
+{
+    "plugins": [
+        "stylelint-order"
+    ],
+    "extends": [
+        "stylelint-prettier/recommended"
+    ],
+    "rules": {
+        "order/order": [
+            "custom-properties",
+            "declarations"
+        ]
+    }
+}

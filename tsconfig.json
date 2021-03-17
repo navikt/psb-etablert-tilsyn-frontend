@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "sourceMap": true,
+        "module": "commonjs",
+        "declaration": true,
+        "skipLibCheck": true,
+        "target": "esnext",
+        "typeRoots": ["./node_modules/@types"],
+        "esModuleInterop": true
+    },
+    "exclude": ["node_modules", "build"]
+}
