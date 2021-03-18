@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
+import { TabsPure } from 'nav-frontend-tabs';
+import React from 'react';
 import { ContainerContract } from '../types/ContainerContract';
+import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
 import ContainerContext from './context/ContainerContext';
 import styles from './mainComponent.less';
-import NavigationWithDetailView from './components/navigation-with-detail-view/NavigationWithDetailView';
-import EtablertTilsynTabell from './components/etablertTilsyn/EtablertTilsyn';
-import { EtablertTilsynsperiode } from '../types/EtablertTilsynsperiode';
-import { Undertittel } from 'nav-frontend-typografi';
+import Beredskap from './components/beredskap/Beredskap';
 
 interface MainComponentProps {
     data: ContainerContract;
 }
 
+const tabs = ['Etablert tilsyn', 'Beredskap', 'Nattevåk'];
+
 const MainComponent = ({ data }: MainComponentProps) => {
-    const [valgtPeriode, setValgtPeriode] = useState<EtablertTilsynsperiode>(null);
+    const [activeTab, setActiveTab] = React.useState(0);
 
     return (
         <ContainerContext.Provider value={data}>
             <div className={styles.mainComponent}>
-                <Undertittel>Etablert tilsyn</Undertittel>
-                <EtablertTilsynTabell etablertTilsyn={data.etablertTilsyn} />
+                <TabsPure
+                    kompakt
+                    tabs={tabs.map((tabName, index) => ({ label: tabName, aktiv: activeTab === index }))}
+                    onChange={(event, clickedIndex) => setActiveTab(clickedIndex)}
+                />
+                <div className={styles.mainComponent__contentContainer}>
+                    {activeTab === 0 && <EtablertTilsyn />}
+                    {activeTab === 1 && <Beredskap />}
+                </div>
             </div>
         </ContainerContext.Provider>
     );

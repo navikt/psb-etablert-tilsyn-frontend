@@ -1,0 +1,31 @@
+.expandableLabel {
+    &__button {
+        display: block;
+        background: none;
+        border: none;
+        color: #0067c5;
+        padding: 0;
+        border-bottom: 1px solid #0067c5;
+        margin: 0.5rem 0 0;
+        position: relative;
+    }
+
+    &__chevron {
+        position: absolute;
+        top: 6px;
+        margin-left: 0.5rem;
+        display: inline-block;
+        &--open {
+            transform: rotate(180deg);
+        }
+    }
+
+    :global .ReactCollapse--collapse {
+        transition: height 500ms;
+    }
+
+    &__helptext {
+        margin: 0;
+        padding: 1rem 0;
+    }
+}
