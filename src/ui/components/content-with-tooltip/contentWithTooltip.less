@@ -1,0 +1,41 @@
+.contentWithTooltip {
+    position: relative;
+    display: flex;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        stroke: none;
+        overflow: visible;
+    }
+
+    &__tooltipText {
+        display: none;
+        flex-direction: row;
+        align-items: center;
+        padding: 2px 8px;
+        position: absolute;
+        left: 0;
+        top: 34px;
+        background: #fff5e8;
+        box-shadow: 0px 1px 2px #b7b1a9;
+        border-radius: 4px;
+        white-space: pre;
+        z-index: 1;
+        color: black;
+        line-height: 1.125rem;
+
+        &--right {
+            left: 34px;
+            top: 0;
+        }
+    }
+
+    &:hover .contentWithTooltip__tooltipText {
+        display: block;
+    }
+
+    &--inline {
+        display: inline-block;
+    }
+}

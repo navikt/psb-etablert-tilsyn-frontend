@@ -1,0 +1,57 @@
+.interactiveList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.interactiveListElement {
+    padding: 0.5rem 0.5rem 0.4375rem 0.8125rem;
+    border: 1px solid #c6c2bf;
+    border-top: none;
+    position: relative;
+
+    &:hover {
+        background: #f2f7fc;
+    }
+}
+
+.interactiveListElement--active {
+    padding-left: 0.5625rem;
+    background: #f2f7fc;
+    border-left: 5px solid rgba(0, 103, 197, 1);
+    border-right: 1px solid #0067c5;
+    border-bottom: 1px solid #0067c5;
+    border-top: 1px solid #0067c5;
+}
+
+.interactiveListElement:first-child {
+    border-top: 1px solid #c6c2bf;
+}
+
+.interactiveListElement--active:first-child {
+    border-top: 1px solid #0067c5;
+}
+
+.interactiveListElement--active:first-child {
+    border-top: 1px solid #0067c5;
+}
+
+.interactiveListElement--active:not(:first-child) {
+    border-top: 1px solid #0067c5;
+    margin-top: -1px;
+}
+
+.interactiveListElement__button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    display: block;
+    text-align: left;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: #0067c5 auto 1px;
+    }
+}
