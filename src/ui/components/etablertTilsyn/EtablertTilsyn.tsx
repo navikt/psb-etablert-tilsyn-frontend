@@ -26,16 +26,15 @@ const renderIcon = (kilde: Kilde) => {
 
 const EtablertTilsynTabell = (): JSX.Element => {
     const { etablertTilsyn } = React.useContext(ContainerContext);
-
-    const antallPerioder = etablertTilsyn.length;
+    const harVurderinger = etablertTilsyn.length > 0;
 
     return (
         <>
             <Undertittel>Etablert tilsyn</Undertittel>
             <div className={styles.etablertTilsyn}>
                 <Lenke href="#">Gjør endringer i Punsj</Lenke>
-                {antallPerioder === 0 && <p>Ingen vurderinger å vise</p>}
-                {antallPerioder > 0 && (
+                {!harVurderinger && <p>Ingen vurderinger å vise</p>}
+                {harVurderinger && (
                     <table className={styles.etablertTilsynTabell}>
                         <thead>
                             <tr className={styles.etablertTilsynTabell__columnHeadings}>
@@ -68,7 +67,10 @@ const EtablertTilsynTabell = (): JSX.Element => {
                                         {tilsyn.timerDag}
                                     </td>
 
-                                    <td className={styles.etablertTilsynTabell__icon}>{renderIcon(tilsyn.kilde)}</td>
+                                    <td className={styles.etablertTilsynTabell__icon}>
+                                        <span className={styles.visuallyHidden}>Kilde</span>
+                                        {renderIcon(tilsyn.kilde)}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

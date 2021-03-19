@@ -29,6 +29,8 @@ const VurderingAvNattevåksperioderForm = ({ nattevåksperiode }: VurderingAvNat
             [FieldName.PERIODER]: nattevåksperiode?.periode
                 ? [new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]
                 : [new Period('', '')],
+            [FieldName.VURDERING_AV_NATTEVÅK]: '',
+            [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: undefined,
         },
     });
 

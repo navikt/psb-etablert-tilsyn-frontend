@@ -12,7 +12,7 @@ interface BeskrivelserForPeriodenProps {
     periodebeskrivelser: Periodebeskrivelse[];
 }
 
-const label = (periodebeskrivelse: Periodebeskrivelse) => {
+const getLabel = (periodebeskrivelse: Periodebeskrivelse) => {
     const kilde = periodebeskrivelse.kilde === Kilde.ANNEN_PART ? 'annen part' : 'søker';
     return (
         <div className={styles.beskrivelserForPerioden__label}>
@@ -34,7 +34,7 @@ const BeskrivelserForPerioden = ({ periodebeskrivelser }: BeskrivelserForPeriode
                 {periodebeskrivelser.map((periodebeskrivelse, index) => (
                     <Box marginBottom={Margin.large} key={index}>
                         <LabelledContent
-                            label={label(periodebeskrivelse)}
+                            label={getLabel(periodebeskrivelse)}
                             content={periodebeskrivelse.begrunnelse}
                             labelTag="div"
                         />

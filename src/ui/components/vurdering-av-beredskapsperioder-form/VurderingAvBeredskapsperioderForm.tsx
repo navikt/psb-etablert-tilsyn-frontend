@@ -31,6 +31,8 @@ const VurderingAvBeredskapsperioderForm = ({
             [FieldName.PERIODER]: beredskapsperiode?.periode
                 ? [new Period(beredskapsperiode.periode.fom, beredskapsperiode.periode.tom)]
                 : [new Period('', '')],
+            [FieldName.VURDERING_AV_BEREDSKAP]: '',
+            [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: undefined,
         },
     });
 
