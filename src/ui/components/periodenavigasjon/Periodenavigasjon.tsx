@@ -19,8 +19,8 @@ const Periodenavigasjon = ({
 }: PeriodenavigasjonProps): JSX.Element => {
     const [activeIndex, setActiveIndex] = React.useState(-1);
 
-    const vurdertePerioderElements = vurdertePerioder.map(({ periode, resultat }) => {
-        return <VurderingsperiodeElement periode={periode} resultat={resultat} />;
+    const vurdertePerioderElements = vurdertePerioder.map(({ periode, resultat, kilde }) => {
+        return <VurderingsperiodeElement periode={periode} resultat={resultat} kilde={kilde} />;
     });
 
     const periodeTilVurderingElements = perioderTilVurdering.map(({ periode }) => {
@@ -36,7 +36,14 @@ const Periodenavigasjon = ({
             {antallPerioder === 0 && <p>Ingen vurderinger å vise</p>}
             {antallPerioder > 0 && (
                 <div className={styles.vurderingsvelgerContainer}>
-                    <Element>Periode</Element>
+                    <div className={styles.vurderingsvelgerContainer__columnHeadings}>
+                        <Element className={styles['vurderingsvelgerContainer__columnHeading--first']}>Status</Element>
+                        <Element className={styles['vurderingsvelgerContainer__columnHeading--second']}>
+                            Periode
+                        </Element>
+
+                        <Element className={styles['vurderingsvelgerContainer__columnHeading--third']}>Kilde</Element>
+                    </div>
                     <InteractiveList
                         elements={elements.map((element, currentIndex) => ({
                             content: element,

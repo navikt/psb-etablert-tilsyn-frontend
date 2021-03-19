@@ -4,6 +4,7 @@ import { prettifyPeriod } from '../../../util/formats';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import WarningIcon from '../icons/WarningIcon';
 import styles from './periodeSomSkalVurderes.less';
+import OnePersonIconGray from '../icons/OnePersonIconGray';
 
 interface PeriodeSomSkalVurderesProps {
     periode: Period;
@@ -21,6 +22,12 @@ const PeriodeSomSkalVurderes = ({ periode }: PeriodeSomSkalVurderesProps) => {
                     <p key={`${periode.fom}_${periode.tom}`} className={styles.periodeSomSkalVurderes__texts__period}>
                         {prettifyPeriod(periode)}
                     </p>
+                </div>
+                <div className={styles.periodeSomSkalVurderes__texts__kildeIcon}>
+                    <span className={styles.visuallyHidden}>Kilde</span>
+                    <ContentWithTooltip tooltipText="Søker">
+                        <OnePersonIconGray />
+                    </ContentWithTooltip>
                 </div>
             </div>
         </div>
