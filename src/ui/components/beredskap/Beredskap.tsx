@@ -4,11 +4,11 @@ import * as React from 'react';
 import { Beredskapsperiode, VurdertBeredskapsperiode } from '../../../types/Beredskapsperiode';
 import { getStringMedPerioder } from '../../../util/periodUtils';
 import ContainerContext from '../../context/ContainerContext';
-import BeredskapsperiodeVurderingsdetaljer from '../beredskapsperiode-vurderingsdetaljer/BeredskapsperiodeVurderingsdetaljer';
+import BeredskapsperiodeVurderingsdetaljer from './beredskapsperiode-vurderingsdetaljer/BeredskapsperiodeVurderingsdetaljer';
 import Box, { Margin } from '../box/Box';
 import NavigationWithDetailView from '../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../periodenavigasjon/Periodenavigasjon';
-import VurderingAvBeredskapsperioderForm from '../vurdering-av-beredskapsperioder-form/VurderingAvBeredskapsperioderForm';
+import VurderingAvBeredskapsperioderForm from './vurdering-av-beredskapsperioder-form/VurderingAvBeredskapsperioderForm';
 import styles from './beredskap.less';
 
 const Beredskap = () => {

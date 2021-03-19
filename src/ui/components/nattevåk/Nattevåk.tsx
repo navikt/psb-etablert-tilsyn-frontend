@@ -5,10 +5,10 @@ import { Nattevåksperiode, VurdertNattevåksperiode } from '../../../types/Natt
 import { getStringMedPerioder } from '../../../util/periodUtils';
 import ContainerContext from '../../context/ContainerContext';
 import Box, { Margin } from '../box/Box';
-import NattevåksperiodeVurderingsdetaljer from '../nattevåksperiode-vurderingsdetaljer/NattevåksperiodeVurderingsdetaljer';
+import NattevåksperiodeVurderingsdetaljer from './nattevåksperiode-vurderingsdetaljer/NattevåksperiodeVurderingsdetaljer';
 import NavigationWithDetailView from '../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../periodenavigasjon/Periodenavigasjon';
-import VurderingAvNattevåksperioderForm from '../vurdering-av-nattevåksperioder-form/VurderingAvNattevåksperioderForm';
+import VurderingAvNattevåksperioderForm from './vurdering-av-nattevåksperioder-form/VurderingAvNattevåksperioderForm';
 import styles from './nattevåk.less';
 
 const Nattevåk = () => {

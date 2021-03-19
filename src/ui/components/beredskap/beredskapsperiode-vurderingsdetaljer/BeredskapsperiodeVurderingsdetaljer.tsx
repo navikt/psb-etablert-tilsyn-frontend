@@ -1,11 +1,11 @@
 import React from 'react';
-import { VurdertBeredskapsperiode } from '../../../types/Beredskapsperiode';
-import Vurderingsresultat from '../../../types/Vurderingsresultat';
-import { prettifyPeriod } from '../../../util/formats';
-import BeskrivelserForPerioden from '../beskrivelser-for-perioden/BeskrivelserForPerioden';
-import Box, { Margin } from '../box/Box';
-import DetailView from '../detail-view/DetailView';
-import LabelledContent from '../labelled-content/LabelledContent';
+import { VurdertBeredskapsperiode } from '../../../../types/Beredskapsperiode';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
+import { prettifyPeriod } from '../../../../util/formats';
+import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
+import Box, { Margin } from '../../box/Box';
+import DetailView from '../../detail-view/DetailView';
+import LabelledContent from '../../labelled-content/LabelledContent';
 
 interface BeredskapsperiodeVurderingsdetaljerProps {
     beredskapsperiode: VurdertBeredskapsperiode;
