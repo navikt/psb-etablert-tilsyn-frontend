@@ -1,18 +1,34 @@
+import AlertStripe from 'nav-frontend-alertstriper';
 import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Nattevåksperiode, VurdertNattevåksperiode } from '../../../types/Nattevåksperiode';
+import { getStringMedPerioder } from '../../../util/periodUtils';
 import ContainerContext from '../../context/ContainerContext';
+import Box, { Margin } from '../box/Box';
 import NattevåksperiodeVurderingsdetaljer from '../nattevåksperiode-vurderingsdetaljer/NattevåksperiodeVurderingsdetaljer';
 import NavigationWithDetailView from '../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../periodenavigasjon/Periodenavigasjon';
 import VurderingAvNattevåksperioderForm from '../vurdering-av-nattevåksperioder-form/VurderingAvNattevåksperioderForm';
+import styles from './nattevåk.less';
 
 const Nattevåk = () => {
     const { nattevåksperioderTilVurdering, vurderteNattevåksperioder } = React.useContext(ContainerContext);
     const [valgtPeriode, setValgtPeriode] = React.useState<Nattevåksperiode | VurdertNattevåksperiode>(null);
 
+    const harPerioderTilVurdering = nattevåksperioderTilVurdering?.length > 0;
+    const nattevåksperioder = harPerioderTilVurdering
+        ? nattevåksperioderTilVurdering.map((omsorgsperiode) => omsorgsperiode.periode)
+        : [];
+
     return (
         <>
+            {harPerioderTilVurdering && (
+                <Box marginBottom={Margin.large}>
+                    <AlertStripe type="advarsel" className={styles.beredskap__alertstripe}>
+                        {`Vurder behov for nattevåk i ${getStringMedPerioder(nattevåksperioder)}.`}
+                    </AlertStripe>
+                </Box>
+            )}
             <Undertittel>Nattevåk</Undertittel>
             <NavigationWithDetailView
                 navigationSection={() => (

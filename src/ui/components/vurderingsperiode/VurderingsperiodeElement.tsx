@@ -38,13 +38,25 @@ const renderStatusIcon = (resultat: Vurderingsresultat) => {
 
 const renderKildeIcon = (kilde: Kilde) => {
     if (kilde === Kilde.ANNEN_PART) {
-        return <OnePersonOutlineGray />;
+        return (
+            <ContentWithTooltip tooltipText="Annen part">
+                <OnePersonOutlineGray />
+            </ContentWithTooltip>
+        );
     }
     if (kilde === Kilde.SØKER_OG_ANNEN_PART) {
-        return <TwoPeopleGray />;
+        return (
+            <ContentWithTooltip tooltipText="Søker og annen part">
+                <TwoPeopleGray />
+            </ContentWithTooltip>
+        );
     }
 
-    return <OnePersonIconGray />;
+    return (
+        <ContentWithTooltip tooltipText="Søker">
+            <OnePersonIconGray />
+        </ContentWithTooltip>
+    );
 };
 
 const VurderingsperiodeElement = ({

@@ -7,12 +7,21 @@ import ContainerContext from '../../context/ContainerContext';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
 import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
 import styles from './etablertTilsyn.less';
+import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 
 const renderIcon = (kilde: Kilde) => {
     if (kilde === Kilde.SØKER) {
-        return <OnePersonIconGray />;
+        return (
+            <ContentWithTooltip tooltipText="Søker">
+                <OnePersonIconGray />
+            </ContentWithTooltip>
+        );
     }
-    return <OnePersonOutlineGray />;
+    return (
+        <ContentWithTooltip tooltipText="Annen part">
+            <OnePersonOutlineGray />
+        </ContentWithTooltip>
+    );
 };
 
 const EtablertTilsynTabell = (): JSX.Element => {
