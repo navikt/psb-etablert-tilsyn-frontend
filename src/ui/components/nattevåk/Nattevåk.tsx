@@ -20,6 +20,19 @@ const Nattevåk = () => {
         ? nattevåksperioderTilVurdering.map((omsorgsperiode) => omsorgsperiode.periode)
         : [];
 
+    const ikkeBehovForNattevåk =
+        (!nattevåksperioderTilVurdering || nattevåksperioderTilVurdering.length === 0) &&
+        (!vurderteNattevåksperioder || vurderteNattevåksperioder.length === 0);
+
+    if (ikkeBehovForNattevåk) {
+        return (
+            <>
+                <Undertittel>Nattevåk</Undertittel>
+                <p>Søker har ikke oppgitt at det er behov for nattevåk.</p>
+            </>
+        );
+    }
+
     return (
         <>
             {harPerioderTilVurdering && (

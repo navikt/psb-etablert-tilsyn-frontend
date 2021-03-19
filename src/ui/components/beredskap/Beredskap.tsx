@@ -20,6 +20,19 @@ const Beredskap = () => {
         ? beredskapsperioderTilVurdering.map((omsorgsperiode) => omsorgsperiode.periode)
         : [];
 
+    const ikkeBehovForBeredskap =
+        (!beredskapsperioderTilVurdering || beredskapsperioderTilVurdering.length === 0) &&
+        (!vurderteBeredskapsperioder || vurderteBeredskapsperioder.length === 0);
+
+    if (ikkeBehovForBeredskap) {
+        return (
+            <>
+                <Undertittel>Beredskap</Undertittel>
+                <p>Søker har ikke oppgitt at det er behov for beredskap.</p>
+            </>
+        );
+    }
+
     return (
         <>
             {harPerioderTilVurdering && (
