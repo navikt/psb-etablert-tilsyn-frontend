@@ -1,10 +1,11 @@
 import { TabsPure } from 'nav-frontend-tabs';
 import React from 'react';
-import { ContainerContract } from '../types/ContainerContract';
+import ContainerContract from '../types/ContainerContract';
+import Beredskap from './components/beredskap/Beredskap';
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
+import Nattevåk from './components/nattevåk/Nattevåk';
 import ContainerContext from './context/ContainerContext';
 import styles from './mainComponent.less';
-import Beredskap from './components/beredskap/Beredskap';
 
 interface MainComponentProps {
     data: ContainerContract;
@@ -26,6 +27,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
                 <div className={styles.mainComponent__contentContainer}>
                     {activeTab === 0 && <EtablertTilsyn />}
                     {activeTab === 1 && <Beredskap />}
+                    {activeTab === 2 && <Nattevåk />}
                 </div>
             </div>
         </ContainerContext.Provider>
