@@ -18,6 +18,12 @@ export enum FieldName {
     PERIODER = 'perioder',
 }
 
+enum RadioOptions {
+    JA = 'ja',
+    JA_DELER = 'jaDeler',
+    NEI = 'nei',
+}
+
 interface VurderingAvNattevåksperioderFormProps {
     onSubmit: () => void;
     nattevåksperiode: Nattevåksperiode;
@@ -33,6 +39,8 @@ const VurderingAvNattevåksperioderForm = ({ nattevåksperiode }: VurderingAvNat
             [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: undefined,
         },
     });
+
+    const erDetBehovForNattevåk = formMethods.watch(FieldName.HAR_BEHOV_FOR_NATTEVÅK);
 
     return (
         <DetailView title="Vurdering av nattevåk">
@@ -51,44 +59,46 @@ const VurderingAvNattevåksperioderForm = ({ nattevåksperiode }: VurderingAvNat
                         <RadioGroup
                             question="Er det behov for nattevåk?"
                             radios={[
-                                { value: 'ja', label: 'Ja' },
-                                { value: 'deler', label: 'Ja, i deler av perioden' },
-                                { value: 'nei', label: 'Nei' },
+                                { value: RadioOptions.JA, label: 'Ja' },
+                                { value: RadioOptions.JA_DELER, label: 'Ja, i deler av perioden' },
+                                { value: RadioOptions.NEI, label: 'Nei' },
                             ]}
                             name={FieldName.HAR_BEHOV_FOR_NATTEVÅK}
                         />
                     </Box>
-                    <Box marginTop={Margin.xLarge}>
-                        <PeriodpickerList
-                            name={FieldName.PERIODER}
-                            legend="I hvilke perioder er det behov for nattevåk?"
-                            fromDatepickerProps={{ label: 'Fra', ariaLabel: 'Fra' }}
-                            toDatepickerProps={{ label: 'Til', ariaLabel: 'Til' }}
-                            defaultValues={[new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]}
-                            renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => {
-                                return (
-                                    <>
-                                        {numberOfItems > 1 && (
-                                            <DeleteButton
-                                                onClick={() => {
-                                                    fieldArrayMethods.remove(index);
-                                                }}
-                                            />
-                                        )}
-                                    </>
-                                );
-                            }}
-                            renderAfterFieldArray={(fieldArrayMethods) => (
-                                <Box marginTop={Margin.large}>
-                                    <AddButton
-                                        label="Legg til periode"
-                                        onClick={() => fieldArrayMethods.append({ fom: '', tom: '' })}
-                                        id="leggTilPeriodeKnapp"
-                                    />
-                                </Box>
-                            )}
-                        />
-                    </Box>
+                    {erDetBehovForNattevåk === RadioOptions.JA_DELER && (
+                        <Box marginTop={Margin.xLarge}>
+                            <PeriodpickerList
+                                name={FieldName.PERIODER}
+                                legend="I hvilke perioder er det behov for nattevåk?"
+                                fromDatepickerProps={{ label: 'Fra', ariaLabel: 'Fra' }}
+                                toDatepickerProps={{ label: 'Til', ariaLabel: 'Til' }}
+                                defaultValues={[new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]}
+                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => {
+                                    return (
+                                        <>
+                                            {numberOfItems > 1 && (
+                                                <DeleteButton
+                                                    onClick={() => {
+                                                        fieldArrayMethods.remove(index);
+                                                    }}
+                                                />
+                                            )}
+                                        </>
+                                    );
+                                }}
+                                renderAfterFieldArray={(fieldArrayMethods) => (
+                                    <Box marginTop={Margin.large}>
+                                        <AddButton
+                                            label="Legg til periode"
+                                            onClick={() => fieldArrayMethods.append({ fom: '', tom: '' })}
+                                            id="leggTilPeriodeKnapp"
+                                        />
+                                    </Box>
+                                )}
+                            />
+                        </Box>
+                    )}
                 </Form>
             </FormProvider>
         </DetailView>
