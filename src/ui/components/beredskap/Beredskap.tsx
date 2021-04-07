@@ -1,76 +1,56 @@
-import AlertStripe from 'nav-frontend-alertstriper';
-import { Undertittel } from 'nav-frontend-typografi';
+import axios from 'axios';
 import * as React from 'react';
-import { Beredskapsperiode, VurdertBeredskapsperiode } from '../../../types/Beredskapsperiode';
-import { getStringMedPerioder } from '../../../util/periodUtils';
+import BeredskapsperiodeoversiktType from '../../../types/BeredskapsperiodeoversiktType';
+import { BeredskapsperiodeResponse } from '../../../types/BeredskapsperiodeResponse';
+import { get } from '../../../util/httpUtils';
 import ContainerContext from '../../context/ContainerContext';
-import BeredskapsperiodeVurderingsdetaljer from './beredskapsperiode-vurderingsdetaljer/BeredskapsperiodeVurderingsdetaljer';
-import Box, { Margin } from '../box/Box';
-import NavigationWithDetailView from '../navigation-with-detail-view/NavigationWithDetailView';
-import Periodenavigasjon from '../periodenavigasjon/Periodenavigasjon';
-import VurderingAvBeredskapsperioderForm from './vurdering-av-beredskapsperioder-form/VurderingAvBeredskapsperioderForm';
-import styles from './beredskap.less';
+import PageContainer from '../page-container/PageContainer';
+import ActionType from './actionTypes';
+import Beredskapsperiodeoversikt from './beredskapsperioderoversikt/Beredskapsperiodeoversikt';
+import beredskapReducer from './reducer';
 
 const Beredskap = () => {
-    const { beredskapsperioderTilVurdering, vurderteBeredskapsperioder } = React.useContext(ContainerContext);
-    const [valgtPeriode, setValgtPeriode] = React.useState<Beredskapsperiode | VurdertBeredskapsperiode>(null);
+    const { endpoints, httpErrorHandler } = React.useContext(ContainerContext);
+    const [state, dispatch] = React.useReducer(beredskapReducer, {
+        isLoading: true,
+        beredskapsperiodeoversiktHarFeilet: false,
+        beredskapsperiodeoversikt: null,
+    });
 
-    const harPerioderTilVurdering = beredskapsperioderTilVurdering?.length > 0;
-    const beredskapsperioder = harPerioderTilVurdering
-        ? beredskapsperioderTilVurdering.map((omsorgsperiode) => omsorgsperiode.periode)
-        : [];
+    const { beredskapsperiodeoversikt, isLoading, beredskapsperiodeoversiktHarFeilet } = state;
 
-    const ikkeBehovForBeredskap =
-        (!beredskapsperioderTilVurdering || beredskapsperioderTilVurdering.length === 0) &&
-        (!vurderteBeredskapsperioder || vurderteBeredskapsperioder.length === 0);
+    const httpCanceler = React.useMemo(() => axios.CancelToken.source(), []);
 
-    if (ikkeBehovForBeredskap) {
-        return (
-            <>
-                <Undertittel>Beredskap</Undertittel>
-                <p>Søker har ikke oppgitt at det er behov for beredskap.</p>
-            </>
-        );
-    }
+    const getBeredskapsperioder = () =>
+        get<BeredskapsperiodeResponse>(endpoints.beredskap, httpErrorHandler, {
+            cancelToken: httpCanceler.token,
+        });
+
+    const handleError = () => {
+        dispatch({ type: ActionType.FAILED });
+    };
+
+    React.useEffect(() => {
+        let isMounted = true;
+        getBeredskapsperioder()
+            .then(({ beredskapsperioder }: BeredskapsperiodeResponse) => {
+                if (isMounted) {
+                    const nyBeredskapsperiodeoversikt = new BeredskapsperiodeoversiktType(beredskapsperioder);
+                    dispatch({ type: ActionType.OK, beredskapsperiodeoversikt: nyBeredskapsperiodeoversikt });
+                }
+            })
+            .catch(handleError);
+        return () => {
+            isMounted = false;
+            httpCanceler.cancel();
+        };
+    }, []);
 
     return (
         <>
-            {harPerioderTilVurdering && (
-                <Box marginBottom={Margin.large}>
-                    <AlertStripe type="advarsel" className={styles.beredskap__alertstripe}>
-                        {`Vurder behov for beredskap i ${getStringMedPerioder(beredskapsperioder)}.`}
-                    </AlertStripe>
-                </Box>
-            )}
-
-            <Undertittel>Beredskap</Undertittel>
-            <NavigationWithDetailView
-                navigationSection={() => (
-                    <Periodenavigasjon
-                        perioderTilVurdering={beredskapsperioderTilVurdering}
-                        vurdertePerioder={vurderteBeredskapsperioder}
-                        onPeriodeValgt={setValgtPeriode}
-                    />
-                )}
-                detailSection={() => {
-                    if (!valgtPeriode) {
-                        return null;
-                    }
-                    if ((valgtPeriode as VurdertBeredskapsperiode).resultat) {
-                        return (
-                            <BeredskapsperiodeVurderingsdetaljer
-                                beredskapsperiode={valgtPeriode as VurdertBeredskapsperiode}
-                            />
-                        );
-                    }
-                    return (
-                        <VurderingAvBeredskapsperioderForm
-                            beredskapsperiode={valgtPeriode}
-                            onSubmit={() => console.log(1)}
-                        />
-                    );
-                }}
-            />
+            <PageContainer isLoading={isLoading} hasError={beredskapsperiodeoversiktHarFeilet}>
+                <Beredskapsperiodeoversikt beredskapsperiodeoversikt={beredskapsperiodeoversikt} />
+            </PageContainer>
         </>
     );
 };

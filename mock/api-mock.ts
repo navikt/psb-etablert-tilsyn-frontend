@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mockedEtablertTilsyn from './mocked-data/mockedEtablertTilsyn';
+import mockedBeredskapsperioder from './mocked-data/mockedBeredskapsperioder';
 
 const app = express();
 
@@ -14,6 +15,10 @@ app.use(
 
 app.use('/mock/etablertTilsyn', (req, res) => {
     res.send({ etablertTilsyn: mockedEtablertTilsyn });
+});
+
+app.use('/mock/beredskap', (req, res) => {
+    res.send({ beredskapsperioder: mockedBeredskapsperioder });
 });
 
 const port = 8082;

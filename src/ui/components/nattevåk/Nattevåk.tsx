@@ -17,7 +17,7 @@ const Nattevåk = () => {
 
     const harPerioderTilVurdering = nattevåksperioderTilVurdering?.length > 0;
     const nattevåksperioder = harPerioderTilVurdering
-        ? nattevåksperioderTilVurdering.map((omsorgsperiode) => omsorgsperiode.periode)
+        ? nattevåksperioderTilVurdering.map((nattevåksperiode) => nattevåksperiode.periode)
         : [];
 
     const ikkeBehovForNattevåk =

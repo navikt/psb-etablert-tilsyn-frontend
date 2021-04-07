@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Beredskapsperiode } from '../../../../types/Beredskapsperiode';
+import Beredskapsperiode from '../../../../types/Beredskapsperiode';
 import { Period } from '../../../../types/Period';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
@@ -11,10 +11,12 @@ import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
+import { getPeriodDifference } from '../../../../util/dateUtils';
 
 export enum FieldName {
-    VURDERING_AV_BEREDSKAP = 'vurderBeredskap',
-    HAR_BEHOV_FOR_BEREDSKAP = 'erDetBehovForBeredskap',
+    BEGRUNNELSE = 'begrunnelse',
+    HAR_BEHOV_FOR_BEREDSKAP = 'harBehovForBeredskap',
     PERIODER = 'perioder',
 }
 
@@ -24,9 +26,27 @@ enum RadioOptions {
     NEI = 'nei',
 }
 
+const finnResterendePerioder = (perioderFraForm: FormPeriod[], periodeTilVurdering: Period) => {
+    const formatertePerioderFraForm = perioderFraForm.map((periode) => periode.period);
+    const resterendePerioder =
+        formatertePerioderFraForm.length > 0 && getPeriodDifference(periodeTilVurdering, formatertePerioderFraForm);
+
+    return resterendePerioder;
+};
+
 interface VurderingAvBeredskapsperioderFormProps {
     onSubmit: () => void;
     beredskapsperiode: Beredskapsperiode;
+}
+
+interface FormPeriod {
+    period: Period;
+}
+
+interface VurderingAvBeredskapsperioderFormState {
+    [FieldName.BEGRUNNELSE]: string;
+    [FieldName.PERIODER]: FormPeriod[];
+    [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: RadioOptions;
 }
 
 const VurderingAvBeredskapsperioderForm = ({
@@ -37,24 +57,66 @@ const VurderingAvBeredskapsperioderForm = ({
             [FieldName.PERIODER]: beredskapsperiode?.periode
                 ? [new Period(beredskapsperiode.periode.fom, beredskapsperiode.periode.tom)]
                 : [new Period('', '')],
-            [FieldName.VURDERING_AV_BEREDSKAP]: '',
+            [FieldName.BEGRUNNELSE]: '',
             [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: undefined,
         },
     });
 
     const erDetBehovForBeredskap = formMethods.watch(FieldName.HAR_BEHOV_FOR_BEREDSKAP);
 
+    const handleSubmit = (formState: VurderingAvBeredskapsperioderFormState) => {
+        const { begrunnelse, perioder, harBehovForBeredskap } = formState;
+        const { kilde, periodebeskrivelser } = beredskapsperiode;
+
+        let perioderMedEllerUtenBeredskap;
+        let perioderUtenBeredskap = [];
+        if (harBehovForBeredskap === RadioOptions.JA_DELER) {
+            perioderMedEllerUtenBeredskap = perioder.map(({ period }) => ({
+                periode: period,
+                resultat: Vurderingsresultat.OPPFYLT,
+                begrunnelse,
+                kilde,
+                periodebeskrivelser,
+            }));
+
+            const resterendePerioder = finnResterendePerioder(perioder, beredskapsperiode.periode);
+            perioderUtenBeredskap = resterendePerioder.map((periode) => ({
+                periode,
+                resultat: Vurderingsresultat.IKKE_OPPFYLT,
+                begrunnelse: null,
+                kilde,
+                periodebeskrivelser,
+            }));
+        } else {
+            perioderMedEllerUtenBeredskap = [
+                {
+                    periode: beredskapsperiode.periode,
+                    resultat:
+                        harBehovForBeredskap === RadioOptions.JA
+                            ? Vurderingsresultat.OPPFYLT
+                            : Vurderingsresultat.IKKE_OPPFYLT,
+                    begrunnelse,
+                    kilde,
+                    periodebeskrivelser,
+                },
+            ];
+        }
+
+        const kombinertePerioder = perioderMedEllerUtenBeredskap.concat(perioderUtenBeredskap);
+        // onFinished({ beredskapsperioder: kombinertePerioder });
+    };
+
     return (
         <DetailView title="Vurdering av beredskap">
             <FormProvider {...formMethods}>
-                <Form onSubmit={formMethods.handleSubmit} buttonLabel="Bekreft og fortsett">
+                <Form onSubmit={formMethods.handleSubmit(handleSubmit)} buttonLabel="Bekreft og fortsett">
                     <Box marginTop={Margin.xLarge}>
                         <BeskrivelserForPerioden periodebeskrivelser={beredskapsperiode.periodebeskrivelser} />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
                         <TextArea
                             label="Gjør en vurdering av om det er behov for beredskap"
-                            name={FieldName.VURDERING_AV_BEREDSKAP}
+                            name={FieldName.BEGRUNNELSE}
                         />
                     </Box>
                     <Box marginTop={Margin.xLarge}>

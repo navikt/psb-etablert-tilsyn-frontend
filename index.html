@@ -16,57 +16,8 @@
                     readOnly: false,
                     endpoints: {
                         etablertTilsyn: 'http://localhost:8082/mock/etablertTilsyn',
+                        beredskap: 'http://localhost:8082/mock/beredskap',
                     },
-                    beredskapsperioderTilVurdering: [
-                        {
-                            periode: { fom: '2021-03-18', tom: '2021-03-28' },
-                            kilde: 'SøkerOgAnnenPart',
-                            periodebeskrivelser: [
-                                {
-                                    begrunnelse: 'Vi må være i beredskap selv om barnet er i barnehage fordi...',
-                                    periode: { fom: '2021-03-23', tom: '2021-03-25' },
-                                    mottatt: '2021-03-25',
-                                    kilde: 'AnnenPart',
-                                },
-                                {
-                                    begrunnelse: 'Vi må være i beredskap selv om barnet er i barnehage fordi...',
-                                    periode: { fom: '2021-03-23', tom: '2021-03-25' },
-                                    mottatt: '2021-03-25',
-                                    kilde: 'Søker',
-                                },
-                            ],
-                        },
-                    ],
-                    vurderteBeredskapsperioder: [
-                        {
-                            resultat: 'OPPFYLT',
-                            periode: { fom: '2021-02-20', tom: '2021-02-25' },
-                            kilde: 'AnnenPart',
-                            begrunnelse: 'blablabla',
-                            periodebeskrivelser: [
-                                {
-                                    begrunnelse: 'En god begrunnelse',
-                                    periode: { fom: '2021-02-20', tom: '2021-02-25' },
-                                    mottatt: '2021-02-25',
-                                    kilde: 'AnnenPart',
-                                },
-                            ],
-                        },
-                        {
-                            resultat: 'OPPFYLT',
-                            periode: { fom: '2021-01-20', tom: '2021-01-25' },
-                            kilde: 'Søker',
-                            begrunnelse: 'blablabla',
-                            periodebeskrivelser: [
-                                {
-                                    begrunnelse: 'Det står sikkert noe her',
-                                    periode: { fom: '2021-01-20', tom: '2021-01-25' },
-                                    mottatt: '2021-01-25',
-                                    kilde: 'Søker',
-                                },
-                            ],
-                        },
-                    ],
                     nattevåksperioderTilVurdering: [
                         {
                             periode: { fom: '2021-03-18', tom: '2021-03-28' },

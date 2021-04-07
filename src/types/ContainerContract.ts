@@ -10,6 +10,7 @@ interface ContainerContract {
     vurderteNattevåksperioder: VurdertNattevåksperiode[];
     endpoints: {
         etablertTilsyn: string;
+        beredskap: string;
     };
     httpErrorHandler: HttpErrorHandler;
 }
