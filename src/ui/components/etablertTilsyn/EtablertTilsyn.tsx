@@ -28,7 +28,7 @@ const renderIcon = (kilde: Kilde) => {
     );
 };
 
-const EtablertTilsynTabell = (): JSX.Element => {
+const EtablertTilsyn = (): JSX.Element => {
     const { endpoints, httpErrorHandler } = React.useContext(ContainerContext);
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
     const [etablertTilsyn, setEtablertTilsyn] = useState([]);
@@ -49,8 +49,7 @@ const EtablertTilsynTabell = (): JSX.Element => {
                     setIsLoading(false);
                 }
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
                 setEtablertTilsynError(true);
                 setIsLoading(false);
             });
@@ -115,4 +114,4 @@ const EtablertTilsynTabell = (): JSX.Element => {
     );
 };
 
-export default EtablertTilsynTabell;
+export default EtablertTilsyn;
