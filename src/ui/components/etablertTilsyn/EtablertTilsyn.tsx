@@ -1,13 +1,17 @@
+import axios from 'axios';
 import Lenke from 'nav-frontend-lenker';
 import { Element, Undertittel } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
+import EtablertTilsynResponse from '../../../types/EtablertTilsynResponse';
 import Kilde from '../../../types/Kilde';
 import { prettifyPeriod } from '../../../util/formats';
+import { get } from '../../../util/httpUtils';
 import ContainerContext from '../../context/ContainerContext';
+import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
 import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
+import PageContainer from '../page-container/PageContainer';
 import styles from './etablertTilsyn.less';
-import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 
 const renderIcon = (kilde: Kilde) => {
     if (kilde === Kilde.SØKER) {
@@ -25,11 +29,41 @@ const renderIcon = (kilde: Kilde) => {
 };
 
 const EtablertTilsynTabell = (): JSX.Element => {
-    const { etablertTilsyn } = React.useContext(ContainerContext);
+    const { endpoints, httpErrorHandler } = React.useContext(ContainerContext);
+    const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
+    const [etablertTilsyn, setEtablertTilsyn] = useState([]);
+    const [etablertTilsynError, setEtablertTilsynError] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const getEtablertTilsyn = () =>
+        get<EtablertTilsynResponse>(endpoints.etablertTilsyn, httpErrorHandler, {
+            cancelToken: httpCanceler.token,
+        });
+
+    React.useEffect(() => {
+        let isMounted = true;
+        getEtablertTilsyn()
+            .then((etablertTilsynData) => {
+                if (isMounted) {
+                    setEtablertTilsyn(etablertTilsynData.etablertTilsyn);
+                    setIsLoading(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setEtablertTilsynError(true);
+                setIsLoading(false);
+            });
+        return () => {
+            isMounted = false;
+            httpCanceler.cancel();
+        };
+    }, []);
+
     const harVurderinger = etablertTilsyn.length > 0;
 
     return (
-        <>
+        <PageContainer isLoading={isLoading} hasError={etablertTilsynError}>
             <Undertittel>Etablert tilsyn</Undertittel>
             <div className={styles.etablertTilsyn}>
                 <Lenke href="#">Gjør endringer i Punsj</Lenke>
@@ -77,7 +111,7 @@ const EtablertTilsynTabell = (): JSX.Element => {
                     </table>
                 )}
             </div>
-        </>
+        </PageContainer>
     );
 };
 
