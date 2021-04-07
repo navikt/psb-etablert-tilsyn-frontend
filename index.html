@@ -14,18 +14,9 @@
             setTimeout(() => {
                 window.renderEtablertTilsynApp('app', {
                     readOnly: false,
-                    etablertTilsyn: [
-                        {
-                            periode: { fom: '2021-03-09', tom: '2021-03-15' },
-                            timerDag: 5,
-                            kilde: 'Søker',
-                        },
-                        {
-                            periode: { fom: '2021-03-01', tom: '2021-03-08' },
-                            timerDag: 20,
-                            kilde: 'AnnenPart',
-                        },
-                    ],
+                    endpoints: {
+                        etablertTilsyn: 'http://localhost:8082/mock/etablertTilsyn',
+                    },
                     beredskapsperioderTilVurdering: [
                         {
                             periode: { fom: '2021-03-18', tom: '2021-03-28' },
