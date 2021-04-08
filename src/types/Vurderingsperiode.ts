@@ -3,7 +3,7 @@ import { Period } from './Period';
 import Kilde from './Kilde';
 import Periodebeskrivelse from './Periodebeskrivelse';
 
-interface Beredskapsperiode {
+interface Vurderingsperiode {
     periode: Period;
     kilde: Kilde;
     periodebeskrivelser: Periodebeskrivelse[];
@@ -11,4 +11,4 @@ interface Beredskapsperiode {
     begrunnelse: string;
 }
 
-export default Beredskapsperiode;
+export default Vurderingsperiode;

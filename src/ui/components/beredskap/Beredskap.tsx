@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as React from 'react';
-import BeredskapsperiodeoversiktType from '../../../types/BeredskapsperiodeoversiktType';
+import Vurderingsoversikt from '../../../types/Vurderingsoversikt';
 import { BeredskapsperiodeResponse } from '../../../types/BeredskapsperiodeResponse';
 import { get } from '../../../util/httpUtils';
 import ContainerContext from '../../context/ContainerContext';
@@ -35,7 +35,7 @@ const Beredskap = () => {
         getBeredskapsperioder()
             .then(({ beredskapsperioder }: BeredskapsperiodeResponse) => {
                 if (isMounted) {
-                    const nyBeredskapsperiodeoversikt = new BeredskapsperiodeoversiktType(beredskapsperioder);
+                    const nyBeredskapsperiodeoversikt = new Vurderingsoversikt(beredskapsperioder);
                     dispatch({ type: ActionType.OK, beredskapsperiodeoversikt: nyBeredskapsperiodeoversikt });
                 }
             })

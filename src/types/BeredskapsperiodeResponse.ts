@@ -1,5 +1,5 @@
-import Beredskapsperiode from './Beredskapsperiode';
+import Vurderingsperiode from './Vurderingsperiode';
 
 export interface BeredskapsperiodeResponse {
-    beredskapsperioder: Beredskapsperiode[];
+    beredskapsperioder: Vurderingsperiode[];
 }

@@ -1,18 +1,18 @@
 import ActionType from './actionTypes';
-import BeredskapsperiodeoversiktType from '../../../types/BeredskapsperiodeoversiktType';
+import Vurderingsoversikt from '../../../types/Vurderingsoversikt';
 
-interface MainComponentState {
-    beredskapsperiodeoversikt: BeredskapsperiodeoversiktType;
+interface BeredskapState {
+    beredskapsperiodeoversikt: Vurderingsoversikt;
     beredskapsperiodeoversiktHarFeilet: boolean;
     isLoading: boolean;
 }
 
 interface Action {
     type: ActionType;
-    beredskapsperiodeoversikt?: BeredskapsperiodeoversiktType;
+    beredskapsperiodeoversikt?: Vurderingsoversikt;
 }
 
-const beredskapReducer = (state: MainComponentState, action: Action): Partial<MainComponentState> => {
+const beredskapReducer = (state: BeredskapState, action: Action): Partial<BeredskapState> => {
     switch (action.type) {
         case ActionType.OK:
             return {

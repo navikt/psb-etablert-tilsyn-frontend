@@ -1,12 +1,12 @@
 import Alertstripe from 'nav-frontend-alertstriper';
 import React from 'react';
-import BeredskapsperiodeoversiktType from '../../../../types/BeredskapsperiodeoversiktType';
+import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
 import { getStringMedPerioder } from '../../../../util/periodUtils';
 import Box, { Margin } from '../../box/Box';
 import styles from './beredskapsperiodeoversiktMessages.less';
 
 interface BeredskapsperiodeoversiktMessagesProps {
-    beredskapsperiodeoversikt: BeredskapsperiodeoversiktType;
+    beredskapsperiodeoversikt: Vurderingsoversikt;
 }
 
 const BeredskapsperiodeoversiktMessages = ({ beredskapsperiodeoversikt }: BeredskapsperiodeoversiktMessagesProps) => {

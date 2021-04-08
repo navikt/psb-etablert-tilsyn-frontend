@@ -1,75 +1,56 @@
-import AlertStripe from 'nav-frontend-alertstriper';
-import { Undertittel } from 'nav-frontend-typografi';
+import axios from 'axios';
 import * as React from 'react';
-import { Nattevåksperiode, VurdertNattevåksperiode } from '../../../types/Nattevåksperiode';
-import { getStringMedPerioder } from '../../../util/periodUtils';
+import { NattevåksperiodeResponse } from '../../../types/NattevåksperiodeResponse';
+import Vurderingsoversikt from '../../../types/Vurderingsoversikt';
+import { get } from '../../../util/httpUtils';
 import ContainerContext from '../../context/ContainerContext';
-import Box, { Margin } from '../box/Box';
-import NattevåksperiodeVurderingsdetaljer from './nattevåksperiode-vurderingsdetaljer/NattevåksperiodeVurderingsdetaljer';
-import NavigationWithDetailView from '../navigation-with-detail-view/NavigationWithDetailView';
-import Periodenavigasjon from '../periodenavigasjon/Periodenavigasjon';
-import VurderingAvNattevåksperioderForm from './vurdering-av-nattevåksperioder-form/VurderingAvNattevåksperioderForm';
-import styles from './nattevåk.less';
+import PageContainer from '../page-container/PageContainer';
+import ActionType from './actionTypes';
+import Nattevåksperiodeoversikt from './nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
+import nattevåkReducer from './reducer';
 
 const Nattevåk = () => {
-    const { nattevåksperioderTilVurdering, vurderteNattevåksperioder } = React.useContext(ContainerContext);
-    const [valgtPeriode, setValgtPeriode] = React.useState<Nattevåksperiode | VurdertNattevåksperiode>(null);
+    const { endpoints, httpErrorHandler } = React.useContext(ContainerContext);
+    const [state, dispatch] = React.useReducer(nattevåkReducer, {
+        isLoading: true,
+        nattevåksperiodeoversiktHarFeilet: false,
+        nattevåksperiodeoversikt: null,
+    });
 
-    const harPerioderTilVurdering = nattevåksperioderTilVurdering?.length > 0;
-    const nattevåksperioder = harPerioderTilVurdering
-        ? nattevåksperioderTilVurdering.map((nattevåksperiode) => nattevåksperiode.periode)
-        : [];
+    const { nattevåksperiodeoversikt, isLoading, nattevåksperiodeoversiktHarFeilet } = state;
 
-    const ikkeBehovForNattevåk =
-        (!nattevåksperioderTilVurdering || nattevåksperioderTilVurdering.length === 0) &&
-        (!vurderteNattevåksperioder || vurderteNattevåksperioder.length === 0);
+    const httpCanceler = React.useMemo(() => axios.CancelToken.source(), []);
 
-    if (ikkeBehovForNattevåk) {
-        return (
-            <>
-                <Undertittel>Nattevåk</Undertittel>
-                <p>Søker har ikke oppgitt at det er behov for nattevåk.</p>
-            </>
-        );
-    }
+    const getNattevåksperioder = () =>
+        get<NattevåksperiodeResponse>(endpoints.nattevåk, httpErrorHandler, {
+            cancelToken: httpCanceler.token,
+        });
+
+    const handleError = () => {
+        dispatch({ type: ActionType.FAILED });
+    };
+
+    React.useEffect(() => {
+        let isMounted = true;
+        getNattevåksperioder()
+            .then(({ nattevåksperioder }: NattevåksperiodeResponse) => {
+                if (isMounted) {
+                    const nyNattevåksperiodeoversikt = new Vurderingsoversikt(nattevåksperioder);
+                    dispatch({ type: ActionType.OK, nattevåksperiodeoversikt: nyNattevåksperiodeoversikt });
+                }
+            })
+            .catch(handleError);
+        return () => {
+            isMounted = false;
+            httpCanceler.cancel();
+        };
+    }, []);
 
     return (
         <>
-            {harPerioderTilVurdering && (
-                <Box marginBottom={Margin.large}>
-                    <AlertStripe type="advarsel" className={styles.beredskap__alertstripe}>
-                        {`Vurder behov for nattevåk i ${getStringMedPerioder(nattevåksperioder)}.`}
-                    </AlertStripe>
-                </Box>
-            )}
-            <Undertittel>Nattevåk</Undertittel>
-            <NavigationWithDetailView
-                navigationSection={() => (
-                    <Periodenavigasjon
-                        perioderTilVurdering={nattevåksperioderTilVurdering}
-                        vurdertePerioder={vurderteNattevåksperioder}
-                        onPeriodeValgt={setValgtPeriode}
-                    />
-                )}
-                detailSection={() => {
-                    if (!valgtPeriode) {
-                        return null;
-                    }
-                    if ((valgtPeriode as VurdertNattevåksperiode).resultat) {
-                        return (
-                            <NattevåksperiodeVurderingsdetaljer
-                                nattevåksperiode={valgtPeriode as VurdertNattevåksperiode}
-                            />
-                        );
-                    }
-                    return (
-                        <VurderingAvNattevåksperioderForm
-                            nattevåksperiode={valgtPeriode}
-                            onSubmit={() => console.log(1)}
-                        />
-                    );
-                }}
-            />
+            <PageContainer isLoading={isLoading} hasError={nattevåksperiodeoversiktHarFeilet}>
+                <Nattevåksperiodeoversikt nattevåksperiodeoversikt={nattevåksperiodeoversikt} />
+            </PageContainer>
         </>
     );
 };

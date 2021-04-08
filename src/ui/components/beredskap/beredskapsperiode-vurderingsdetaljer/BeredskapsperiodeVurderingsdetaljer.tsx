@@ -1,5 +1,5 @@
 import React from 'react';
-import Beredskapsperiode from '../../../../types/Beredskapsperiode';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import { prettifyPeriod } from '../../../../util/formats';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
@@ -8,7 +8,7 @@ import DetailView from '../../detail-view/DetailView';
 import LabelledContent from '../../labelled-content/LabelledContent';
 
 interface BeredskapsperiodeVurderingsdetaljerProps {
-    beredskapsperiode: Beredskapsperiode;
+    beredskapsperiode: Vurderingsperiode;
 }
 
 const BeredskapsperiodeVurderingsdetaljer = ({ beredskapsperiode }: BeredskapsperiodeVurderingsdetaljerProps) => {

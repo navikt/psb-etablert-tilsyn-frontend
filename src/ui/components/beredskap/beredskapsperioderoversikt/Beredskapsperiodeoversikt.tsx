@@ -1,7 +1,7 @@
 import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import Beredskapsperiode from '../../../../types/Beredskapsperiode';
-import BeredskapsperiodeoversiktType from '../../../../types/BeredskapsperiodeoversiktType';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
+import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
 import NavigationWithDetailView from '../../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../../periodenavigasjon/Periodenavigasjon';
 import BeredskapsperiodeVurderingsdetaljer from '../beredskapsperiode-vurderingsdetaljer/BeredskapsperiodeVurderingsdetaljer';
@@ -9,11 +9,11 @@ import BeredskapsperiodeoversiktMessages from '../beredskapsperiodeoversikt-mess
 import VurderingAvBeredskapsperioderForm from '../vurdering-av-beredskapsperioder-form/VurderingAvBeredskapsperioderForm';
 
 interface BeredskapsperiodeoversiktProps {
-    beredskapsperiodeoversikt: BeredskapsperiodeoversiktType;
+    beredskapsperiodeoversikt: Vurderingsoversikt;
 }
 
 const Beredskapsperiodeoversikt = ({ beredskapsperiodeoversikt }: BeredskapsperiodeoversiktProps) => {
-    const [valgtPeriode, setValgtPeriode] = React.useState<Beredskapsperiode>(null);
+    const [valgtPeriode, setValgtPeriode] = React.useState<Vurderingsperiode>(null);
 
     const perioderTilVurdering = beredskapsperiodeoversikt.finnPerioderTilVurdering();
     const vurderteBeredskapsperioder = beredskapsperiodeoversikt.finnVurdertePerioder();

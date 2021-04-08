@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import Beredskapsperiode from '../../../../types/Beredskapsperiode';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import { Period } from '../../../../types/Period';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
@@ -36,7 +36,7 @@ const finnResterendePerioder = (perioderFraForm: FormPeriod[], periodeTilVurderi
 
 interface VurderingAvBeredskapsperioderFormProps {
     onSubmit: () => void;
-    beredskapsperiode: Beredskapsperiode;
+    beredskapsperiode: Vurderingsperiode;
 }
 
 interface FormPeriod {

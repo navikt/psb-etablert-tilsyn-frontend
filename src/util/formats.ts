@@ -9,8 +9,3 @@ export const prettifyDate = (date: string) => {
 };
 
 export const prettifyPeriod = ({ fom, tom }: Period) => `${prettifyDate(fom)} - ${prettifyDate(tom)}`;
-
-export const convertToInternationalPeriod = ({ fom, tom }: Period) => ({
-    from: fom,
-    to: tom,
-});

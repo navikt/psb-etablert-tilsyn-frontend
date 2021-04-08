@@ -1,10 +1,10 @@
-import Beredskapsperiode from './Beredskapsperiode';
+import Vurderingsperiode from './Vurderingsperiode';
 import Vurderingsresultat from './Vurderingsresultat';
 
-class BeredskapsperiodeoversiktType {
-    perioder: Beredskapsperiode[];
+class Vurderingsoversikt {
+    perioder: Vurderingsperiode[];
 
-    constructor(perioder: Beredskapsperiode[]) {
+    constructor(perioder: Vurderingsperiode[]) {
         this.perioder = perioder;
     }
 
@@ -27,4 +27,4 @@ class BeredskapsperiodeoversiktType {
     }
 }
 
-export default BeredskapsperiodeoversiktType;
+export default Vurderingsoversikt;
