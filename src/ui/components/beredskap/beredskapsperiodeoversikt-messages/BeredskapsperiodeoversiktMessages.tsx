@@ -10,7 +10,7 @@ interface BeredskapsperiodeoversiktMessagesProps {
 }
 
 const BeredskapsperiodeoversiktMessages = ({ beredskapsperiodeoversikt }: BeredskapsperiodeoversiktMessagesProps) => {
-    if (!beredskapsperiodeoversikt.harBehovForBeredskap()) {
+    if (!beredskapsperiodeoversikt.harPerioder()) {
         return <p>Søker har ikke oppgitt at det er behov for beredskap.</p>;
     }
     if (beredskapsperiodeoversikt.harPerioderTilVurdering()) {

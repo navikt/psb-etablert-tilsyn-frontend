@@ -22,7 +22,7 @@ class Vurderingsoversikt {
         return this.perioder.filter(({ resultat }) => resultat === null);
     }
 
-    harBehovForBeredskap() {
+    harPerioder() {
         return this.perioder.length > 0;
     }
 }
