@@ -1,9 +1,8 @@
-import Alertstripe from 'nav-frontend-alertstriper';
 import React from 'react';
 import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
 import { getStringMedPerioder } from '../../../../util/periodUtils';
+import CustomAlertstripe from '../../alertstripe/Alertstripe';
 import Box, { Margin } from '../../box/Box';
-import styles from './beredskapsperiodeoversiktMessages.less';
 
 interface BeredskapsperiodeoversiktMessagesProps {
     beredskapsperiodeoversikt: Vurderingsoversikt;
@@ -17,9 +16,9 @@ const BeredskapsperiodeoversiktMessages = ({ beredskapsperiodeoversikt }: Bereds
         const perioderTilVurdering = beredskapsperiodeoversikt.finnPerioderTilVurdering().map(({ periode }) => periode);
         return (
             <Box marginBottom={Margin.large}>
-                <Alertstripe type="advarsel" className={styles.beredskapsperiodeoversiktMessages__alertstripe}>
+                <CustomAlertstripe type="advarsel">
                     {`Vurder behov for beredskap i ${getStringMedPerioder(perioderTilVurdering)}.`}
-                </Alertstripe>
+                </CustomAlertstripe>
             </Box>
         );
     }

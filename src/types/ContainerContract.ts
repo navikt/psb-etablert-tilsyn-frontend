@@ -11,6 +11,7 @@ interface ContainerContract {
         nattevåk: string;
     };
     httpErrorHandler: HttpErrorHandler;
+    onFinished: (someProp: any) => void;
 }
 
 export default ContainerContract;

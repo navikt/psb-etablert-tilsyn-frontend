@@ -13,6 +13,7 @@ import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import { getPeriodDifference } from '../../../../util/dateUtils';
+import ContainerContext from '../../../context/ContainerContext';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -52,6 +53,8 @@ interface VurderingAvBeredskapsperioderFormState {
 const VurderingAvBeredskapsperioderForm = ({
     beredskapsperiode,
 }: VurderingAvBeredskapsperioderFormProps): JSX.Element => {
+    const { onFinished } = React.useContext(ContainerContext);
+
     const formMethods = useForm({
         defaultValues: {
             [FieldName.PERIODER]: beredskapsperiode?.periode
@@ -103,7 +106,7 @@ const VurderingAvBeredskapsperioderForm = ({
         }
 
         const kombinertePerioder = perioderMedEllerUtenBeredskap.concat(perioderUtenBeredskap);
-        // onFinished({ beredskapsperioder: kombinertePerioder });
+        onFinished({ beredskapsperioder: kombinertePerioder });
     };
 
     return (

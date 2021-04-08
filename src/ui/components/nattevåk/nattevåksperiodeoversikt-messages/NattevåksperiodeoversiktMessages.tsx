@@ -1,9 +1,8 @@
-import Alertstripe from 'nav-frontend-alertstriper';
 import React from 'react';
 import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
 import { getStringMedPerioder } from '../../../../util/periodUtils';
+import CustomAlertstripe from '../../alertstripe/Alertstripe';
 import Box, { Margin } from '../../box/Box';
-import styles from './nattevåksperiodeoversiktMessages.less';
 
 interface NattevåksperiodeoversiktMessagesProps {
     nattevåksperiodeoversikt: Vurderingsoversikt;
@@ -14,9 +13,9 @@ const NattevåksperiodeoversiktMessages = ({ nattevåksperiodeoversikt }: Nattev
         const perioderTilVurdering = nattevåksperiodeoversikt.finnPerioderTilVurdering().map(({ periode }) => periode);
         return (
             <Box marginBottom={Margin.large}>
-                <Alertstripe type="advarsel" className={styles.nattevåksperiodeoversiktMessages__alertstripe}>
+                <CustomAlertstripe type="advarsel">
                     {`Vurder behov for nattevåk i ${getStringMedPerioder(perioderTilVurdering)}.`}
-                </Alertstripe>
+                </CustomAlertstripe>
             </Box>
         );
     }

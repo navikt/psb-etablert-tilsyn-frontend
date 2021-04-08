@@ -47,11 +47,9 @@ const Beredskap = () => {
     }, []);
 
     return (
-        <>
-            <PageContainer isLoading={isLoading} hasError={beredskapsperiodeoversiktHarFeilet}>
-                <Beredskapsperiodeoversikt beredskapsperiodeoversikt={beredskapsperiodeoversikt} />
-            </PageContainer>
-        </>
+        <PageContainer isLoading={isLoading} hasError={beredskapsperiodeoversiktHarFeilet}>
+            <Beredskapsperiodeoversikt beredskapsperiodeoversikt={beredskapsperiodeoversikt} />
+        </PageContainer>
     );
 };
 

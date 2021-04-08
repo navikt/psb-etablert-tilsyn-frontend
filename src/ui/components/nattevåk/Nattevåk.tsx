@@ -47,11 +47,9 @@ const Nattevåk = () => {
     }, []);
 
     return (
-        <>
-            <PageContainer isLoading={isLoading} hasError={nattevåksperiodeoversiktHarFeilet}>
-                <Nattevåksperiodeoversikt nattevåksperiodeoversikt={nattevåksperiodeoversikt} />
-            </PageContainer>
-        </>
+        <PageContainer isLoading={isLoading} hasError={nattevåksperiodeoversiktHarFeilet}>
+            <Nattevåksperiodeoversikt nattevåksperiodeoversikt={nattevåksperiodeoversikt} />
+        </PageContainer>
     );
 };
 

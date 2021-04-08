@@ -4,9 +4,8 @@ import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import NavigationWithDetailView from '../../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../../periodenavigasjon/Periodenavigasjon';
-import NattevåksperiodeVurderingsdetaljer from '../nattevåksperiode-vurderingsdetaljer/NattevåksperiodeVurderingsdetaljer';
+import NattevåksperiodeoversiktController from '../nattevåksperiodeoversikt-controller/NattevåksperiodeoversiktController';
 import NattevåksperiodeoversiktMessages from '../nattevåksperiodeoversikt-messages/NattevåksperiodeoversiktMessages';
-import VurderingAvNattevåksperioderForm from '../vurdering-av-nattevåksperioder-form/VurderingAvNattevåksperioderForm';
 
 interface NattevåksperiodeoversiktProps {
     nattevåksperiodeoversikt: Vurderingsoversikt;
@@ -31,20 +30,7 @@ const Nattevåksperiodeoversikt = ({ nattevåksperiodeoversikt }: Nattevåksperi
                         onPeriodeValgt={setValgtPeriode}
                     />
                 )}
-                detailSection={() => {
-                    if (!valgtPeriode) {
-                        return null;
-                    }
-                    if (valgtPeriode.resultat) {
-                        return <NattevåksperiodeVurderingsdetaljer nattevåksperiode={valgtPeriode} />;
-                    }
-                    return (
-                        <VurderingAvNattevåksperioderForm
-                            nattevåksperiode={valgtPeriode}
-                            onSubmit={() => console.log(1)}
-                        />
-                    );
-                }}
+                detailSection={() => <NattevåksperiodeoversiktController valgtPeriode={valgtPeriode} />}
             />
         </>
     );
