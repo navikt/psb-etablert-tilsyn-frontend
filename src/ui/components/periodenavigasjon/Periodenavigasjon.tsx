@@ -4,12 +4,12 @@ import InteractiveList from '../interactive-list/InteractiveList';
 import VurderingsperiodeElement from '../vurderingsperiode/VurderingsperiodeElement';
 import PeriodeSomSkalVurderes from '../periode-som-skal-vurderes/PeriodeSomSkalVurderes';
 import styles from './periodenavigasjon.less';
-import { Beredskapsperiode, VurdertBeredskapsperiode } from '../../../types/Beredskapsperiode';
+import Vurderingsperiode from '../../../types/Vurderingsperiode';
 
 interface PeriodenavigasjonProps {
-    perioderTilVurdering: Beredskapsperiode[];
-    vurdertePerioder: VurdertBeredskapsperiode[];
-    onPeriodeValgt: (periode: Beredskapsperiode) => void;
+    perioderTilVurdering: Vurderingsperiode[];
+    vurdertePerioder: Vurderingsperiode[];
+    onPeriodeValgt: (periode: Vurderingsperiode) => void;
 }
 
 const Periodenavigasjon = ({

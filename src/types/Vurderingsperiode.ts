@@ -3,13 +3,12 @@ import { Period } from './Period';
 import Kilde from './Kilde';
 import Periodebeskrivelse from './Periodebeskrivelse';
 
-export interface Beredskapsperiode {
+interface Vurderingsperiode {
     periode: Period;
     kilde: Kilde;
     periodebeskrivelser: Periodebeskrivelse[];
-}
-
-export interface VurdertBeredskapsperiode extends Beredskapsperiode {
-    resultat: Vurderingsresultat;
+    resultat: Vurderingsresultat | null;
     begrunnelse: string;
 }
+
+export default Vurderingsperiode;
