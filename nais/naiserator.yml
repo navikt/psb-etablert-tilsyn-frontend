@@ -1,0 +1,35 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: {{app}}
+  namespace: {{namespace}}
+  labels:
+    team: {{team}}
+spec:
+  image: {{ image }}
+  port: 8080
+  liveness:
+    path: /isAlive
+    initialDelay: 20
+    timeout: 1
+    periodSeconds: 5
+    failureThreshold: 10
+  readiness:
+    path: /isReady
+    initialDelay: 20
+    timeout: 1
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  ingresses:
+  {{#each ingresses as |url|}}
+     - {{url}}
+  {{/each}}
+  replicas:
+    min: {{minReplicas}}
+    max: {{maxReplicas}}
+    cpuThresholdPercentage: 75

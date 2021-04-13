@@ -1,6 +1,6 @@
 {
-    "name": "etablert-tilsyn-frontend",
-    "version": "1.0.0",
+    "name": "tilsyn-nattevak-beredskap-frontend",
+    "version": "0.0.1",
     "main": "index.js",
     "scripts": {
         "test": "jest",

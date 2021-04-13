@@ -1,0 +1,12 @@
+{
+    "app": "tilsyn-nattevak-beredskap-frontend",
+    "cluster": "dev-fss",
+    "namespace": "pleiepenger",
+    "team": "pleiepenger",
+    "minReplicas": "1",
+    "maxReplicas": "2",
+    "ingresses": [
+        "https://tilsyn-nattevak-beredskap-frontend.dev.adeo.no",
+        "https://tilsyn-nattevak-beredskap-frontend.intern.dev.adeo.no"
+    ]
+}

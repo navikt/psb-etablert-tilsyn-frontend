@@ -1,0 +1,103 @@
+name: Deploy Docker image
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - 'build/**'
+env:
+    IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tilsyn-nattevak-beredskap-frontend
+    CLUSTER: dev-fss
+    NAMESPACE: default
+jobs:
+    deploy-docker-image:
+        name: Deploy Docker image
+        runs-on: ubuntu-latest
+        steps:
+            - name: Hente kode
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+            - name: Sette opp Node
+              uses: actions/setup-node@v2.1.2
+              with:
+                  node-version: 12.x
+            - name: Installere dependencies
+              run: npm install
+            - name: Kjøre enhetstester
+              run: npm test
+            - name: Sette versjon
+              run: |
+                  echo "VERSION=$(npm run version --silent)" >> $GITHUB_ENV
+            - name: Sjekke om tag fins fra før
+              run: |
+                  if git rev-parse "$VERSION" >/dev/null 2>&1; then
+                    echo "Tag $VERSION already exists, aborting"
+                    exit 1
+                  fi
+            - name: Sjekk om bygg finnes
+              run: |
+                  if [ ! -d "build/$VERSION" ]; then
+                    echo "Build folder with name $VERSION does not exist, aborting"
+                    exit 1
+                  fi
+            - name: Sette miljøvariabler
+              run: |
+                  echo "IMAGE=${IMAGE_BASE}:${VERSION}" >> $GITHUB_ENV
+                  echo "LATEST=${IMAGE_BASE}:latest" >> $GITHUB_ENV
+                  echo "CSS_HASH=$(shasum -b -a 384 build/$VERSION/styles.css | awk '{ print $1 }' | xxd -r -p | base64)" >> $GITHUB_ENV
+                  echo "JS_HASH=$(shasum -b -a 384 build/$VERSION/app.js | awk '{ print $1 }' | xxd -r -p | base64)" >> $GITHUB_ENV
+            - name: Bygg og laste opp docker-image
+              run: |
+                  docker build --tag ${IMAGE} --tag ${LATEST} .
+                  echo "$GITHUB_TOKEN" | docker login --username "x-access-token" --password-stdin https://docker.pkg.github.com
+                  docker push ${IMAGE}
+                  docker push ${LATEST}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Deploy til dev-fss
+              uses: nais/deploy/actions/deploy@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+                  CLUSTER: dev-fss
+                  RESOURCE: nais/naiserator.yml
+                  VARS: nais/dev-fss.json
+            - name: Set changelog
+              run: |
+                  text="$(git --no-pager log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%h %s")"
+                  text="${text//$'\n'/\\n}"
+                  echo "CHANGELOG=$text" >> $GITHUB_ENV
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@latest
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: ${{ env.VERSION }}
+                  release_name: ${{ env.VERSION }}
+                  body: |
+                      For JS, add this to your app:
+                      ```
+                      <script
+                        type="text/javascript"
+                        src="https://tilsyn-nattevak-beredskap-frontend.dev.adeo.no/${{ env.VERSION }}/app.js"
+                        integrity="sha384-${{ env.JS_HASH }}"
+                        crossorigin="anonymous"
+                      ></script>
+                      ```
+
+                      For CSS, add this to the `<head>` of your app:
+                      ```
+                      <link
+                        rel="stylesheet"
+                        href="https://tilsyn-nattevak-beredskap-frontend.dev.adeo.no/${{ env.VERSION }}/styles.css"
+                        integrity="sha384-${{ env.CSS_HASH }}"
+                        crossorigin="anonymous"
+                      >
+                      ```
+
+                      **Changes in this Release**
+                      ${{ env.CHANGELOG }}
+                  draft: false
+                  prerelease: false
