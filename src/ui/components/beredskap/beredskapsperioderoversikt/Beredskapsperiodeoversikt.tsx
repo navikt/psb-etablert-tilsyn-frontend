@@ -1,4 +1,3 @@
-import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
@@ -20,8 +19,6 @@ const Beredskapsperiodeoversikt = ({ beredskapsperiodeoversikt }: Beredskapsperi
     return (
         <>
             <BeredskapsperiodeoversiktMessages beredskapsperiodeoversikt={beredskapsperiodeoversikt} />
-            <Undertittel>Beredskap</Undertittel>
-
             <NavigationWithDetailView
                 navigationSection={() => (
                     <Periodenavigasjon

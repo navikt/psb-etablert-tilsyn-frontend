@@ -5,6 +5,7 @@ import VurderingsperiodeElement from '../vurderingsperiode/VurderingsperiodeElem
 import PeriodeSomSkalVurderes from '../periode-som-skal-vurderes/PeriodeSomSkalVurderes';
 import styles from './periodenavigasjon.less';
 import Vurderingsperiode from '../../../types/Vurderingsperiode';
+import Box, { Margin } from '../box/Box';
 
 interface PeriodenavigasjonProps {
     perioderTilVurdering: Vurderingsperiode[];
@@ -33,6 +34,9 @@ const Periodenavigasjon = ({
 
     return (
         <div className={styles.vurderingsnavigasjon}>
+            <Box marginBottom={Margin.large}>
+                <Undertittel className={styles.vurderingsnavigasjon__heading}>Alle perioder</Undertittel>
+            </Box>
             {antallPerioder === 0 && <p>Ingen vurderinger å vise</p>}
             {antallPerioder > 0 && (
                 <div className={styles.vurderingsvelgerContainer}>

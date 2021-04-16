@@ -7,7 +7,7 @@ export default [
     },
     {
         periode: { fom: '2021-03-01', tom: '2021-03-08' },
-        timerDag: 20,
+        timerDag: 7.5,
         kilde: Kilde.SØKER_OG_ANNEN_PART,
     },
 ];

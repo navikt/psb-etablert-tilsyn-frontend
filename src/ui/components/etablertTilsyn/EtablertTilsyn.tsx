@@ -7,6 +7,7 @@ import Kilde from '../../../types/Kilde';
 import { prettifyPeriod } from '../../../util/formats';
 import { get } from '../../../util/httpUtils';
 import ContainerContext from '../../context/ContainerContext';
+import Box, { Margin } from '../box/Box';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
 import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
@@ -63,9 +64,13 @@ const EtablertTilsyn = (): JSX.Element => {
 
     return (
         <PageContainer isLoading={isLoading} hasError={etablertTilsynError}>
-            <Undertittel>Etablert tilsyn</Undertittel>
             <div className={styles.etablertTilsyn}>
-                <Lenke href="#">Gjør endringer i Punsj</Lenke>
+                <Box marginBottom={Margin.large}>
+                    <Undertittel className={styles.etablertTilsyn__heading}>Alle perioder</Undertittel>
+                </Box>
+                <Lenke className={styles.etablertTilsyn__lenke} href="#">
+                    Gjør endringer i Punsj
+                </Lenke>
                 {!harVurderinger && <p>Ingen vurderinger å vise</p>}
                 {harVurderinger && (
                     <table className={styles.etablertTilsynTabell}>

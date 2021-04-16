@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import styles from './interactiveList.less';
+import ChevronIconBlack from '../icons/ChevronIconBlack';
+import ChevronIconGray from '../icons/ChevronIconGray';
 
 export interface InteractiveListElement {
     content: React.ReactNode;
@@ -20,7 +22,12 @@ const InteractiveListElement = (props: InteractiveListElement) => {
     return (
         <li className={cls}>
             <button className={styles.interactiveListElement__button} type="button" onClick={onClick}>
-                {content}
+                <span className={styles.interactiveListElement__button__contentContainer}>
+                    {content}
+                    <span className={styles.interactiveListElement__chevron}>
+                        {active ? <ChevronIconBlack /> : <ChevronIconGray />}
+                    </span>
+                </span>
             </button>
         </li>
     );
