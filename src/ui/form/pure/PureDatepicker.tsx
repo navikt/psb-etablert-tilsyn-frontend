@@ -4,6 +4,7 @@ import { CalendarPlacement } from 'nav-datovelger/lib/types';
 import { DatepickerProps } from 'nav-datovelger/lib/Datepicker';
 import { Label } from 'nav-frontend-skjema';
 import FieldError from '../../components/field-error/FieldError';
+import styles from './periodpicker.less';
 
 interface CustomDatepickerProps {
     label: string;
@@ -28,7 +29,7 @@ const PureDatepicker = ({
     const dayPickerProps = limitations?.minDate ? { initialMonth: new Date(limitations.minDate) } : undefined;
 
     return (
-        <>
+        <div className={styles.periodpicker}>
             {label && <Label htmlFor={inputId}>{label}</Label>}
             <Datepicker
                 onChange={onChange}
@@ -43,7 +44,7 @@ const PureDatepicker = ({
                 inputId={inputId}
             />
             {errorMessage && <FieldError message={errorMessage} />}
-        </>
+        </div>
     );
 };
 
