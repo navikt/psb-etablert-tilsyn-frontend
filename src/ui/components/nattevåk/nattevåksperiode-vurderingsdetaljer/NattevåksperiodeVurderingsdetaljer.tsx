@@ -1,7 +1,6 @@
 import React from 'react';
 import { VurdertNattevåksperiode } from '../../../../types/Nattevåksperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import { prettifyPeriod } from '../../../../util/formats';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import Box, { Margin } from '../../box/Box';
 import DetailView from '../../detail-view/DetailView';
@@ -32,7 +31,7 @@ const NattevåksperiodeVurderingsdetaljer = ({ nattevåksperiode }: Nattevåkspe
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
                     label="I hvilken periode er det behov for nattevåk?"
-                    content={prettifyPeriod(nattevåksperiode.periode)}
+                    content={nattevåksperiode.periode.prettifyPeriod()}
                 />
             </Box>
         </DetailView>

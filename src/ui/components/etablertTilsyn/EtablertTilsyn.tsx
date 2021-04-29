@@ -2,9 +2,10 @@ import axios from 'axios';
 import Lenke from 'nav-frontend-lenker';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React, { useMemo, useState } from 'react';
+import EtablertTilsynType from '../../../types/EtablertTilsyn';
 import EtablertTilsynResponse from '../../../types/EtablertTilsynResponse';
+import { EtablertTilsynsperiode } from '../../../types/EtablertTilsynsperiode';
 import Kilde from '../../../types/Kilde';
-import { prettifyPeriod } from '../../../util/formats';
 import { get } from '../../../util/httpUtils';
 import ContainerContext from '../../context/ContainerContext';
 import Box, { Margin } from '../box/Box';
@@ -29,10 +30,13 @@ const renderIcon = (kilde: Kilde) => {
     );
 };
 
+const processEtablertTilsyn = (etablertTilsyn: EtablertTilsynsperiode[]) =>
+    etablertTilsyn.map((tilsyn) => new EtablertTilsynType(tilsyn));
+
 const EtablertTilsyn = (): JSX.Element => {
     const { endpoints, httpErrorHandler } = React.useContext(ContainerContext);
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
-    const [etablertTilsyn, setEtablertTilsyn] = useState([]);
+    const [etablerteTilsyn, setEtablerteTilsyn] = useState<EtablertTilsynType[]>([]);
     const [etablertTilsynError, setEtablertTilsynError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -46,7 +50,7 @@ const EtablertTilsyn = (): JSX.Element => {
         getEtablertTilsyn()
             .then((etablertTilsynData) => {
                 if (isMounted) {
-                    setEtablertTilsyn(etablertTilsynData.etablertTilsyn);
+                    setEtablerteTilsyn(processEtablertTilsyn(etablertTilsynData.etablertTilsyn));
                     setIsLoading(false);
                 }
             })
@@ -60,7 +64,7 @@ const EtablertTilsyn = (): JSX.Element => {
         };
     }, []);
 
-    const harVurderinger = etablertTilsyn.length > 0;
+    const harVurderinger = etablerteTilsyn.length > 0;
 
     return (
         <PageContainer isLoading={isLoading} hasError={etablertTilsynError}>
@@ -94,11 +98,11 @@ const EtablertTilsyn = (): JSX.Element => {
                             </tr>
                         </thead>
                         <tbody>
-                            {etablertTilsyn.map((tilsyn, index) => (
+                            {etablerteTilsyn.map((tilsyn, index) => (
                                 <tr key={index}>
                                     <td className={styles.etablertTilsynTabell__period}>
                                         <span className={styles.visuallyHidden}>Periode</span>
-                                        {prettifyPeriod(tilsyn.periode)}
+                                        {tilsyn.periode.prettifyPeriod()}
                                     </td>
                                     <td className={styles.etablertTilsynTabell__hours}>
                                         <span className={styles.visuallyHidden}>Timer/dag</span>

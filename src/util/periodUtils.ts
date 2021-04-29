@@ -1,14 +1,13 @@
 import { Period } from '@navikt/period-utils';
-import { prettifyPeriod } from './formats';
 
 export const getStringMedPerioder = (perioder: Period[]): string => {
     if (perioder.length === 1) {
-        return `perioden ${prettifyPeriod(perioder[0])}`;
+        return `perioden ${perioder[0].prettifyPeriod()}`;
     }
 
     let perioderString = '';
     perioder.forEach((periode, index) => {
-        const prettyPeriod = prettifyPeriod(periode);
+        const prettyPeriod = periode.prettifyPeriod();
         if (index === 0) {
             perioderString = prettyPeriod;
         } else if (index === perioder.length - 1) {

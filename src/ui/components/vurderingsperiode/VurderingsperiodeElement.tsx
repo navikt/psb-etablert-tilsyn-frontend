@@ -1,15 +1,14 @@
-import React from 'react';
 import { Period } from '@navikt/period-utils';
+import React from 'react';
+import Kilde from '../../../types/Kilde';
 import Vurderingsresultat from '../../../types/Vurderingsresultat';
-import { prettifyPeriod } from '../../../util/formats';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import GreenCheckIconFilled from '../icons/GreenCheckIconFilled';
-import RedCrossIconFilled from '../icons/RedCrossIconFilled';
-import styles from './vurderingsperiodeElement.less';
-import Kilde from '../../../types/Kilde';
-import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
-import TwoPeopleGray from '../icons/TwoPeopleGray';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
+import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
+import RedCrossIconFilled from '../icons/RedCrossIconFilled';
+import TwoPeopleGray from '../icons/TwoPeopleGray';
+import styles from './vurderingsperiodeElement.less';
 
 interface VurderingsperiodeElementProps {
     periode: Period;
@@ -72,7 +71,7 @@ const VurderingsperiodeElement = ({
             <div className={styles.vurderingsperiodeElement__texts}>
                 <p className={styles.vurderingsperiodeElement__texts__period}>
                     <span className={styles.visuallyHidden}>Periode</span>
-                    {prettifyPeriod(periode)}
+                    {periode.prettifyPeriod()}
                 </p>
             </div>
             <div className={styles.vurderingsperiodeElement__texts__kildeIcon}>

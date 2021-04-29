@@ -1,25 +1,22 @@
 import Vurderingsperiode from './Vurderingsperiode';
-import Vurderingsresultat from './Vurderingsresultat';
 
 class Vurderingsoversikt {
     perioder: Vurderingsperiode[];
 
     constructor(perioder: Vurderingsperiode[]) {
-        this.perioder = perioder;
+        this.perioder = perioder.map((periode) => new Vurderingsperiode(periode));
     }
 
     harPerioderTilVurdering() {
-        return this.perioder.some(({ resultat }) => resultat === null);
+        return this.perioder.some((periode) => periode.harIngenResultat());
     }
 
     finnVurdertePerioder() {
-        return this.perioder.filter(
-            ({ resultat }) => resultat === Vurderingsresultat.OPPFYLT || resultat === Vurderingsresultat.IKKE_OPPFYLT
-        );
+        return this.perioder.filter((periode) => periode.erVurdert());
     }
 
     finnPerioderTilVurdering() {
-        return this.perioder.filter(({ resultat }) => resultat === null);
+        return this.perioder.filter((periode) => periode.harIngenResultat());
     }
 
     harPerioder() {
