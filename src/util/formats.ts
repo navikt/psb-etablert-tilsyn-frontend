@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { Period } from '../types/Period';
+import { Period } from '@navikt/period-utils';
 
 dayjs.extend(utc);
 

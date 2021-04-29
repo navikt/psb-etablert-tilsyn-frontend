@@ -1,5 +1,5 @@
 import React from 'react';
-import { Period } from '../../../types/Period';
+import { Period } from '@navikt/period-utils';
 import { prettifyPeriod } from '../../../util/formats';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import WarningIcon from '../icons/WarningIcon';

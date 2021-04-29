@@ -1,4 +1,4 @@
-import { Period } from '../types/Period';
+import { Period } from '@navikt/period-utils';
 import { prettifyPeriod } from './formats';
 
 export const getStringMedPerioder = (perioder: Period[]): string => {

@@ -1,4 +1,4 @@
-import { Period } from '../../../types/Period';
+import { Period } from '@navikt/period-utils';
 
 interface PeriodWrapper {
     period: Period;

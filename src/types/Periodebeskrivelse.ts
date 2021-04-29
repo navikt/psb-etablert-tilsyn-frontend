@@ -1,4 +1,4 @@
-import { Period } from './Period';
+import { Period } from '@navikt/period-utils';
 import Kilde from './Kilde';
 
 interface Periodebeskrivelse {
