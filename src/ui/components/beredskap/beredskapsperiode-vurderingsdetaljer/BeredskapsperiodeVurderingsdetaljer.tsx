@@ -1,7 +1,6 @@
 import React from 'react';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import { prettifyPeriod } from '../../../../util/formats';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import Box, { Margin } from '../../box/Box';
 import DetailView from '../../detail-view/DetailView';
@@ -32,7 +31,7 @@ const BeredskapsperiodeVurderingsdetaljer = ({ beredskapsperiode }: Beredskapspe
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
                     label="I hvilken periode er det behov for beredskap?"
-                    content={prettifyPeriod(beredskapsperiode.periode)}
+                    content={beredskapsperiode.periode.prettifyPeriod()}
                 />
             </Box>
         </DetailView>

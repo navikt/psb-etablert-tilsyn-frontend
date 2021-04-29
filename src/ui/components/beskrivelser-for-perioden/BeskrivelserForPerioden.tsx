@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Kilde from '../../../types/Kilde';
 import Periodebeskrivelse from '../../../types/Periodebeskrivelse';
-import { prettifyDate, prettifyPeriod } from '../../../util/formats';
+import { prettifyDate } from '../../../util/formats';
 import Box, { Margin } from '../box/Box';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
@@ -28,7 +28,7 @@ const getLabel = (periodebeskrivelse: Periodebeskrivelse) => {
             )}
             <p className={styles.beskrivelserForPerioden__labelText}>
                 {`Beskrivelse fra ${kilde}
-                 for perioden ${prettifyPeriod(periodebeskrivelse.periode)} (mottatt ${prettifyDate(
+                 for perioden ${periodebeskrivelse.periode.prettifyPeriod()} (mottatt ${prettifyDate(
                     periodebeskrivelse.mottatt
                 )}):`}
             </p>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { Period } from '@navikt/period-utils';
 import { Nattevåksperiode } from '../../../../types/Nattevåksperiode';
-import { Period } from '../../../../types/Period';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
 import TextArea from '../../../form/wrappers/TextArea';
