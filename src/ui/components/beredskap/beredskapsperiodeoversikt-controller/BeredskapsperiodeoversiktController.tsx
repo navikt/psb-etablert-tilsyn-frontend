@@ -5,16 +5,30 @@ import VurderingAvBeredskapsperioderForm from '../vurdering-av-beredskapsperiode
 
 interface BeredskapsperiodeoversiktControllerProps {
     valgtPeriode: Vurderingsperiode;
+    editMode: boolean;
+    onEditClick: () => void;
+    onCancelClick: () => void;
 }
 
-const BeredskapsperiodeoversiktController = ({ valgtPeriode }: BeredskapsperiodeoversiktControllerProps) => {
+const BeredskapsperiodeoversiktController = ({
+    valgtPeriode,
+    editMode,
+    onEditClick,
+    onCancelClick,
+}: BeredskapsperiodeoversiktControllerProps) => {
     if (!valgtPeriode) {
         return null;
     }
-    if (valgtPeriode.resultat) {
-        return <BeredskapsperiodeVurderingsdetaljer beredskapsperiode={valgtPeriode} />;
+    if (valgtPeriode.resultat && !editMode) {
+        return <BeredskapsperiodeVurderingsdetaljer beredskapsperiode={valgtPeriode} onEditClick={onEditClick} />;
     }
-    return <VurderingAvBeredskapsperioderForm beredskapsperiode={valgtPeriode} onSubmit={() => console.log(1)} />;
+    return (
+        <VurderingAvBeredskapsperioderForm
+            beredskapsperiode={valgtPeriode}
+            onSubmit={() => console.log(1)}
+            onCancelClick={onCancelClick}
+        />
+    );
 };
 
 export default BeredskapsperiodeoversiktController;

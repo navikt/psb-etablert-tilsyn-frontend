@@ -5,16 +5,30 @@ import VurderingAvNattevåksperioderForm from '../vurdering-av-nattevåksperiode
 
 interface NattevåksperiodeoversiktControllerProps {
     valgtPeriode: Vurderingsperiode;
+    editMode: boolean;
+    onEditClick: () => void;
+    onCancelClick: () => void;
 }
 
-const NattevåksperiodeoversiktController = ({ valgtPeriode }: NattevåksperiodeoversiktControllerProps) => {
+const NattevåksperiodeoversiktController = ({
+    valgtPeriode,
+    editMode,
+    onEditClick,
+    onCancelClick,
+}: NattevåksperiodeoversiktControllerProps) => {
     if (!valgtPeriode) {
         return null;
     }
-    if (valgtPeriode.resultat) {
-        return <NattevåksperiodeVurderingsdetaljer nattevåksperiode={valgtPeriode} />;
+    if (valgtPeriode.resultat && !editMode) {
+        return <NattevåksperiodeVurderingsdetaljer nattevåksperiode={valgtPeriode} onEditClick={onEditClick} />;
     }
-    return <VurderingAvNattevåksperioderForm nattevåksperiode={valgtPeriode} onSubmit={() => console.log(1)} />;
+    return (
+        <VurderingAvNattevåksperioderForm
+            nattevåksperiode={valgtPeriode}
+            onSubmit={() => console.log(1)}
+            onCancelClick={onCancelClick}
+        />
+    );
 };
 
 export default NattevåksperiodeoversiktController;

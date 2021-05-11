@@ -5,14 +5,32 @@ import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/Beskrivelse
 import Box, { Margin } from '../../box/Box';
 import DetailView from '../../detail-view/DetailView';
 import LabelledContent from '../../labelled-content/LabelledContent';
+import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
+import LinkButton from '../../link-button/LinkButton';
+import styles from './beredskapsperiodeVurderingsdetaljer.less';
 
 interface BeredskapsperiodeVurderingsdetaljerProps {
     beredskapsperiode: Vurderingsperiode;
+    onEditClick: () => void;
 }
 
-const BeredskapsperiodeVurderingsdetaljer = ({ beredskapsperiode }: BeredskapsperiodeVurderingsdetaljerProps) => {
+const BeredskapsperiodeVurderingsdetaljer = ({
+    beredskapsperiode,
+    onEditClick,
+}: BeredskapsperiodeVurderingsdetaljerProps) => {
     return (
-        <DetailView title="Vurdering av beredskap">
+        <DetailView
+            title="Vurdering av beredskap"
+            contentAfterTitleRenderer={() => (
+                <WriteAccessBoundContent
+                    contentRenderer={() => (
+                        <LinkButton className={styles.endreLink} onClick={onEditClick}>
+                            Rediger vurdering
+                        </LinkButton>
+                    )}
+                />
+            )}
+        >
             <Box marginTop={Margin.xLarge}>
                 <BeskrivelserForPerioden periodebeskrivelser={beredskapsperiode.periodebeskrivelser} />
             </Box>

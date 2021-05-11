@@ -75,7 +75,9 @@ const EtablertTilsyn = (): JSX.Element => {
                 <Lenke className={styles.etablertTilsyn__lenke} href="#">
                     Gjør endringer i Punsj
                 </Lenke>
-                {!harVurderinger && <p>Ingen vurderinger å vise</p>}
+                {!harVurderinger && (
+                    <p className={styles.etablertTilsyn__ingenTilsyn}>Søker har ikke oppgitt etablert tilsyn</p>
+                )}
                 {harVurderinger && (
                     <table className={styles.etablertTilsynTabell}>
                         <thead>

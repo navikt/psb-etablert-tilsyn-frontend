@@ -1,24 +1,35 @@
-import React from 'react';
 import { Element, Undertittel } from 'nav-frontend-typografi';
-import InteractiveList from '../interactive-list/InteractiveList';
-import VurderingsperiodeElement from '../vurderingsperiode/VurderingsperiodeElement';
-import PeriodeSomSkalVurderes from '../periode-som-skal-vurderes/PeriodeSomSkalVurderes';
-import styles from './periodenavigasjon.less';
+import React, { useEffect } from 'react';
 import Vurderingsperiode from '../../../types/Vurderingsperiode';
+import { usePrevious } from '../../../util/hooks';
 import Box, { Margin } from '../box/Box';
+import InteractiveList from '../interactive-list/InteractiveList';
+import PeriodeSomSkalVurderes from '../periode-som-skal-vurderes/PeriodeSomSkalVurderes';
+import VurderingsperiodeElement from '../vurderingsperiode/VurderingsperiodeElement';
+import styles from './periodenavigasjon.less';
 
 interface PeriodenavigasjonProps {
     perioderTilVurdering: Vurderingsperiode[];
     vurdertePerioder: Vurderingsperiode[];
     onPeriodeValgt: (periode: Vurderingsperiode) => void;
+    harValgtPeriode?: boolean;
 }
 
 const Periodenavigasjon = ({
     perioderTilVurdering,
     vurdertePerioder,
     onPeriodeValgt,
+    harValgtPeriode,
 }: PeriodenavigasjonProps): JSX.Element => {
-    const [activeIndex, setActiveIndex] = React.useState(-1);
+    const harPerioderSomSkalVurderes = perioderTilVurdering?.length > 0;
+    const [activeIndex, setActiveIndex] = React.useState(harPerioderSomSkalVurderes ? 0 : -1);
+    const previousHarValgtPeriode = usePrevious(harValgtPeriode);
+
+    useEffect(() => {
+        if (harValgtPeriode === false && previousHarValgtPeriode === true) {
+            setActiveIndex(-1);
+        }
+    }, [harValgtPeriode]);
 
     const vurdertePerioderElements = vurdertePerioder.map(({ periode, resultat, kilde }) => {
         return <VurderingsperiodeElement periode={periode} resultat={resultat} kilde={kilde} />;

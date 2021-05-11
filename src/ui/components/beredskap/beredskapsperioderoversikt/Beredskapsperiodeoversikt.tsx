@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import NavigationWithDetailView from '../../navigation-with-detail-view/NavigationWithDetailView';
@@ -12,9 +13,21 @@ interface BeredskapsperiodeoversiktProps {
 
 const Beredskapsperiodeoversikt = ({ beredskapsperiodeoversikt }: BeredskapsperiodeoversiktProps) => {
     const [valgtPeriode, setValgtPeriode] = React.useState<Vurderingsperiode>(null);
+    const [editMode, setEditMode] = React.useState(false);
 
     const perioderTilVurdering = beredskapsperiodeoversikt.finnPerioderTilVurdering();
     const vurderteBeredskapsperioder = beredskapsperiodeoversikt.finnVurdertePerioder();
+
+    const velgPeriode = (periode: Vurderingsperiode) => {
+        setValgtPeriode(periode);
+        setEditMode(false);
+    };
+
+    useEffect(() => {
+        if (beredskapsperiodeoversikt.harPerioderTilVurdering()) {
+            setValgtPeriode(perioderTilVurdering[0]);
+        }
+    }, []);
 
     return (
         <>
@@ -24,10 +37,18 @@ const Beredskapsperiodeoversikt = ({ beredskapsperiodeoversikt }: Beredskapsperi
                     <Periodenavigasjon
                         perioderTilVurdering={perioderTilVurdering}
                         vurdertePerioder={vurderteBeredskapsperioder}
-                        onPeriodeValgt={setValgtPeriode}
+                        onPeriodeValgt={velgPeriode}
+                        harValgtPeriode={valgtPeriode !== null}
                     />
                 )}
-                detailSection={() => <BeredskapsperiodeoversiktController valgtPeriode={valgtPeriode} />}
+                detailSection={() => (
+                    <BeredskapsperiodeoversiktController
+                        valgtPeriode={valgtPeriode}
+                        editMode={editMode}
+                        onEditClick={() => setEditMode(true)}
+                        onCancelClick={() => velgPeriode(null)}
+                    />
+                )}
             />
         </>
     );

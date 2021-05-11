@@ -38,6 +38,7 @@ const finnResterendePerioder = (perioderFraForm: FormPeriod[], periodeTilVurderi
 interface VurderingAvBeredskapsperioderFormProps {
     onSubmit: () => void;
     beredskapsperiode: Vurderingsperiode;
+    onCancelClick: () => void;
 }
 
 interface FormPeriod {
@@ -52,16 +53,26 @@ interface VurderingAvBeredskapsperioderFormState {
 
 const VurderingAvBeredskapsperioderForm = ({
     beredskapsperiode,
+    onCancelClick,
 }: VurderingAvBeredskapsperioderFormProps): JSX.Element => {
     const { onFinished } = React.useContext(ContainerContext);
+    const defaultBehovForBeredeskap = () => {
+        if (beredskapsperiode.resultat === Vurderingsresultat.OPPFYLT) {
+            return RadioOptions.JA;
+        }
+        if (beredskapsperiode.resultat === Vurderingsresultat.IKKE_OPPFYLT) {
+            return RadioOptions.NEI;
+        }
+        return null;
+    };
 
     const formMethods = useForm({
         defaultValues: {
             [FieldName.PERIODER]: beredskapsperiode?.periode
                 ? [new Period(beredskapsperiode.periode.fom, beredskapsperiode.periode.tom)]
                 : [new Period('', '')],
-            [FieldName.BEGRUNNELSE]: '',
-            [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: undefined,
+            [FieldName.BEGRUNNELSE]: beredskapsperiode.begrunnelse || '',
+            [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: defaultBehovForBeredeskap(),
         },
     });
 
@@ -112,7 +123,11 @@ const VurderingAvBeredskapsperioderForm = ({
     return (
         <DetailView title="Vurdering av beredskap">
             <FormProvider {...formMethods}>
-                <Form onSubmit={formMethods.handleSubmit(handleSubmit)} buttonLabel="Bekreft og fortsett">
+                <Form
+                    onSubmit={formMethods.handleSubmit(handleSubmit)}
+                    buttonLabel="Bekreft og fortsett"
+                    onCancel={onCancelClick}
+                >
                     <Box marginTop={Margin.xLarge}>
                         <BeskrivelserForPerioden periodebeskrivelser={beredskapsperiode.periodebeskrivelser} />
                     </Box>

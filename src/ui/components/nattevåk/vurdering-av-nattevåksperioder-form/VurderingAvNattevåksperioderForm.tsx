@@ -11,6 +11,8 @@ import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 
 export enum FieldName {
     VURDERING_AV_NATTEVÅK = 'vurderNattevåk',
@@ -26,17 +28,30 @@ enum RadioOptions {
 
 interface VurderingAvNattevåksperioderFormProps {
     onSubmit: () => void;
-    nattevåksperiode: Nattevåksperiode;
+    nattevåksperiode: Vurderingsperiode;
+    onCancelClick: () => void;
 }
 
-const VurderingAvNattevåksperioderForm = ({ nattevåksperiode }: VurderingAvNattevåksperioderFormProps): JSX.Element => {
+const VurderingAvNattevåksperioderForm = ({
+    nattevåksperiode,
+    onCancelClick,
+}: VurderingAvNattevåksperioderFormProps): JSX.Element => {
+    const defaultBehovForNattevåk = () => {
+        if (nattevåksperiode.resultat === Vurderingsresultat.OPPFYLT) {
+            return RadioOptions.JA;
+        }
+        if (nattevåksperiode.resultat === Vurderingsresultat.IKKE_OPPFYLT) {
+            return RadioOptions.NEI;
+        }
+        return null;
+    };
     const formMethods = useForm({
         defaultValues: {
             [FieldName.PERIODER]: nattevåksperiode?.periode
                 ? [new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]
                 : [new Period('', '')],
-            [FieldName.VURDERING_AV_NATTEVÅK]: '',
-            [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: undefined,
+            [FieldName.VURDERING_AV_NATTEVÅK]: nattevåksperiode.begrunnelse || '',
+            [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: defaultBehovForNattevåk(),
         },
     });
 
@@ -45,7 +60,7 @@ const VurderingAvNattevåksperioderForm = ({ nattevåksperiode }: VurderingAvNat
     return (
         <DetailView title="Vurdering av nattevåk">
             <FormProvider {...formMethods}>
-                <Form onSubmit={formMethods.handleSubmit} buttonLabel="Bekreft og fortsett">
+                <Form onSubmit={formMethods.handleSubmit} buttonLabel="Bekreft og fortsett" onCancel={onCancelClick}>
                     <Box marginTop={Margin.xLarge}>
                         <BeskrivelserForPerioden periodebeskrivelser={nattevåksperiode.periodebeskrivelser} />
                     </Box>
