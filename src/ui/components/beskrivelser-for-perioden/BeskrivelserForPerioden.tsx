@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Kilde from '../../../types/Kilde';
-import Periodebeskrivelse from '../../../types/Periodebeskrivelse';
+import { Beskrivelser } from '../../../types/TilsynData';
 import { prettifyDate } from '../../../util/formats';
 import Box, { Margin } from '../box/Box';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
@@ -10,10 +10,10 @@ import LabelledContent from '../labelled-content/LabelledContent';
 import styles from './beskrivelserForPerioden.less';
 
 interface BeskrivelserForPeriodenProps {
-    periodebeskrivelser: Periodebeskrivelse[];
+    periodebeskrivelser: Beskrivelser[];
 }
 
-const getLabel = (periodebeskrivelse: Periodebeskrivelse) => {
+const getLabel = (periodebeskrivelse: Beskrivelser) => {
     const kilde = periodebeskrivelse.kilde === Kilde.ANNEN_PART ? 'annen part' : 'søker';
     return (
         <div className={styles.beskrivelserForPerioden__label}>
@@ -29,7 +29,7 @@ const getLabel = (periodebeskrivelse: Periodebeskrivelse) => {
             <p className={styles.beskrivelserForPerioden__labelText}>
                 {`Beskrivelse fra ${kilde}
                  for perioden ${periodebeskrivelse.periode.prettifyPeriod()} (mottatt ${prettifyDate(
-                    periodebeskrivelse.mottatt
+                    periodebeskrivelse.mottattDato
                 )}):`}
             </p>
         </div>
@@ -44,7 +44,7 @@ const BeskrivelserForPerioden = ({ periodebeskrivelser }: BeskrivelserForPeriode
                     <Box marginBottom={Margin.large} key={index}>
                         <LabelledContent
                             label={getLabel(periodebeskrivelse)}
-                            content={periodebeskrivelse.begrunnelse}
+                            content={periodebeskrivelse.tekst}
                             labelTag="div"
                         />
                     </Box>

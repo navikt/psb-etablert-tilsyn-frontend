@@ -1,16 +1,16 @@
 import React from 'react';
-import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
+import NattevåkType from '../../../../types/NattevåkType';
 import { getStringMedPerioder } from '../../../../util/periodUtils';
 import CustomAlertstripe from '../../alertstripe/Alertstripe';
 import Box, { Margin } from '../../box/Box';
 
 interface NattevåksperiodeoversiktMessagesProps {
-    nattevåksperiodeoversikt: Vurderingsoversikt;
+    nattevåkData: NattevåkType;
 }
 
-const NattevåksperiodeoversiktMessages = ({ nattevåksperiodeoversikt }: NattevåksperiodeoversiktMessagesProps) => {
-    if (nattevåksperiodeoversikt.harPerioderTilVurdering()) {
-        const perioderTilVurdering = nattevåksperiodeoversikt.finnPerioderTilVurdering().map(({ periode }) => periode);
+const NattevåksperiodeoversiktMessages = ({ nattevåkData }: NattevåksperiodeoversiktMessagesProps) => {
+    if (nattevåkData.harPerioderTilVurdering()) {
+        const perioderTilVurdering = nattevåkData.finnPerioderTilVurdering().map(({ periode }) => periode);
         return (
             <Box marginBottom={Margin.large}>
                 <CustomAlertstripe type="advarsel">

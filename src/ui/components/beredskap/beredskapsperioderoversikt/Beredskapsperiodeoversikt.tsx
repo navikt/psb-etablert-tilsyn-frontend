@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
+import BeredskapType from '../../../../types/BeredskapType';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import NavigationWithDetailView from '../../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../../periodenavigasjon/Periodenavigasjon';
@@ -8,15 +8,16 @@ import BeredskapsperiodeoversiktController from '../beredskapsperiodeoversikt-co
 import BeredskapsperiodeoversiktMessages from '../beredskapsperiodeoversikt-messages/BeredskapsperiodeoversiktMessages';
 
 interface BeredskapsperiodeoversiktProps {
-    beredskapsperiodeoversikt: Vurderingsoversikt;
+    beredskapData: BeredskapType;
 }
 
-const Beredskapsperiodeoversikt = ({ beredskapsperiodeoversikt }: BeredskapsperiodeoversiktProps) => {
+const Beredskapsperiodeoversikt = ({ beredskapData }: BeredskapsperiodeoversiktProps) => {
     const [valgtPeriode, setValgtPeriode] = React.useState<Vurderingsperiode>(null);
     const [editMode, setEditMode] = React.useState(false);
+    const { beskrivelser } = beredskapData;
 
-    const perioderTilVurdering = beredskapsperiodeoversikt.finnPerioderTilVurdering();
-    const vurderteBeredskapsperioder = beredskapsperiodeoversikt.finnVurdertePerioder();
+    const perioderTilVurdering = beredskapData.finnPerioderTilVurdering();
+    const vurderteBeredskapsperioder = beredskapData.finnVurdertePerioder();
 
     const velgPeriode = (periode: Vurderingsperiode) => {
         setValgtPeriode(periode);
@@ -24,14 +25,14 @@ const Beredskapsperiodeoversikt = ({ beredskapsperiodeoversikt }: Beredskapsperi
     };
 
     useEffect(() => {
-        if (beredskapsperiodeoversikt.harPerioderTilVurdering()) {
+        if (beredskapData.harPerioderTilVurdering()) {
             setValgtPeriode(perioderTilVurdering[0]);
         }
     }, []);
 
     return (
         <>
-            <BeredskapsperiodeoversiktMessages beredskapsperiodeoversikt={beredskapsperiodeoversikt} />
+            <BeredskapsperiodeoversiktMessages beredskapData={beredskapData} />
             <NavigationWithDetailView
                 navigationSection={() => (
                     <Periodenavigasjon
@@ -47,6 +48,7 @@ const Beredskapsperiodeoversikt = ({ beredskapsperiodeoversikt }: Beredskapsperi
                         editMode={editMode}
                         onEditClick={() => setEditMode(true)}
                         onCancelClick={() => velgPeriode(null)}
+                        beskrivelser={beskrivelser}
                     />
                 )}
             />

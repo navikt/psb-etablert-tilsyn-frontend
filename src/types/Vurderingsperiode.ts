@@ -1,31 +1,33 @@
 import { Period } from '@navikt/period-utils';
-import Vurderingsresultat from './Vurderingsresultat';
 import Kilde from './Kilde';
-import Periodebeskrivelse from './Periodebeskrivelse';
+import { Vurderinger } from './TilsynResponse';
+import Vurderingsresultat from './Vurderingsresultat';
 
 class Vurderingsperiode {
     periode: Period;
 
     kilde: Kilde;
 
-    periodebeskrivelser: Periodebeskrivelse[];
-
     resultat: Vurderingsresultat | null;
 
     begrunnelse: string;
 
-    constructor({ periode, kilde, periodebeskrivelser, resultat, begrunnelse }: Vurderingsperiode) {
+    id: number;
+
+    constructor({ periode, kilde, resultat, begrunnelse, id }: Vurderinger) {
         this.periode = new Period(periode.fom, periode.fom);
         this.kilde = kilde;
-        this.periodebeskrivelser = periodebeskrivelser.map(
-            (periodebeskrivelse) => new Periodebeskrivelse(periodebeskrivelse)
-        );
         this.resultat = resultat;
         this.begrunnelse = begrunnelse;
+        this.id = id;
     }
 
     harIngenResultat() {
         return this.resultat === null;
+    }
+
+    skalVurderes() {
+        return this.resultat === Vurderingsresultat.IKKE_VURDERT;
     }
 
     erVurdert() {

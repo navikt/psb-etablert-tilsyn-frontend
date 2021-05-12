@@ -1,7 +1,9 @@
+import { Period } from '@navikt/period-utils';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Period } from '@navikt/period-utils';
-import { Nattevåksperiode } from '../../../../types/Nattevåksperiode';
+import { Beskrivelser } from '../../../../types/TilsynData';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
 import TextArea from '../../../form/wrappers/TextArea';
@@ -11,8 +13,6 @@ import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
-import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 
 export enum FieldName {
     VURDERING_AV_NATTEVÅK = 'vurderNattevåk',
@@ -30,11 +30,13 @@ interface VurderingAvNattevåksperioderFormProps {
     onSubmit: () => void;
     nattevåksperiode: Vurderingsperiode;
     onCancelClick: () => void;
+    beskrivelser: Beskrivelser[];
 }
 
 const VurderingAvNattevåksperioderForm = ({
     nattevåksperiode,
     onCancelClick,
+    beskrivelser,
 }: VurderingAvNattevåksperioderFormProps): JSX.Element => {
     const defaultBehovForNattevåk = () => {
         if (nattevåksperiode.resultat === Vurderingsresultat.OPPFYLT) {
@@ -62,7 +64,7 @@ const VurderingAvNattevåksperioderForm = ({
             <FormProvider {...formMethods}>
                 <Form onSubmit={formMethods.handleSubmit} buttonLabel="Bekreft og fortsett" onCancel={onCancelClick}>
                     <Box marginTop={Margin.xLarge}>
-                        <BeskrivelserForPerioden periodebeskrivelser={nattevåksperiode.periodebeskrivelser} />
+                        <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
                         <TextArea

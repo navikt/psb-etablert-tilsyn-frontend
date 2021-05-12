@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
+import NattevåkType from '../../../../types/NattevåkType';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import NavigationWithDetailView from '../../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../../periodenavigasjon/Periodenavigasjon';
@@ -8,15 +8,16 @@ import NattevåksperiodeoversiktController from '../nattevåksperiodeoversikt-co
 import NattevåksperiodeoversiktMessages from '../nattevåksperiodeoversikt-messages/NattevåksperiodeoversiktMessages';
 
 interface NattevåksperiodeoversiktProps {
-    nattevåksperiodeoversikt: Vurderingsoversikt;
+    nattevåkData: NattevåkType;
 }
 
-const Nattevåksperiodeoversikt = ({ nattevåksperiodeoversikt }: NattevåksperiodeoversiktProps) => {
+const Nattevåksperiodeoversikt = ({ nattevåkData }: NattevåksperiodeoversiktProps) => {
     const [valgtPeriode, setValgtPeriode] = React.useState<Vurderingsperiode>(null);
     const [editMode, setEditMode] = React.useState(false);
+    const { beskrivelser } = nattevåkData;
 
-    const perioderTilVurdering = nattevåksperiodeoversikt.finnPerioderTilVurdering();
-    const vurderteNattevåksperioder = nattevåksperiodeoversikt.finnVurdertePerioder();
+    const perioderTilVurdering = nattevåkData.finnPerioderTilVurdering();
+    const vurderteNattevåksperioder = nattevåkData.finnVurdertePerioder();
 
     const velgPeriode = (periode: Vurderingsperiode) => {
         setValgtPeriode(periode);
@@ -24,14 +25,14 @@ const Nattevåksperiodeoversikt = ({ nattevåksperiodeoversikt }: Nattevåksperi
     };
 
     useEffect(() => {
-        if (nattevåksperiodeoversikt.harPerioderTilVurdering()) {
+        if (nattevåkData.harPerioderTilVurdering()) {
             setValgtPeriode(perioderTilVurdering[0]);
         }
     }, []);
 
     return (
         <>
-            <NattevåksperiodeoversiktMessages nattevåksperiodeoversikt={nattevåksperiodeoversikt} />
+            <NattevåksperiodeoversiktMessages nattevåkData={nattevåkData} />
             <NavigationWithDetailView
                 navigationSection={() => (
                     <Periodenavigasjon
@@ -47,6 +48,7 @@ const Nattevåksperiodeoversikt = ({ nattevåksperiodeoversikt }: Nattevåksperi
                         editMode={editMode}
                         onEditClick={() => setEditMode(true)}
                         onCancelClick={() => velgPeriode(null)}
+                        beskrivelser={beskrivelser}
                     />
                 )}
             />

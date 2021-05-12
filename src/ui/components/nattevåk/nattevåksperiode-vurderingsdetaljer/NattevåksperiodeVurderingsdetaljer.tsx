@@ -1,22 +1,25 @@
 import React from 'react';
-import { VurdertNattevåksperiode } from '../../../../types/Nattevåksperiode';
+import { Beskrivelser } from '../../../../types/TilsynData';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import Box, { Margin } from '../../box/Box';
 import DetailView from '../../detail-view/DetailView';
 import LabelledContent from '../../labelled-content/LabelledContent';
-import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import LinkButton from '../../link-button/LinkButton';
+import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import styles from './nattevåksperiodeVurderingsdetaljer.less';
 
 interface NattevåksperiodeVurderingsdetaljerProps {
-    nattevåksperiode: VurdertNattevåksperiode;
+    nattevåksperiode: Vurderingsperiode;
     onEditClick: () => void;
+    beskrivelser: Beskrivelser[];
 }
 
 const NattevåksperiodeVurderingsdetaljer = ({
     nattevåksperiode,
     onEditClick,
+    beskrivelser,
 }: NattevåksperiodeVurderingsdetaljerProps) => {
     return (
         <DetailView
@@ -32,7 +35,7 @@ const NattevåksperiodeVurderingsdetaljer = ({
             )}
         >
             <Box marginTop={Margin.xLarge}>
-                <BeskrivelserForPerioden periodebeskrivelser={nattevåksperiode.periodebeskrivelser} />
+                <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent

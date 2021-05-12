@@ -8,15 +8,18 @@ import LabelledContent from '../../labelled-content/LabelledContent';
 import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import LinkButton from '../../link-button/LinkButton';
 import styles from './beredskapsperiodeVurderingsdetaljer.less';
+import { Beskrivelser } from '../../../../types/TilsynData';
 
 interface BeredskapsperiodeVurderingsdetaljerProps {
     beredskapsperiode: Vurderingsperiode;
     onEditClick: () => void;
+    beskrivelser: Beskrivelser[];
 }
 
 const BeredskapsperiodeVurderingsdetaljer = ({
     beredskapsperiode,
     onEditClick,
+    beskrivelser,
 }: BeredskapsperiodeVurderingsdetaljerProps) => {
     return (
         <DetailView
@@ -32,7 +35,7 @@ const BeredskapsperiodeVurderingsdetaljer = ({
             )}
         >
             <Box marginTop={Margin.xLarge}>
-                <BeskrivelserForPerioden periodebeskrivelser={beredskapsperiode.periodebeskrivelser} />
+                <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
