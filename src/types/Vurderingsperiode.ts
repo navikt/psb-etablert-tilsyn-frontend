@@ -1,6 +1,6 @@
 import { Period } from '@navikt/period-utils';
 import Kilde from './Kilde';
-import { Vurderinger } from './TilsynResponse';
+import { Vurdering } from './TilsynResponse';
 import Vurderingsresultat from './Vurderingsresultat';
 
 class Vurderingsperiode {
@@ -14,7 +14,7 @@ class Vurderingsperiode {
 
     id: number;
 
-    constructor({ periode, kilde, resultat, begrunnelse, id }: Vurderinger) {
+    constructor({ periode, kilde, resultat, begrunnelse, id }: Vurdering) {
         this.periode = new Period(periode.fom, periode.fom);
         this.kilde = kilde;
         this.resultat = resultat;

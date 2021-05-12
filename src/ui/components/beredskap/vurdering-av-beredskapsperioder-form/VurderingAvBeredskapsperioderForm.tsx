@@ -14,7 +14,7 @@ import Form from '../../form/Form';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import { getPeriodDifference } from '../../../../util/dateUtils';
 import ContainerContext from '../../../context/ContainerContext';
-import { Beskrivelser } from '../../../../types/TilsynData';
+import Beskrivelse from '../../../../types/Beskrivelse';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -40,7 +40,7 @@ interface VurderingAvBeredskapsperioderFormProps {
     onSubmit: () => void;
     beredskapsperiode: Vurderingsperiode;
     onCancelClick: () => void;
-    beskrivelser: Beskrivelser[];
+    beskrivelser: Beskrivelse[];
 }
 
 interface FormPeriod {

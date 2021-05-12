@@ -1,10 +1,8 @@
-import { Period } from '@navikt/period-utils';
 import BeredskapType from '../types/BeredskapType';
+import EtablertTilsynType from '../types/EtablertTilsynType';
 import NattevåkType from '../types/NattevåkType';
-import { EtablertTilsynPerioder } from '../types/TilsynData';
 import { TilsynResponse } from '../types/TilsynResponse';
 import ActionType from './mainActionTypes';
-import EtablertTilsynType from '../types/EtablertTilsynType';
 
 interface MainComponentState {
     etablertTilsyn: EtablertTilsynType[];

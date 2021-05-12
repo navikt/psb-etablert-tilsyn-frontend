@@ -1,10 +1,10 @@
 import { Period } from '@navikt/period-utils';
-import { Beskrivelser } from './TilsynData';
+import Beskrivelse from './Beskrivelse';
 import Vurderingsperiode from './Vurderingsperiode';
 import { Beredskap } from './TilsynResponse';
 
 class BeredskapType {
-    beskrivelser: Beskrivelser[];
+    beskrivelser: Beskrivelse[];
 
     vurderinger: Vurderingsperiode[];
 

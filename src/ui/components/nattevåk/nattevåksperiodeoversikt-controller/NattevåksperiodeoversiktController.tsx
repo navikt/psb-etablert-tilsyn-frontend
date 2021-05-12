@@ -2,14 +2,14 @@ import * as React from 'react';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import NattevåksperiodeVurderingsdetaljer from '../nattevåksperiode-vurderingsdetaljer/NattevåksperiodeVurderingsdetaljer';
 import VurderingAvNattevåksperioderForm from '../vurdering-av-nattevåksperioder-form/VurderingAvNattevåksperioderForm';
-import { Beskrivelser } from '../../../../types/TilsynData';
+import Beskrivelse from '../../../../types/Beskrivelse';
 
 interface NattevåksperiodeoversiktControllerProps {
     valgtPeriode: Vurderingsperiode;
     editMode: boolean;
     onEditClick: () => void;
     onCancelClick: () => void;
-    beskrivelser: Beskrivelser[];
+    beskrivelser: Beskrivelse[];
 }
 
 const NattevåksperiodeoversiktController = ({

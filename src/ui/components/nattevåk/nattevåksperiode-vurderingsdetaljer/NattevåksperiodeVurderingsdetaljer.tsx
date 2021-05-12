@@ -1,5 +1,5 @@
 import React from 'react';
-import { Beskrivelser } from '../../../../types/TilsynData';
+import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
@@ -13,7 +13,7 @@ import styles from './nattevåksperiodeVurderingsdetaljer.less';
 interface NattevåksperiodeVurderingsdetaljerProps {
     nattevåksperiode: Vurderingsperiode;
     onEditClick: () => void;
-    beskrivelser: Beskrivelser[];
+    beskrivelser: Beskrivelse[];
 }
 
 const NattevåksperiodeVurderingsdetaljer = ({

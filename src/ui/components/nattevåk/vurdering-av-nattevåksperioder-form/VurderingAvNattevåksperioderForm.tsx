@@ -1,7 +1,7 @@
 import { Period } from '@navikt/period-utils';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Beskrivelser } from '../../../../types/TilsynData';
+import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
@@ -30,7 +30,7 @@ interface VurderingAvNattevåksperioderFormProps {
     onSubmit: () => void;
     nattevåksperiode: Vurderingsperiode;
     onCancelClick: () => void;
-    beskrivelser: Beskrivelser[];
+    beskrivelser: Beskrivelse[];
 }
 
 const VurderingAvNattevåksperioderForm = ({

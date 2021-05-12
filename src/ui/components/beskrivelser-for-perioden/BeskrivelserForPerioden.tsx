@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Kilde from '../../../types/Kilde';
-import { Beskrivelser } from '../../../types/TilsynData';
+import Beskrivelse from '../../../types/Beskrivelse';
 import { prettifyDate } from '../../../util/formats';
 import Box, { Margin } from '../box/Box';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
@@ -10,10 +10,10 @@ import LabelledContent from '../labelled-content/LabelledContent';
 import styles from './beskrivelserForPerioden.less';
 
 interface BeskrivelserForPeriodenProps {
-    periodebeskrivelser: Beskrivelser[];
+    periodebeskrivelser: Beskrivelse[];
 }
 
-const getLabel = (periodebeskrivelse: Beskrivelser) => {
+const getLabel = (periodebeskrivelse: Beskrivelse) => {
     const kilde = periodebeskrivelse.kilde === Kilde.ANNEN_PART ? 'annen part' : 'søker';
     return (
         <div className={styles.beskrivelserForPerioden__label}>

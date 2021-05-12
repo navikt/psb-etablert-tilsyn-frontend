@@ -64,8 +64,8 @@ const EtablertTilsyn = ({ etablertTilsynData }: EtablertTilsynProps): JSX.Elemen
                         </tr>
                     </thead>
                     <tbody>
-                        {etablertTilsynData.map((tilsyn, index) => (
-                            <tr key={index}>
+                        {etablertTilsynData.map((tilsyn) => (
+                            <tr key={tilsyn.periode.prettifyPeriod()}>
                                 <td className={styles.etablertTilsynTabell__period}>
                                     <span className={styles.visuallyHidden}>Periode</span>
                                     {tilsyn.periode.prettifyPeriod()}

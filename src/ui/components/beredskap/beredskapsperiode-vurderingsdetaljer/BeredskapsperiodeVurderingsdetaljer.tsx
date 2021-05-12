@@ -8,12 +8,12 @@ import LabelledContent from '../../labelled-content/LabelledContent';
 import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import LinkButton from '../../link-button/LinkButton';
 import styles from './beredskapsperiodeVurderingsdetaljer.less';
-import { Beskrivelser } from '../../../../types/TilsynData';
+import Beskrivelse from '../../../../types/Beskrivelse';
 
 interface BeredskapsperiodeVurderingsdetaljerProps {
     beredskapsperiode: Vurderingsperiode;
     onEditClick: () => void;
-    beskrivelser: Beskrivelser[];
+    beskrivelser: Beskrivelse[];
 }
 
 const BeredskapsperiodeVurderingsdetaljer = ({

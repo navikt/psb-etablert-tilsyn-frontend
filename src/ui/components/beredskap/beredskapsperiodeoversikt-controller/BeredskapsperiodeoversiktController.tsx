@@ -2,14 +2,14 @@ import * as React from 'react';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import BeredskapsperiodeVurderingsdetaljer from '../beredskapsperiode-vurderingsdetaljer/BeredskapsperiodeVurderingsdetaljer';
 import VurderingAvBeredskapsperioderForm from '../vurdering-av-beredskapsperioder-form/VurderingAvBeredskapsperioderForm';
-import { Beskrivelser } from '../../../../types/TilsynData';
+import Beskrivelse from '../../../../types/Beskrivelse';
 
 interface BeredskapsperiodeoversiktControllerProps {
     valgtPeriode: Vurderingsperiode;
     editMode: boolean;
     onEditClick: () => void;
     onCancelClick: () => void;
-    beskrivelser: Beskrivelser[];
+    beskrivelser: Beskrivelse[];
 }
 
 const BeredskapsperiodeoversiktController = ({

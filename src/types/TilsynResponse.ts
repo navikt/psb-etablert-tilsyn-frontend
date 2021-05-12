@@ -2,22 +2,22 @@ import Kilde from './Kilde';
 import Vurderingsresultat from './Vurderingsresultat';
 
 export interface TilsynResponse {
-    etablertTilsynPerioder: EtablertTilsynPerioder[];
+    etablertTilsynPerioder: EtablertTilsynPeriode[];
     nattevåk: Nattevåk;
     beredskap: Beredskap;
 }
 
 export interface Beredskap {
-    beskrivelser: Beskrivelser[];
-    vurderinger: Vurderinger[];
+    beskrivelser: Beskrivelse[];
+    vurderinger: Vurdering[];
 }
 
 export interface Nattevåk {
-    beskrivelser: Beskrivelser[];
-    vurderinger: Vurderinger[];
+    beskrivelser: Beskrivelse[];
+    vurderinger: Vurdering[];
 }
 
-interface Beskrivelser {
+interface Beskrivelse {
     periode: Periode;
     tekst: string;
     mottattDato: string;
@@ -29,7 +29,7 @@ interface Periode {
     tom: string;
 }
 
-export interface Vurderinger {
+export interface Vurdering {
     id: number;
     periode: Periode;
     begrunnelse: string;
@@ -37,7 +37,7 @@ export interface Vurderinger {
     kilde: Kilde;
 }
 
-export interface EtablertTilsynPerioder {
+export interface EtablertTilsynPeriode {
     periode: Periode;
     tidPerDag: string;
     kilde: Kilde;

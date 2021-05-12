@@ -1,5 +1,5 @@
 import { Period } from '@navikt/period-utils';
-import { EtablertTilsynPerioder } from './TilsynResponse';
+import { EtablertTilsynPeriode } from './TilsynResponse';
 import { beregnDagerTimer } from '../util/dateUtils';
 import Kilde from './Kilde';
 
@@ -10,7 +10,7 @@ class EtablertTilsynType {
 
     kilde: Kilde;
 
-    constructor({ periode, tidPerDag, kilde }: EtablertTilsynPerioder) {
+    constructor({ periode, tidPerDag, kilde }: EtablertTilsynPeriode) {
         this.periode = new Period(periode.fom, periode.fom);
         this.tidPerDag = beregnDagerTimer(tidPerDag);
         this.kilde = kilde;
