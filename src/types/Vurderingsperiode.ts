@@ -22,10 +22,6 @@ class Vurderingsperiode {
         this.id = id;
     }
 
-    harIngenResultat() {
-        return this.resultat === null;
-    }
-
     skalVurderes() {
         return this.resultat === Vurderingsresultat.IKKE_VURDERT;
     }
