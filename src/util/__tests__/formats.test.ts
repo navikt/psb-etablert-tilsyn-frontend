@@ -1,5 +1,4 @@
-import { Period } from '@navikt/period-utils';
-import { prettifyDate, prettifyPeriod } from '../formats';
+import { prettifyDate } from '../formats';
 
 test('prettifyDate', () => {
     const expectedEqual = '10.09.2020';

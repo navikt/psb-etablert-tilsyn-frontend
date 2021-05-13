@@ -9,6 +9,9 @@ interface NattevåksperiodeoversiktMessagesProps {
 }
 
 const NattevåksperiodeoversiktMessages = ({ nattevåkData }: NattevåksperiodeoversiktMessagesProps) => {
+    if (!nattevåkData.harPerioder()) {
+        return <p>Søker har ikke oppgitt at det er behov for nattevåk.</p>;
+    }
     if (nattevåkData.harPerioderTilVurdering()) {
         const perioderTilVurdering = nattevåkData.finnPerioderTilVurdering().map(({ periode }) => periode);
         return (

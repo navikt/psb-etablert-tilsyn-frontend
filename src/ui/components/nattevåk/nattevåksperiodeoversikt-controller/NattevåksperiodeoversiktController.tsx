@@ -3,6 +3,7 @@ import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import NattevåksperiodeVurderingsdetaljer from '../nattevåksperiode-vurderingsdetaljer/NattevåksperiodeVurderingsdetaljer';
 import VurderingAvNattevåksperioderForm from '../vurdering-av-nattevåksperioder-form/VurderingAvNattevåksperioderForm';
 import Beskrivelse from '../../../../types/Beskrivelse';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 
 interface NattevåksperiodeoversiktControllerProps {
     valgtPeriode: Vurderingsperiode;
@@ -22,7 +23,7 @@ const NattevåksperiodeoversiktController = ({
     if (!valgtPeriode) {
         return null;
     }
-    if (valgtPeriode.resultat && !editMode) {
+    if (valgtPeriode.resultat !== Vurderingsresultat.IKKE_VURDERT && !editMode) {
         return (
             <NattevåksperiodeVurderingsdetaljer
                 nattevåksperiode={valgtPeriode}

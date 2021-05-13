@@ -3,6 +3,7 @@ import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import BeredskapsperiodeVurderingsdetaljer from '../beredskapsperiode-vurderingsdetaljer/BeredskapsperiodeVurderingsdetaljer';
 import VurderingAvBeredskapsperioderForm from '../vurdering-av-beredskapsperioder-form/VurderingAvBeredskapsperioderForm';
 import Beskrivelse from '../../../../types/Beskrivelse';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 
 interface BeredskapsperiodeoversiktControllerProps {
     valgtPeriode: Vurderingsperiode;
@@ -22,7 +23,7 @@ const BeredskapsperiodeoversiktController = ({
     if (!valgtPeriode) {
         return null;
     }
-    if (valgtPeriode.resultat && !editMode) {
+    if (valgtPeriode.resultat !== Vurderingsresultat.IKKE_VURDERT && !editMode) {
         return (
             <BeredskapsperiodeVurderingsdetaljer
                 beredskapsperiode={valgtPeriode}

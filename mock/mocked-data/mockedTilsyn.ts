@@ -42,6 +42,16 @@ export default {
                 resultat: 'IKKE_OPPFYLT',
                 kilde: 'ANNEN_PART',
             },
+            {
+                id: 2,
+                periode: {
+                    fom: '2021-07-11',
+                    tom: '2021-07-11',
+                },
+                begrunnelse: '',
+                resultat: 'IKKE_VURDERT',
+                kilde: '',
+            },
         ],
     },
     beredskap: {
@@ -76,6 +86,16 @@ export default {
                 begrunnelse: 'streng',
                 resultat: 'IKKE_OPPFYLT',
                 kilde: 'ANNEN_PART',
+            },
+            {
+                id: 2,
+                periode: {
+                    fom: '2021-07-11',
+                    tom: '2021-07-11',
+                },
+                begrunnelse: '',
+                resultat: 'IKKE_VURDERT',
+                kilde: '',
             },
         ],
     },
