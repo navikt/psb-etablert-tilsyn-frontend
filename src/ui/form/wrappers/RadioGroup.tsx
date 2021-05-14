@@ -16,7 +16,10 @@ interface RadioGroupProps {
 }
 
 const RadioGroup = ({ question, name, validators, radios, onChange }: RadioGroupProps) => {
-    const { control, errors } = useFormContext();
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext();
     const customOnChange = onChange;
     return (
         <Controller
@@ -29,7 +32,7 @@ const RadioGroup = ({ question, name, validators, radios, onChange }: RadioGroup
                 },
             }}
             render={(props) => {
-                const reactHookFormOnChange = props.onChange;
+                const reactHookFormOnChange = props.field.onChange;
                 return (
                     <RadioGruppe legend={question} feil={errors[name]?.message}>
                         {radios.map((radio) => (
@@ -44,7 +47,7 @@ const RadioGroup = ({ question, name, validators, radios, onChange }: RadioGroup
                                     }
                                     reactHookFormOnChange(radio.value);
                                 }}
-                                checked={radio.value === props.value}
+                                checked={radio.value === props.field.value}
                             />
                         ))}
                     </RadioGruppe>

@@ -24,7 +24,10 @@ const Datepicker = ({
     error,
     inputId,
 }: DatepickerProps): JSX.Element => {
-    const { control, errors } = useFormContext();
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext();
 
     return (
         <Controller
@@ -36,7 +39,7 @@ const Datepicker = ({
                 },
             }}
             defaultValue={defaultValue}
-            render={({ onChange, value }) => (
+            render={({ field: { onChange, value } }) => (
                 <PureDatepicker
                     label={label}
                     onChange={onChange}

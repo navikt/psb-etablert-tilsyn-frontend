@@ -14,7 +14,10 @@ interface TextAreaProps {
 }
 
 const TextArea = ({ label, name, validators, helptext, textareaClass, id }: TextAreaProps): JSX.Element => {
-    const { control, errors } = useFormContext();
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext();
 
     return (
         <Controller
@@ -26,7 +29,7 @@ const TextArea = ({ label, name, validators, helptext, textareaClass, id }: Text
                     ...validators,
                 },
             }}
-            render={({ onChange, value }) => {
+            render={({ field: { onChange, value } }) => {
                 if (helptext) {
                     return (
                         <>

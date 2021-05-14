@@ -106,7 +106,7 @@
         "react-collapse": "^5.1.0",
         "react-day-picker": "^7.4.8",
         "react-dom": "^17.0.1",
-        "react-hook-form": "^6.15.1",
+        "react-hook-form": "^7.5.3",
         "react-modal": "^3.12.1"
     }
 }
