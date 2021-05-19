@@ -1,7 +1,11 @@
+import { Period } from '@navikt/period-utils';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Period } from '@navikt/period-utils';
+import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
+import { finnResterendePerioder } from '../../../../util/periodUtils';
+import ContainerContext from '../../../context/ContainerContext';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
 import TextArea from '../../../form/wrappers/TextArea';
@@ -11,10 +15,6 @@ import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
-import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import { getPeriodDifference } from '../../../../util/dateUtils';
-import ContainerContext from '../../../context/ContainerContext';
-import Beskrivelse from '../../../../types/Beskrivelse';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -28,16 +28,7 @@ enum RadioOptions {
     NEI = 'nei',
 }
 
-const finnResterendePerioder = (perioderFraForm: FormPeriod[], periodeTilVurdering: Period) => {
-    const formatertePerioderFraForm = perioderFraForm.map((periode) => periode.period);
-    const resterendePerioder =
-        formatertePerioderFraForm.length > 0 && getPeriodDifference(periodeTilVurdering, formatertePerioderFraForm);
-
-    return resterendePerioder;
-};
-
 interface VurderingAvBeredskapsperioderFormProps {
-    onSubmit: () => void;
     beredskapsperiode: Vurderingsperiode;
     onCancelClick: () => void;
     beskrivelser: Beskrivelse[];

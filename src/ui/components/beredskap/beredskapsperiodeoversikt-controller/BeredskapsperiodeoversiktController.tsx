@@ -35,7 +35,6 @@ const BeredskapsperiodeoversiktController = ({
     return (
         <VurderingAvBeredskapsperioderForm
             beredskapsperiode={valgtPeriode}
-            onSubmit={() => console.log(1)}
             onCancelClick={onCancelClick}
             beskrivelser={beskrivelser}
         />

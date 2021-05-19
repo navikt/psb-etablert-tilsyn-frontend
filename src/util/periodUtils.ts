@@ -1,4 +1,5 @@
 import { Period } from '@navikt/period-utils';
+import { getPeriodDifference } from './dateUtils';
 
 export const getStringMedPerioder = (perioder: Period[]): string => {
     if (perioder.length === 1) {
@@ -18,4 +19,17 @@ export const getStringMedPerioder = (perioder: Period[]): string => {
     });
 
     return `periodene ${perioderString}`;
+};
+
+export const finnResterendePerioder = (
+    perioderFraForm: {
+        period: Period;
+    }[],
+    periodeTilVurdering: Period
+): Period[] => {
+    const formatertePerioderFraForm = perioderFraForm.map((periode) => periode.period);
+    const resterendePerioder =
+        formatertePerioderFraForm.length > 0 && getPeriodDifference(periodeTilVurdering, formatertePerioderFraForm);
+
+    return resterendePerioder;
 };

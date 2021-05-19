@@ -35,7 +35,6 @@ const NattevåksperiodeoversiktController = ({
     return (
         <VurderingAvNattevåksperioderForm
             nattevåksperiode={valgtPeriode}
-            onSubmit={() => console.log(1)}
             onCancelClick={onCancelClick}
             beskrivelser={beskrivelser}
         />
