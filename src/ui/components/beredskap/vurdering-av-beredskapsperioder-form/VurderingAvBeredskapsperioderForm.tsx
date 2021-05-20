@@ -1,7 +1,11 @@
+import { Period } from '@navikt/period-utils';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
-import { Period } from '../../../../types/Period';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
+import { finnResterendePerioder } from '../../../../util/periodUtils';
+import ContainerContext from '../../../context/ContainerContext';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
 import TextArea from '../../../form/wrappers/TextArea';
@@ -11,9 +15,6 @@ import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
-import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import { getPeriodDifference } from '../../../../util/dateUtils';
-import ContainerContext from '../../../context/ContainerContext';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -27,17 +28,10 @@ enum RadioOptions {
     NEI = 'nei',
 }
 
-const finnResterendePerioder = (perioderFraForm: FormPeriod[], periodeTilVurdering: Period) => {
-    const formatertePerioderFraForm = perioderFraForm.map((periode) => periode.period);
-    const resterendePerioder =
-        formatertePerioderFraForm.length > 0 && getPeriodDifference(periodeTilVurdering, formatertePerioderFraForm);
-
-    return resterendePerioder;
-};
-
 interface VurderingAvBeredskapsperioderFormProps {
-    onSubmit: () => void;
     beredskapsperiode: Vurderingsperiode;
+    onCancelClick: () => void;
+    beskrivelser: Beskrivelse[];
 }
 
 interface FormPeriod {
@@ -52,16 +46,27 @@ interface VurderingAvBeredskapsperioderFormState {
 
 const VurderingAvBeredskapsperioderForm = ({
     beredskapsperiode,
+    onCancelClick,
+    beskrivelser,
 }: VurderingAvBeredskapsperioderFormProps): JSX.Element => {
     const { onFinished } = React.useContext(ContainerContext);
+    const defaultBehovForBeredeskap = () => {
+        if (beredskapsperiode.resultat === Vurderingsresultat.OPPFYLT) {
+            return RadioOptions.JA;
+        }
+        if (beredskapsperiode.resultat === Vurderingsresultat.IKKE_OPPFYLT) {
+            return RadioOptions.NEI;
+        }
+        return null;
+    };
 
     const formMethods = useForm({
         defaultValues: {
             [FieldName.PERIODER]: beredskapsperiode?.periode
                 ? [new Period(beredskapsperiode.periode.fom, beredskapsperiode.periode.tom)]
                 : [new Period('', '')],
-            [FieldName.BEGRUNNELSE]: '',
-            [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: undefined,
+            [FieldName.BEGRUNNELSE]: beredskapsperiode.begrunnelse || '',
+            [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: defaultBehovForBeredeskap(),
         },
     });
 
@@ -69,7 +74,7 @@ const VurderingAvBeredskapsperioderForm = ({
 
     const handleSubmit = (formState: VurderingAvBeredskapsperioderFormState) => {
         const { begrunnelse, perioder, harBehovForBeredskap } = formState;
-        const { kilde, periodebeskrivelser } = beredskapsperiode;
+        const { kilde } = beredskapsperiode;
 
         let perioderMedEllerUtenBeredskap;
         let perioderUtenBeredskap = [];
@@ -79,7 +84,6 @@ const VurderingAvBeredskapsperioderForm = ({
                 resultat: Vurderingsresultat.OPPFYLT,
                 begrunnelse,
                 kilde,
-                periodebeskrivelser,
             }));
 
             const resterendePerioder = finnResterendePerioder(perioder, beredskapsperiode.periode);
@@ -88,7 +92,6 @@ const VurderingAvBeredskapsperioderForm = ({
                 resultat: Vurderingsresultat.IKKE_OPPFYLT,
                 begrunnelse: null,
                 kilde,
-                periodebeskrivelser,
             }));
         } else {
             perioderMedEllerUtenBeredskap = [
@@ -100,7 +103,6 @@ const VurderingAvBeredskapsperioderForm = ({
                             : Vurderingsresultat.IKKE_OPPFYLT,
                     begrunnelse,
                     kilde,
-                    periodebeskrivelser,
                 },
             ];
         }
@@ -112,9 +114,13 @@ const VurderingAvBeredskapsperioderForm = ({
     return (
         <DetailView title="Vurdering av beredskap">
             <FormProvider {...formMethods}>
-                <Form onSubmit={formMethods.handleSubmit(handleSubmit)} buttonLabel="Bekreft og fortsett">
+                <Form
+                    onSubmit={formMethods.handleSubmit(handleSubmit)}
+                    buttonLabel="Bekreft og fortsett"
+                    onCancel={onCancelClick}
+                >
                     <Box marginTop={Margin.xLarge}>
-                        <BeskrivelserForPerioden periodebeskrivelser={beredskapsperiode.periodebeskrivelser} />
+                        <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
                         <TextArea

@@ -1,7 +1,11 @@
+import { Period } from '@navikt/period-utils';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Nattevåksperiode } from '../../../../types/Nattevåksperiode';
-import { Period } from '../../../../types/Period';
+import Beskrivelse from '../../../../types/Beskrivelse';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
+import Vurderingsresultat from '../../../../types/Vurderingsresultat';
+import { finnResterendePerioder } from '../../../../util/periodUtils';
+import ContainerContext from '../../../context/ContainerContext';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
 import TextArea from '../../../form/wrappers/TextArea';
@@ -13,8 +17,8 @@ import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
 
 export enum FieldName {
-    VURDERING_AV_NATTEVÅK = 'vurderNattevåk',
-    HAR_BEHOV_FOR_NATTEVÅK = 'erDetBehovForNattevåk',
+    BEGRUNNELSE = 'begrunnelse',
+    HAR_BEHOV_FOR_NATTEVÅK = 'harBehovForNattevåk',
     PERIODER = 'perioder',
 }
 
@@ -25,34 +29,103 @@ enum RadioOptions {
 }
 
 interface VurderingAvNattevåksperioderFormProps {
-    onSubmit: () => void;
-    nattevåksperiode: Nattevåksperiode;
+    nattevåksperiode: Vurderingsperiode;
+    onCancelClick: () => void;
+    beskrivelser: Beskrivelse[];
 }
 
-const VurderingAvNattevåksperioderForm = ({ nattevåksperiode }: VurderingAvNattevåksperioderFormProps): JSX.Element => {
+interface FormPeriod {
+    period: Period;
+}
+
+interface VurderingAvNattevåksperioderFormState {
+    [FieldName.BEGRUNNELSE]: string;
+    [FieldName.PERIODER]: FormPeriod[];
+    [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: RadioOptions;
+}
+
+const VurderingAvNattevåksperioderForm = ({
+    nattevåksperiode,
+    onCancelClick,
+    beskrivelser,
+}: VurderingAvNattevåksperioderFormProps): JSX.Element => {
+    const { onFinished } = React.useContext(ContainerContext);
+    const defaultBehovForNattevåk = () => {
+        if (nattevåksperiode.resultat === Vurderingsresultat.OPPFYLT) {
+            return RadioOptions.JA;
+        }
+        if (nattevåksperiode.resultat === Vurderingsresultat.IKKE_OPPFYLT) {
+            return RadioOptions.NEI;
+        }
+        return null;
+    };
     const formMethods = useForm({
         defaultValues: {
             [FieldName.PERIODER]: nattevåksperiode?.periode
                 ? [new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]
                 : [new Period('', '')],
-            [FieldName.VURDERING_AV_NATTEVÅK]: '',
-            [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: undefined,
+            [FieldName.BEGRUNNELSE]: nattevåksperiode.begrunnelse || '',
+            [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: defaultBehovForNattevåk(),
         },
     });
 
     const erDetBehovForNattevåk = formMethods.watch(FieldName.HAR_BEHOV_FOR_NATTEVÅK);
 
+    const handleSubmit = (formState: VurderingAvNattevåksperioderFormState) => {
+        const { begrunnelse, perioder, harBehovForNattevåk } = formState;
+        const { kilde } = nattevåksperiode;
+
+        let perioderMedEllerUtenNattevåk;
+        let perioderUtenNattevåk = [];
+        if (harBehovForNattevåk === RadioOptions.JA_DELER) {
+            perioderMedEllerUtenNattevåk = perioder.map(({ period }) => ({
+                periode: period,
+                resultat: Vurderingsresultat.OPPFYLT,
+                begrunnelse,
+                kilde,
+            }));
+
+            const resterendePerioder = finnResterendePerioder(perioder, nattevåksperiode.periode);
+            perioderUtenNattevåk = resterendePerioder.map((periode) => ({
+                periode,
+                resultat: Vurderingsresultat.IKKE_OPPFYLT,
+                begrunnelse: null,
+                kilde,
+            }));
+        } else {
+            perioderMedEllerUtenNattevåk = [
+                {
+                    periode: nattevåksperiode.periode,
+                    resultat:
+                        harBehovForNattevåk === RadioOptions.JA
+                            ? Vurderingsresultat.OPPFYLT
+                            : Vurderingsresultat.IKKE_OPPFYLT,
+                    begrunnelse,
+                    kilde,
+                },
+            ];
+        }
+
+        const kombinertePerioder = perioderMedEllerUtenNattevåk.concat(perioderUtenNattevåk);
+
+        onFinished({ nattevåksperioder: kombinertePerioder });
+    };
+
     return (
         <DetailView title="Vurdering av nattevåk">
             <FormProvider {...formMethods}>
-                <Form onSubmit={formMethods.handleSubmit} buttonLabel="Bekreft og fortsett">
+                <Form
+                    onSubmit={formMethods.handleSubmit(handleSubmit)}
+                    buttonLabel="Bekreft og fortsett"
+                    onCancel={onCancelClick}
+                >
                     <Box marginTop={Margin.xLarge}>
-                        <BeskrivelserForPerioden periodebeskrivelser={nattevåksperiode.periodebeskrivelser} />
+                        <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
                         <TextArea
                             label="Gjør en vurdering av om det er behov for nattevåk"
-                            name={FieldName.VURDERING_AV_NATTEVÅK}
+                            name={FieldName.BEGRUNNELSE}
                         />
                     </Box>
                     <Box marginTop={Margin.xLarge}>

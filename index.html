@@ -12,12 +12,10 @@
         <div id="app" style="padding: 2.5rem"></div>
         <script type="text/javascript">
             setTimeout(() => {
-                window.renderEtablertTilsynApp('app', {
+                window.renderTilsynApp('app', {
                     readOnly: false,
                     endpoints: {
-                        etablertTilsyn: 'http://localhost:8082/mock/etablertTilsyn',
-                        beredskap: 'http://localhost:8082/mock/beredskap',
-                        nattevåk: 'http://localhost:8082/mock/nattevak',
+                        tilsyn: 'http://localhost:8082/mock/tilsyn',
                     },
                     onFinished: () => console.log('Aksjonspunkt løst'),
                 });

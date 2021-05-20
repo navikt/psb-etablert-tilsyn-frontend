@@ -1,21 +1,41 @@
 import React from 'react';
-import { VurdertNattevåksperiode } from '../../../../types/Nattevåksperiode';
+import Beskrivelse from '../../../../types/Beskrivelse';
+import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import { prettifyPeriod } from '../../../../util/formats';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import Box, { Margin } from '../../box/Box';
 import DetailView from '../../detail-view/DetailView';
 import LabelledContent from '../../labelled-content/LabelledContent';
+import LinkButton from '../../link-button/LinkButton';
+import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
+import styles from './nattevåksperiodeVurderingsdetaljer.less';
 
 interface NattevåksperiodeVurderingsdetaljerProps {
-    nattevåksperiode: VurdertNattevåksperiode;
+    nattevåksperiode: Vurderingsperiode;
+    onEditClick: () => void;
+    beskrivelser: Beskrivelse[];
 }
 
-const NattevåksperiodeVurderingsdetaljer = ({ nattevåksperiode }: NattevåksperiodeVurderingsdetaljerProps) => {
+const NattevåksperiodeVurderingsdetaljer = ({
+    nattevåksperiode,
+    onEditClick,
+    beskrivelser,
+}: NattevåksperiodeVurderingsdetaljerProps) => {
     return (
-        <DetailView title="Vurdering av nattevåk">
+        <DetailView
+            title="Vurdering av nattevåk"
+            contentAfterTitleRenderer={() => (
+                <WriteAccessBoundContent
+                    contentRenderer={() => (
+                        <LinkButton className={styles.endreLink} onClick={onEditClick}>
+                            Rediger vurdering
+                        </LinkButton>
+                    )}
+                />
+            )}
+        >
             <Box marginTop={Margin.xLarge}>
-                <BeskrivelserForPerioden periodebeskrivelser={nattevåksperiode.periodebeskrivelser} />
+                <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
@@ -32,7 +52,7 @@ const NattevåksperiodeVurderingsdetaljer = ({ nattevåksperiode }: Nattevåkspe
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
                     label="I hvilken periode er det behov for nattevåk?"
-                    content={prettifyPeriod(nattevåksperiode.periode)}
+                    content={nattevåksperiode.periode.prettifyPeriod()}
                 />
             </Box>
         </DetailView>

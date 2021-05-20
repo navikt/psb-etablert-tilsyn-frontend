@@ -2,7 +2,7 @@ import { CalendarPlacement, DatepickerLimitations } from 'nav-datovelger';
 import { SkjemaelementFeilmelding, SkjemaGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { Period } from '../../../types/Period';
+import { Period } from '@navikt/period-utils';
 import Box, { Margin } from '../../components/box/Box';
 import PureDatepicker from '../pure/PureDatepicker';
 import styles from './periodpickerList.less';
@@ -40,7 +40,10 @@ const PeriodpickerList = ({
     afterOnChange,
 }: PeriodpickerListProps): JSX.Element => {
     const formMethods = useFormContext();
-    const { control, errors } = formMethods;
+    const {
+        control,
+        formState: { errors },
+    } = formMethods;
     const fieldArrayMethods = useFieldArray({
         control,
         name,
@@ -61,7 +64,7 @@ const PeriodpickerList = ({
                                     name={`${name}[${index}].period`}
                                     rules={{ validate: { ...(validators || {}) } }}
                                     defaultValue={hasDefaultValue ? defaultValues[index] : new Period('', '')}
-                                    render={({ value, onChange }) => {
+                                    render={({ field: { value, onChange } }) => {
                                         return (
                                             <>
                                                 <PureDatepicker

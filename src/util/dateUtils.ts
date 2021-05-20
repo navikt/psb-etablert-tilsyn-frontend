@@ -1,11 +1,13 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import duration from 'dayjs/plugin/duration';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Period } from '../types/Period';
+import { Period } from '@navikt/period-utils';
 
 const dateFormats = ['YYYY-MM-DD', 'DD.MM.YYYY'];
 
 dayjs.extend(utc);
+dayjs.extend(duration);
 dayjs.extend(customParseFormat);
 
 export function isSameOrBefore(date, otherDate) {
@@ -71,3 +73,7 @@ export function isValidDate(date: any) {
 export function isValidPeriod({ fom, tom }: Period) {
     return isValidDate(fom) && isValidDate(tom);
 }
+
+export const beregnDagerTimer = (dur: string) => {
+    return Math.round(dayjs.duration(dur).asHours() * 100) / 100;
+};

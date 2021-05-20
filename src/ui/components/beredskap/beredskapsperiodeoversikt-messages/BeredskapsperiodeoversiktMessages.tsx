@@ -1,19 +1,19 @@
 import React from 'react';
-import Vurderingsoversikt from '../../../../types/Vurderingsoversikt';
+import BeredskapType from '../../../../types/BeredskapType';
 import { getStringMedPerioder } from '../../../../util/periodUtils';
 import CustomAlertstripe from '../../alertstripe/Alertstripe';
 import Box, { Margin } from '../../box/Box';
 
 interface BeredskapsperiodeoversiktMessagesProps {
-    beredskapsperiodeoversikt: Vurderingsoversikt;
+    beredskapData: BeredskapType;
 }
 
-const BeredskapsperiodeoversiktMessages = ({ beredskapsperiodeoversikt }: BeredskapsperiodeoversiktMessagesProps) => {
-    if (!beredskapsperiodeoversikt.harPerioder()) {
+const BeredskapsperiodeoversiktMessages = ({ beredskapData }: BeredskapsperiodeoversiktMessagesProps) => {
+    if (!beredskapData.harPerioder()) {
         return <p>Søker har ikke oppgitt at det er behov for beredskap.</p>;
     }
-    if (beredskapsperiodeoversikt.harPerioderTilVurdering()) {
-        const perioderTilVurdering = beredskapsperiodeoversikt.finnPerioderTilVurdering().map(({ periode }) => periode);
+    if (beredskapData.harPerioderTilVurdering()) {
+        const perioderTilVurdering = beredskapData.finnPerioderTilVurdering().map(({ periode }) => periode);
         return (
             <Box marginBottom={Margin.large}>
                 <CustomAlertstripe type="advarsel">

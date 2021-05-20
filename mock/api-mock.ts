@@ -1,8 +1,6 @@
-import express from 'express';
 import cors from 'cors';
-import mockedEtablertTilsyn from './mocked-data/mockedEtablertTilsyn';
-import mockedBeredskapsperioder from './mocked-data/mockedBeredskapsperioder';
-import mockedNattevåksperioder from './mocked-data/mockedNattevåksperioder';
+import express from 'express';
+import mockedTilsyn from './mocked-data/mockedTilsyn';
 
 const app = express();
 
@@ -14,16 +12,8 @@ app.use(
     })
 );
 
-app.use('/mock/etablertTilsyn', (req, res) => {
-    res.send({ etablertTilsyn: mockedEtablertTilsyn });
-});
-
-app.use('/mock/beredskap', (req, res) => {
-    res.send({ beredskapsperioder: mockedBeredskapsperioder });
-});
-
-app.use('/mock/nattevak', (req, res) => {
-    res.send({ nattevåksperioder: mockedNattevåksperioder });
+app.use('/mock/tilsyn', (req, res) => {
+    res.send(mockedTilsyn);
 });
 
 const port = 8082;

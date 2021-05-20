@@ -1,21 +1,41 @@
 import React from 'react';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import { prettifyPeriod } from '../../../../util/formats';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import Box, { Margin } from '../../box/Box';
 import DetailView from '../../detail-view/DetailView';
 import LabelledContent from '../../labelled-content/LabelledContent';
+import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
+import LinkButton from '../../link-button/LinkButton';
+import styles from './beredskapsperiodeVurderingsdetaljer.less';
+import Beskrivelse from '../../../../types/Beskrivelse';
 
 interface BeredskapsperiodeVurderingsdetaljerProps {
     beredskapsperiode: Vurderingsperiode;
+    onEditClick: () => void;
+    beskrivelser: Beskrivelse[];
 }
 
-const BeredskapsperiodeVurderingsdetaljer = ({ beredskapsperiode }: BeredskapsperiodeVurderingsdetaljerProps) => {
+const BeredskapsperiodeVurderingsdetaljer = ({
+    beredskapsperiode,
+    onEditClick,
+    beskrivelser,
+}: BeredskapsperiodeVurderingsdetaljerProps) => {
     return (
-        <DetailView title="Vurdering av beredskap">
+        <DetailView
+            title="Vurdering av beredskap"
+            contentAfterTitleRenderer={() => (
+                <WriteAccessBoundContent
+                    contentRenderer={() => (
+                        <LinkButton className={styles.endreLink} onClick={onEditClick}>
+                            Rediger vurdering
+                        </LinkButton>
+                    )}
+                />
+            )}
+        >
             <Box marginTop={Margin.xLarge}>
-                <BeskrivelserForPerioden periodebeskrivelser={beredskapsperiode.periodebeskrivelser} />
+                <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
@@ -32,7 +52,7 @@ const BeredskapsperiodeVurderingsdetaljer = ({ beredskapsperiode }: Beredskapspe
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
                     label="I hvilken periode er det behov for beredskap?"
-                    content={prettifyPeriod(beredskapsperiode.periode)}
+                    content={beredskapsperiode.periode.prettifyPeriod()}
                 />
             </Box>
         </DetailView>

@@ -1,10 +1,9 @@
+import { Period } from '@navikt/period-utils';
 import React from 'react';
-import { Period } from '../../../types/Period';
-import { prettifyPeriod } from '../../../util/formats';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
+import OnePersonIconGray from '../icons/OnePersonIconGray';
 import WarningIcon from '../icons/WarningIcon';
 import styles from './periodeSomSkalVurderes.less';
-import OnePersonIconGray from '../icons/OnePersonIconGray';
 
 interface PeriodeSomSkalVurderesProps {
     periode: Period;
@@ -20,7 +19,7 @@ const PeriodeSomSkalVurderes = ({ periode }: PeriodeSomSkalVurderesProps) => {
             <div className={styles.periodeSomSkalVurderes__texts}>
                 <div>
                     <p key={`${periode.fom}_${periode.tom}`} className={styles.periodeSomSkalVurderes__texts__period}>
-                        {prettifyPeriod(periode)}
+                        {periode.prettifyPeriod()}
                     </p>
                 </div>
                 <div className={styles.periodeSomSkalVurderes__texts__kildeIcon}>

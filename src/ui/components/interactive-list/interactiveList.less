@@ -5,47 +5,56 @@
 }
 
 .interactiveListElement {
-    padding: 0.5rem 1.625rem 0.4375rem 0.8125rem;
-    border: 1px solid #c6c2bf;
-    border-top: none;
+    border-bottom: 1px solid #c6c2bf;
     position: relative;
+
+    &:first-of-type {
+        border-top: 1px solid #c6c2bf;
+    }
 
     &:hover {
         background: #f2f7fc;
     }
+
+    &:last-of-type {
+        border-bottom: 0;
+    }
+
+    &__chevron {
+        transform: rotate(-90deg);
+        align-self: center;
+        margin-left: 1.125rem;
+        margin-right: 1.875rem;
+    }
 }
 
 .interactiveListElement--active {
-    padding-left: 0.5625rem;
     background: #f2f7fc;
-    border-left: 5px solid rgba(0, 103, 197, 1);
-    border-right: 1px solid #0067c5;
-    border-bottom: 1px solid #0067c5;
-    border-top: 1px solid #0067c5;
-}
 
-.interactiveListElement:first-child {
-    border-top: 1px solid #c6c2bf;
-}
+    &:before {
+        display: block;
+        content: '';
+        width: 0.3125rem;
+        height: 3.3125rem;
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+        background-color: #0067c5;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
 
-.interactiveListElement--active:first-child {
-    border-top: 1px solid #0067c5;
-}
-
-.interactiveListElement--active:first-child {
-    border-top: 1px solid #0067c5;
-}
-
-.interactiveListElement--active:not(:first-child) {
-    border-top: 1px solid #0067c5;
-    margin-top: -1px;
+    p {
+        color: #262626;
+        font-weight: bold;
+        text-decoration: none;
+    }
 }
 
 .interactiveListElement__button {
+    padding: 0.9375rem 0 0.875rem 1.5rem;
     border: none;
     background: transparent;
-    padding: 0;
-    display: block;
     text-align: left;
     width: 100%;
     outline: none;
@@ -53,5 +62,10 @@
 
     &:focus-visible {
         outline: #0067c5 auto 1px;
+    }
+
+    &__contentContainer {
+        display: flex;
+        justify-content: space-between;
     }
 }
