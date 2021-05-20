@@ -5,5 +5,5 @@
     "team": "pleiepenger",
     "minReplicas": "1",
     "maxReplicas": "2",
-    "ingresses": ["https://etablert-tilsyn-frontend.dev.adeo.no", "https://etablert-tilsyn-frontend.intern.dev.adeo.no"]
+    "ingresses": ["https://etablert-tilsyn-frontend.dev.adeo.no"]
 }
