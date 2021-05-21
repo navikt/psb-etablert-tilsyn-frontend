@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Period } from '@navikt/period-utils';
+import { Period } from '@navikt/k9-period-utils';
 import { getPeriodAsListOfDays, isValidDate, isValidPeriod } from '../dateUtils';
 
 test('getPeriodAsListOfDays', () => {

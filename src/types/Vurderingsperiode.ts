@@ -1,4 +1,4 @@
-import { Period } from '@navikt/period-utils';
+import { Period } from '@navikt/k9-period-utils';
 import Kilde from './Kilde';
 import { Vurdering } from './TilsynResponse';
 import Vurderingsresultat from './Vurderingsresultat';

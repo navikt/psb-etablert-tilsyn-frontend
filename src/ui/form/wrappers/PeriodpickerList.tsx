@@ -2,7 +2,7 @@ import { CalendarPlacement, DatepickerLimitations } from 'nav-datovelger';
 import { SkjemaelementFeilmelding, SkjemaGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { Period } from '@navikt/period-utils';
+import { Period } from '@navikt/k9-period-utils';
 import Box, { Margin } from '../../components/box/Box';
 import PureDatepicker from '../pure/PureDatepicker';
 import styles from './periodpickerList.less';

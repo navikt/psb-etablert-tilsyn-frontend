@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Period } from '@navikt/period-utils';
+import { Period } from '@navikt/k9-period-utils';
 
 const dateFormats = ['YYYY-MM-DD', 'DD.MM.YYYY'];
 
