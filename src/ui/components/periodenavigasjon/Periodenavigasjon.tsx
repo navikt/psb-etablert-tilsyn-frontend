@@ -48,7 +48,7 @@ const Periodenavigasjon = ({
             <Box marginBottom={Margin.large}>
                 <Undertittel className={styles.vurderingsnavigasjon__heading}>Alle perioder</Undertittel>
             </Box>
-            {antallPerioder === 0 && <p>Ingen vurderinger å vise</p>}
+            {antallPerioder === 0 && <p className={styles.vurderingsnavigasjon__emptyText}>Ingen vurderinger å vise</p>}
             {antallPerioder > 0 && (
                 <div className={styles.vurderingsvelgerContainer}>
                     <div className={styles.vurderingsvelgerContainer__columnHeadings}>
