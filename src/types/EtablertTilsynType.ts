@@ -11,7 +11,7 @@ class EtablertTilsynType {
     kilde: Kilde;
 
     constructor({ periode, tidPerDag, kilde }: EtablertTilsynPeriode) {
-        this.periode = new Period(periode.fom, periode.fom);
+        this.periode = new Period(periode.fom, periode.tom);
         this.tidPerDag = beregnDagerTimer(tidPerDag);
         this.kilde = kilde;
     }

@@ -15,7 +15,7 @@ class Vurderingsperiode {
     id: number;
 
     constructor({ periode, kilde, resultat, begrunnelse, id }: Vurdering) {
-        this.periode = new Period(periode.fom, periode.fom);
+        this.periode = new Period(periode.fom, periode.tom);
         this.kilde = kilde;
         this.resultat = resultat;
         this.begrunnelse = begrunnelse;
