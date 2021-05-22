@@ -66,14 +66,6 @@ export function getPeriodDifference(basePeriod: Period, periods: Period[]) {
     return getDaySequencesAsListOfPeriods(daysToInclude);
 }
 
-export function isValidDate(date: any) {
-    return !isNaN(new Date(date) as any);
-}
-
-export function isValidPeriod({ fom, tom }: Period) {
-    return isValidDate(fom) && isValidDate(tom);
-}
-
 export const beregnDagerTimer = (dur: string) => {
     return Math.round(dayjs.duration(dur).asHours() * 100) / 100;
 };
