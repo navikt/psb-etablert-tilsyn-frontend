@@ -36,7 +36,7 @@ const EtablertTilsyn = ({ etablertTilsynData }: EtablertTilsynProps): JSX.Elemen
             <Box marginBottom={Margin.large}>
                 <Undertittel className={styles.etablertTilsyn__heading}>Alle perioder</Undertittel>
             </Box>
-            <Lenke className={styles.etablertTilsyn__lenke} href="#" target="_blank">
+            <Lenke className={styles.etablertTilsyn__lenke} href="#">
                 Gjør endringer i Punsj
             </Lenke>
             {!harVurderinger && (
