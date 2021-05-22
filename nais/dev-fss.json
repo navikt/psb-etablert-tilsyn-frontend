@@ -1,9 +1,9 @@
 {
-    "app": "etablert-tilsyn-frontend",
+    "app": "psb-etablert-tilsyn-frontend",
     "cluster": "dev-fss",
     "namespace": "pleiepenger",
     "team": "pleiepenger",
     "minReplicas": "1",
     "maxReplicas": "2",
-    "ingresses": ["https://etablert-tilsyn-frontend.dev.adeo.no"]
+    "ingresses": ["https://psb-etablert-tilsyn-frontend.dev.adeo.no"]
 }
