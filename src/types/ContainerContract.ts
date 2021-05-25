@@ -6,7 +6,10 @@ interface ContainerContract {
         tilsyn: string;
     };
     httpErrorHandler: HttpErrorHandler;
-    onFinished: (someProp: any) => void;
+    beredskapMåVurderes: boolean;
+    nattevåkMåVurderes: boolean;
+    lagreBeredskapvurdering: (data: any) => void;
+    lagreNattevåkvurdering: (data: any) => void;
 }
 
 export default ContainerContract;

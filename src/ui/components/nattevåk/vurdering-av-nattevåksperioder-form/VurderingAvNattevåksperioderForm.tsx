@@ -49,7 +49,7 @@ const VurderingAvNattevåksperioderForm = ({
     onCancelClick,
     beskrivelser,
 }: VurderingAvNattevåksperioderFormProps): JSX.Element => {
-    const { onFinished } = React.useContext(ContainerContext);
+    const { lagreNattevåkvurdering } = React.useContext(ContainerContext);
     const defaultBehovForNattevåk = () => {
         if (nattevåksperiode.resultat === Vurderingsresultat.OPPFYLT) {
             return RadioOptions.JA;
@@ -107,8 +107,7 @@ const VurderingAvNattevåksperioderForm = ({
         }
 
         const kombinertePerioder = perioderMedEllerUtenNattevåk.concat(perioderUtenNattevåk);
-
-        onFinished({ nattevåksperioder: kombinertePerioder });
+        lagreNattevåkvurdering({ nattevåksperioder: kombinertePerioder });
     };
 
     return (

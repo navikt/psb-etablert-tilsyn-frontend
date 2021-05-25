@@ -49,7 +49,7 @@ const VurderingAvBeredskapsperioderForm = ({
     onCancelClick,
     beskrivelser,
 }: VurderingAvBeredskapsperioderFormProps): JSX.Element => {
-    const { onFinished } = React.useContext(ContainerContext);
+    const { lagreBeredskapvurdering } = React.useContext(ContainerContext);
     const defaultBehovForBeredeskap = () => {
         if (beredskapsperiode.resultat === Vurderingsresultat.OPPFYLT) {
             return RadioOptions.JA;
@@ -108,7 +108,7 @@ const VurderingAvBeredskapsperioderForm = ({
         }
 
         const kombinertePerioder = perioderMedEllerUtenBeredskap.concat(perioderUtenBeredskap);
-        onFinished({ beredskapsperioder: kombinertePerioder });
+        lagreBeredskapvurdering({ beredskapsperioder: kombinertePerioder });
     };
 
     return (

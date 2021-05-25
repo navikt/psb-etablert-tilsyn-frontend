@@ -19,9 +19,7 @@ const Form = ({ children, onSubmit, buttonLabel, shouldShowSubmitButton, onCance
             {shouldShowSubmitButton !== false && (
                 <Box marginTop={Margin.xxLarge}>
                     <div className={styles.buttonContainer}>
-                        <WriteAccessBoundContent
-                            contentRenderer={() => <Hovedknapp id="submitButton">{buttonLabel}</Hovedknapp>}
-                        />
+                            <Hovedknapp id="submitButton">{buttonLabel}</Hovedknapp>
                         {onCancel && (
                             <div className={styles.buttonContainer__avbryt}>
                                 <Knapp htmlType="button" onClick={onCancel}>
