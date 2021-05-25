@@ -107,7 +107,7 @@ const VurderingAvNattevåksperioderForm = ({
         }
 
         const kombinertePerioder = perioderMedEllerUtenNattevåk.concat(perioderUtenNattevåk);
-        lagreNattevåkvurdering({ nattevåksperioder: kombinertePerioder });
+        lagreNattevåkvurdering({ vurderinger: kombinertePerioder });
     };
 
     return (

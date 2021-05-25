@@ -108,7 +108,7 @@ const VurderingAvBeredskapsperioderForm = ({
         }
 
         const kombinertePerioder = perioderMedEllerUtenBeredskap.concat(perioderUtenBeredskap);
-        lagreBeredskapvurdering({ beredskapsperioder: kombinertePerioder });
+        lagreBeredskapvurdering({ vurderinger: kombinertePerioder });
     };
 
     return (

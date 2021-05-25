@@ -10,6 +10,8 @@ interface ContainerContract {
     nattevåkMåVurderes: boolean;
     lagreBeredskapvurdering: (data: any) => void;
     lagreNattevåkvurdering: (data: any) => void;
+    harAksjonspunktForBeredskap: boolean;
+    harAksjonspunktForNattevåk: boolean;
 }
 
 export default ContainerContract;

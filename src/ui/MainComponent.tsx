@@ -1,4 +1,5 @@
 import axios from 'axios';
+import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
 import ContainerContract from '../types/ContainerContract';
@@ -6,6 +7,7 @@ import { TilsynResponse } from '../types/TilsynResponse';
 import { get } from '../util/httpUtils';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
+import WarningIcon from './components/icons/WarningIcon';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
 import PageContainer from './components/page-container/PageContainer';
 import ContainerContext from './context/ContainerContext';
@@ -19,6 +21,27 @@ interface MainComponentProps {
 
 const tabs = ['Etablert tilsyn', 'Beredskap', 'Nattevåk'];
 
+interface TabItemProps {
+    label: string;
+    showWarningIcon: boolean;
+}
+
+const TabItem = ({ label, showWarningIcon }: TabItemProps) => {
+    const cls = classnames(styles.medisinskVilkårTabItem, {
+        [styles.medisinskVilkårTabItemExtended]: showWarningIcon,
+    });
+    return (
+        <div className={cls}>
+            {label}
+            {showWarningIcon && (
+                <div className={styles.medisinskVilkårTabItem__warningIcon}>
+                    <WarningIcon />
+                </div>
+            )}
+        </div>
+    );
+};
+
 const MainComponent = ({ data }: MainComponentProps) => {
     const [state, dispatch] = React.useReducer(mainComponentReducer, {
         isLoading: true,
@@ -28,7 +51,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
     });
     const { isLoading, etablertTilsyn, beredskap, nattevåk } = state;
     const [activeTab, setActiveTab] = React.useState(0);
-    const { endpoints, httpErrorHandler } = data;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
 
     const getTilsyn = () =>
@@ -58,7 +81,18 @@ const MainComponent = ({ data }: MainComponentProps) => {
             <div className={styles.mainComponent}>
                 <TabsPure
                     kompakt
-                    tabs={tabs.map((tabName, index) => ({ label: tabName, aktiv: activeTab === index }))}
+                    tabs={tabs.map((tabName, index) => ({
+                        label: (
+                            <TabItem
+                                label={tabName}
+                                showWarningIcon={
+                                    (index === 1 && harAksjonspunktForBeredskap) ||
+                                    (index === 2 && harAksjonspunktForNattevåk)
+                                }
+                            />
+                        ),
+                        aktiv: activeTab === index,
+                    }))}
                     onChange={(event, clickedIndex) => setActiveTab(clickedIndex)}
                 />
                 <PageContainer isLoading={isLoading}>
