@@ -1,6 +1,6 @@
 {
     "name": "psb-etablert-tilsyn-frontend",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "index.js",
     "scripts": {
         "test": "jest",
@@ -10,7 +10,8 @@
         "dev": "node webpack/webpack-config.development.js",
         "version": "node ./version.js",
         "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
-        "api-mock": "ts-node mock/api-mock.ts"
+        "api-mock": "ts-node mock/api-mock.ts",
+        "preinstall": "npx npm-force-resolutions"
     },
     "keywords": [],
     "author": "NAV IT",
@@ -104,5 +105,8 @@
         "react-dom": "^17.0.1",
         "react-hook-form": "^7.5.3",
         "react-modal": "^3.12.1"
+    },
+    "resolutions": {
+        "multicast-dns": "7.2.3"
     }
 }
