@@ -42,6 +42,16 @@ const TabItem = ({ label, showWarningIcon }: TabItemProps) => {
     );
 };
 
+const setDefaultActiveTabIndex = ({ harAksjonspunktForBeredskap, harAksjonspunktForNattevåk }: ContainerContract) => {
+    if (harAksjonspunktForBeredskap) {
+        return 1;
+    }
+    if (harAksjonspunktForNattevåk) {
+        return 2;
+    }
+    return 0;
+}
+
 const MainComponent = ({ data }: MainComponentProps) => {
     const [state, dispatch] = React.useReducer(mainComponentReducer, {
         isLoading: true,
@@ -50,8 +60,8 @@ const MainComponent = ({ data }: MainComponentProps) => {
         nattevåk: null,
     });
     const { isLoading, etablertTilsyn, beredskap, nattevåk } = state;
-    const [activeTab, setActiveTab] = React.useState(0);
     const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
+    const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
 
     const getTilsyn = () =>

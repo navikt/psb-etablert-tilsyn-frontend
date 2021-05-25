@@ -90,7 +90,7 @@ const VurderingAvBeredskapsperioderForm = ({
             perioderUtenBeredskap = resterendePerioder.map((periode) => ({
                 periode,
                 resultat: Vurderingsresultat.IKKE_OPPFYLT,
-                begrunnelse: null,
+                begrunnelse,
                 kilde,
             }));
         } else {
