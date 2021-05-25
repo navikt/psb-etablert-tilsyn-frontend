@@ -10,8 +10,7 @@
         "dev": "node webpack/webpack-config.development.js",
         "version": "node ./version.js",
         "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
-        "api-mock": "ts-node mock/api-mock.ts",
-        "preinstall": "npx npm-force-resolutions"
+        "api-mock": "ts-node mock/api-mock.ts"
     },
     "keywords": [],
     "author": "NAV IT",
