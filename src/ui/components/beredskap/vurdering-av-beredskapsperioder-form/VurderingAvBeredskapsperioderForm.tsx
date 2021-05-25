@@ -6,6 +6,7 @@ import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import { finnResterendePerioder } from '../../../../util/periodUtils';
 import ContainerContext from '../../../context/ContainerContext';
+import { required } from '../../../form/validators/index';
 import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
 import RadioGroup from '../../../form/wrappers/RadioGroup';
 import TextArea from '../../../form/wrappers/TextArea';
@@ -126,6 +127,7 @@ const VurderingAvBeredskapsperioderForm = ({
                         <TextArea
                             label="Gjør en vurdering av om det er behov for beredskap"
                             name={FieldName.BEGRUNNELSE}
+                            validators={{ required }}
                         />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
@@ -137,6 +139,7 @@ const VurderingAvBeredskapsperioderForm = ({
                                 { value: RadioOptions.NEI, label: 'Nei' },
                             ]}
                             name={FieldName.HAR_BEHOV_FOR_BEREDSKAP}
+                            validators={{ required }}
                         />
                     </Box>
                     {erDetBehovForBeredskap === RadioOptions.JA_DELER && (
@@ -171,6 +174,22 @@ const VurderingAvBeredskapsperioderForm = ({
                                         />
                                     </Box>
                                 )}
+                                validators={{
+                                    overlaps: (valgtPeriode: Period) => {
+                                        const andreValgtePerioder = formMethods
+                                            .getValues()
+                                            .perioder.filter(
+                                                (periodWrapper: any) => periodWrapper.period !== valgtPeriode
+                                            )
+                                            .map(({ period }: any) => new Period(period.fom, period.tom));
+
+                                        const valgtPeriodePeriod = new Period(valgtPeriode.fom, valgtPeriode.tom);
+                                        if (valgtPeriodePeriod.overlapsWithSomePeriodInList(andreValgtePerioder)) {
+                                            return 'Beredskapsperiodene kan ikke overlappe';
+                                        }
+                                        return null;
+                                    },
+                                }}
                             />
                         </Box>
                     )}
