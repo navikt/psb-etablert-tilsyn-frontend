@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 
-const port = 8080;
+const port = 8484;
 app.listen(port, (error) => {
     if (error) {
         console.error(error);
