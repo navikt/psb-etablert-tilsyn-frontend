@@ -27,14 +27,14 @@ interface TabItemProps {
 }
 
 const TabItem = ({ label, showWarningIcon }: TabItemProps) => {
-    const cls = classnames(styles.medisinskVilkårTabItem, {
-        [styles.medisinskVilkårTabItemExtended]: showWarningIcon,
+    const cls = classnames(styles.tabItem, {
+        [styles.tabItemExtended]: showWarningIcon,
     });
     return (
         <div className={cls}>
             {label}
             {showWarningIcon && (
-                <div className={styles.medisinskVilkårTabItem__warningIcon}>
+                <div className={styles.tabItem__warningIcon}>
                     <WarningIcon />
                 </div>
             )}
@@ -50,7 +50,7 @@ const setDefaultActiveTabIndex = ({ harAksjonspunktForBeredskap, harAksjonspunkt
         return 2;
     }
     return 0;
-}
+};
 
 const MainComponent = ({ data }: MainComponentProps) => {
     const [state, dispatch] = React.useReducer(mainComponentReducer, {
