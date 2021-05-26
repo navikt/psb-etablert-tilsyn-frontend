@@ -118,7 +118,7 @@ const VurderingAvNattevåksperioderForm = ({
                     buttonLabel="Bekreft og fortsett"
                     onCancel={onCancelClick}
                 >
-                    <Box marginTop={Margin.xLarge}>
+                    <Box marginTop={Margin.large}>
                         <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
