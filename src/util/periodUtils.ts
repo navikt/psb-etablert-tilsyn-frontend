@@ -27,9 +27,13 @@ export const finnResterendePerioder = (
     }[],
     periodeTilVurdering: Period
 ): Period[] => {
-    const formatertePerioderFraForm = perioderFraForm.map((periode) => periode.period);
+    const formatertePerioderFraForm = perioderFraForm.map((periode) => {
+        if (!periode.period) return periode;
+        return periode.period;
+    });
     const resterendePerioder =
-        formatertePerioderFraForm.length > 0 && getPeriodDifference(periodeTilVurdering, formatertePerioderFraForm);
+        formatertePerioderFraForm.length > 0 &&
+        getPeriodDifference(periodeTilVurdering, formatertePerioderFraForm as Period[]);
 
     return resterendePerioder;
 };

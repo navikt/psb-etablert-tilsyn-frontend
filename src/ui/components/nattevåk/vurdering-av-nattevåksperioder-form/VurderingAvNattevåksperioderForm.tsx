@@ -1,6 +1,7 @@
-import { Period } from '@navikt/k9-period-utils';
+import { getPeriodDifference, Period } from '@navikt/k9-period-utils';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
@@ -15,6 +16,7 @@ import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
+import LabelledContent from '../../labelled-content/LabelledContent';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -110,6 +112,12 @@ const VurderingAvNattevåksperioderForm = ({
         lagreNattevåkvurdering({ vurderinger: kombinertePerioder });
     };
 
+    const valgtePerioder = formMethods.watch(FieldName.PERIODER);
+    const perioderUtenBehovForNattevåk = finnResterendePerioder(
+        (valgtePerioder || []) as any,
+        nattevåksperiode.periode
+    );
+
     return (
         <DetailView title="Vurdering av nattevåk">
             <FormProvider {...formMethods}>
@@ -169,6 +177,20 @@ const VurderingAvNattevåksperioderForm = ({
                                     </Box>
                                 )}
                             />
+                        </Box>
+                    )}
+                    {perioderUtenBehovForNattevåk.length > 0 && (
+                        <Box marginTop={Margin.xLarge}>
+                            <AlertStripeInfo>
+                                <LabelledContent
+                                    label="Resterende perioder har søkeren ikke behov for nattevåk:"
+                                    content={perioderUtenBehovForNattevåk.map((periode) => (
+                                        <p key={`${periode.fom}-${periode.tom}`} style={{ margin: 0 }}>
+                                            {periode.prettifyPeriod()}
+                                        </p>
+                                    ))}
+                                />
+                            </AlertStripeInfo>
                         </Box>
                     )}
                 </Form>

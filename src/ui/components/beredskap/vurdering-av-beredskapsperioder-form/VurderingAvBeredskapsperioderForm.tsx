@@ -1,6 +1,7 @@
 import { Period } from '@navikt/k9-period-utils';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
@@ -16,6 +17,7 @@ import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
+import LabelledContent from '../../labelled-content/LabelledContent';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -112,6 +114,12 @@ const VurderingAvBeredskapsperioderForm = ({
         lagreBeredskapvurdering({ vurderinger: kombinertePerioder });
     };
 
+    const valgtePerioder = formMethods.watch(FieldName.PERIODER);
+    const perioderUtenBehovForBeredskap = finnResterendePerioder(
+        (valgtePerioder || []) as any,
+        beredskapsperiode.periode
+    );
+
     return (
         <DetailView title="Vurdering av beredskap">
             <FormProvider {...formMethods}>
@@ -191,6 +199,20 @@ const VurderingAvBeredskapsperioderForm = ({
                                     },
                                 }}
                             />
+                        </Box>
+                    )}
+                    {perioderUtenBehovForBeredskap.length > 0 && (
+                        <Box marginTop={Margin.xLarge}>
+                            <AlertStripeInfo>
+                                <LabelledContent
+                                    label="Resterende perioder har søkeren ikke behov for beredskap:"
+                                    content={perioderUtenBehovForBeredskap.map((periode) => (
+                                        <p key={`${periode.fom}-${periode.tom}`} style={{ margin: 0 }}>
+                                            {periode.prettifyPeriod()}
+                                        </p>
+                                    ))}
+                                />
+                            </AlertStripeInfo>
                         </Box>
                     )}
                 </Form>

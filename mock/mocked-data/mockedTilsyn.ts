@@ -46,7 +46,7 @@ export default {
                 id: 2,
                 periode: {
                     fom: '2021-07-11',
-                    tom: '2021-07-11',
+                    tom: '2021-07-12',
                 },
                 begrunnelse: '',
                 resultat: 'IKKE_VURDERT',
@@ -91,7 +91,7 @@ export default {
                 id: 2,
                 periode: {
                     fom: '2021-07-11',
-                    tom: '2021-07-11',
+                    tom: '2021-07-12',
                 },
                 begrunnelse: '',
                 resultat: 'IKKE_VURDERT',
