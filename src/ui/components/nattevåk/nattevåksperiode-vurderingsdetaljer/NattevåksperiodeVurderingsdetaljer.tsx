@@ -50,10 +50,7 @@ const NattevåksperiodeVurderingsdetaljer = ({
                 />
             </Box>
             <Box marginTop={Margin.xLarge}>
-                <LabelledContent
-                    label="I hvilken periode er det behov for nattevåk?"
-                    content={nattevåksperiode.periode.prettifyPeriod()}
-                />
+                <LabelledContent label="Perioder vurdert" content={nattevåksperiode.periode.prettifyPeriod()} />
             </Box>
         </DetailView>
     );

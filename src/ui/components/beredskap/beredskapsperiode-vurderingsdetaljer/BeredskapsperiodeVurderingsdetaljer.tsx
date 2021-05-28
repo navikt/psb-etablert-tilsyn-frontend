@@ -50,10 +50,7 @@ const BeredskapsperiodeVurderingsdetaljer = ({
                 />
             </Box>
             <Box marginTop={Margin.xLarge}>
-                <LabelledContent
-                    label="I hvilken periode er det behov for beredskap?"
-                    content={beredskapsperiode.periode.prettifyPeriod()}
-                />
+                <LabelledContent label="Perioder vurdert" content={beredskapsperiode.periode.prettifyPeriod()} />
             </Box>
         </DetailView>
     );
