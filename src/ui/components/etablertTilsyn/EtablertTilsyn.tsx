@@ -1,4 +1,3 @@
-import Lenke from 'nav-frontend-lenker';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
@@ -36,9 +35,6 @@ const EtablertTilsyn = ({ etablertTilsynData }: EtablertTilsynProps): JSX.Elemen
             <Box marginBottom={Margin.large}>
                 <Undertittel className={styles.etablertTilsyn__heading}>Alle perioder</Undertittel>
             </Box>
-            <Lenke className={styles.etablertTilsyn__lenke} href="#">
-                Gjør endringer i Punsj
-            </Lenke>
             {!harVurderinger && (
                 <p className={styles.etablertTilsyn__ingenTilsyn}>Søker har ikke oppgitt etablert tilsyn</p>
             )}
