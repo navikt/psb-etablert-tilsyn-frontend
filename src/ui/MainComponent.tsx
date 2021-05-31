@@ -1,3 +1,4 @@
+import { PageContainer } from '@navikt/k9-react-components';
 import axios from 'axios';
 import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
@@ -9,7 +10,6 @@ import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioder
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
 import WarningIcon from './components/icons/WarningIcon';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
-import PageContainer from './components/page-container/PageContainer';
 import ContainerContext from './context/ContainerContext';
 import ActionType from './mainActionTypes';
 import styles from './mainComponent.less';
