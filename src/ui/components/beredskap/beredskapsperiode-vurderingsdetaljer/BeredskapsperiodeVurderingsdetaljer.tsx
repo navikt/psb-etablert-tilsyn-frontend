@@ -1,14 +1,14 @@
+import { Box, Margin } from '@navikt/k9-react-components';
 import React from 'react';
+import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
-import Box, { Margin } from '../../box/Box';
 import DetailView from '../../detail-view/DetailView';
 import LabelledContent from '../../labelled-content/LabelledContent';
-import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import LinkButton from '../../link-button/LinkButton';
+import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import styles from './beredskapsperiodeVurderingsdetaljer.less';
-import Beskrivelse from '../../../../types/Beskrivelse';
 
 interface BeredskapsperiodeVurderingsdetaljerProps {
     beredskapsperiode: Vurderingsperiode;

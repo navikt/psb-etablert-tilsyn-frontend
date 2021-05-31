@@ -1,9 +1,9 @@
+import { Period } from '@navikt/k9-period-utils';
+import { Box, Margin } from '@navikt/k9-react-components';
 import { CalendarPlacement, DatepickerLimitations } from 'nav-datovelger';
 import { SkjemaelementFeilmelding, SkjemaGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { Period } from '@navikt/k9-period-utils';
-import Box, { Margin } from '../../components/box/Box';
 import PureDatepicker from '../pure/PureDatepicker';
 import styles from './periodpickerList.less';
 

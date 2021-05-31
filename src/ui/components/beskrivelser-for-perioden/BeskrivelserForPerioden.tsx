@@ -1,8 +1,8 @@
+import { Box, Margin } from '@navikt/k9-react-components';
 import * as React from 'react';
-import Kilde from '../../../types/Kilde';
 import Beskrivelse from '../../../types/Beskrivelse';
+import Kilde from '../../../types/Kilde';
 import { prettifyDate } from '../../../util/formats';
-import Box, { Margin } from '../box/Box';
 import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
 import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';

@@ -1,8 +1,8 @@
+import { Box, Margin } from '@navikt/k9-react-components';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React, { useEffect } from 'react';
 import Vurderingsperiode from '../../../types/Vurderingsperiode';
 import { usePrevious } from '../../../util/hooks';
-import Box, { Margin } from '../box/Box';
 import InteractiveList from '../interactive-list/InteractiveList';
 import PeriodeSomSkalVurderes from '../periode-som-skal-vurderes/PeriodeSomSkalVurderes';
 import VurderingsperiodeElement from '../vurderingsperiode/VurderingsperiodeElement';

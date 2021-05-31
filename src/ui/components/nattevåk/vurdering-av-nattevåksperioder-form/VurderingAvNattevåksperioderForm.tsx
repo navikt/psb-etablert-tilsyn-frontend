@@ -1,7 +1,8 @@
-import { getPeriodDifference, Period } from '@navikt/k9-period-utils';
+import { Period } from '@navikt/k9-period-utils';
+import { Box, Margin } from '@navikt/k9-react-components';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
@@ -12,7 +13,6 @@ import RadioGroup from '../../../form/wrappers/RadioGroup';
 import TextArea from '../../../form/wrappers/TextArea';
 import AddButton from '../../add-button/AddButton';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
-import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
 import DetailView from '../../detail-view/DetailView';
 import Form from '../../form/Form';
