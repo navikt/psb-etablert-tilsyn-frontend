@@ -1,12 +1,9 @@
-import { Box, Margin } from '@navikt/k9-react-components';
+import { Box, Margin, DetailView, LabelledContent, LinkButton } from '@navikt/k9-react-components';
 import React from 'react';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
-import DetailView from '../../detail-view/DetailView';
-import LabelledContent from '../../labelled-content/LabelledContent';
-import LinkButton from '../../link-button/LinkButton';
 import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import styles from './beredskapsperiodeVurderingsdetaljer.less';
 

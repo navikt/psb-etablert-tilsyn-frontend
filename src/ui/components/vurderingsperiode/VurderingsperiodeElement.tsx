@@ -1,8 +1,8 @@
 import { Period } from '@navikt/k9-period-utils';
 import React from 'react';
+import { ContentWithTooltip } from '@navikt/k9-react-components';
 import Kilde from '../../../types/Kilde';
 import Vurderingsresultat from '../../../types/Vurderingsresultat';
-import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import GreenCheckIconFilled from '../icons/GreenCheckIconFilled';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
 import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';

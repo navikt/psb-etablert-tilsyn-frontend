@@ -1,12 +1,10 @@
-import { Box, Margin } from '@navikt/k9-react-components';
+import { Box, Margin, ContentWithTooltip, LabelledContent } from '@navikt/k9-react-components';
 import * as React from 'react';
 import Beskrivelse from '../../../types/Beskrivelse';
 import Kilde from '../../../types/Kilde';
 import { prettifyDate } from '../../../util/formats';
-import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
 import OnePersonIconGray from '../icons/OnePersonIconGray';
 import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
-import LabelledContent from '../labelled-content/LabelledContent';
 import styles from './beskrivelserForPerioden.less';
 
 interface BeskrivelserForPeriodenProps {

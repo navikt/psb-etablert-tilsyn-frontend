@@ -20,9 +20,6 @@ const NattevåksperiodeoversiktController = ({
     onCancelClick,
     beskrivelser,
 }: NattevåksperiodeoversiktControllerProps) => {
-    if (!valgtPeriode) {
-        return null;
-    }
     if (valgtPeriode.resultat !== Vurderingsresultat.IKKE_VURDERT && !editMode) {
         return (
             <NattevåksperiodeVurderingsdetaljer

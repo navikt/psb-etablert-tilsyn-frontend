@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import { NavigationWithDetailView } from '@navikt/k9-react-components';
 import NattevåkType from '../../../../types/NattevåkType';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
-import NavigationWithDetailView from '../../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../../periodenavigasjon/Periodenavigasjon';
 import NattevåksperiodeoversiktController from '../nattevåksperiodeoversikt-controller/NattevåksperiodeoversiktController';
 import NattevåksperiodeoversiktMessages from '../nattevåksperiodeoversikt-messages/NattevåksperiodeoversiktMessages';
@@ -42,6 +42,7 @@ const Nattevåksperiodeoversikt = ({ nattevåkData }: NattevåksperiodeoversiktP
                         harValgtPeriode={valgtPeriode !== null}
                     />
                 )}
+                showDetailSection={!!valgtPeriode}
                 detailSection={() => (
                     <NattevåksperiodeoversiktController
                         valgtPeriode={valgtPeriode}
