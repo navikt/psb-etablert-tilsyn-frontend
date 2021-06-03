@@ -7,6 +7,7 @@ import {
     TextArea,
     DetailView,
     LabelledContent,
+    Form,
 } from '@navikt/k9-react-components';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React from 'react';
@@ -20,7 +21,6 @@ import ContainerContext from '../../../context/ContainerContext';
 import AddButton from '../../add-button/AddButton';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import DeleteButton from '../../delete-button/DeleteButton';
-import Form from '../../form/Form';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -56,6 +56,7 @@ const VurderingAvNattevåksperioderForm = ({
     beskrivelser,
 }: VurderingAvNattevåksperioderFormProps): JSX.Element => {
     const { lagreNattevåkvurdering } = React.useContext(ContainerContext);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
     const defaultBehovForNattevåk = () => {
         if (nattevåksperiode.resultat === Vurderingsresultat.OPPFYLT) {
             return RadioOptions.JA;
@@ -78,6 +79,8 @@ const VurderingAvNattevåksperioderForm = ({
     const erDetBehovForNattevåk = formMethods.watch(FieldName.HAR_BEHOV_FOR_NATTEVÅK);
 
     const handleSubmit = (formState: VurderingAvNattevåksperioderFormState) => {
+        setIsSubmitting(true);
+        setTimeout(() => setIsSubmitting(false), 2500);
         const { begrunnelse, perioder, harBehovForNattevåk } = formState;
         const { kilde } = nattevåksperiode;
 
@@ -128,7 +131,9 @@ const VurderingAvNattevåksperioderForm = ({
                 <Form
                     onSubmit={formMethods.handleSubmit(handleSubmit)}
                     buttonLabel="Bekreft og fortsett"
-                    onCancel={onCancelClick}
+                    onAvbryt={onCancelClick}
+                    cancelButtonDisabled={isSubmitting}
+                    submitButtonDisabled={isSubmitting}
                 >
                     <Box marginTop={Margin.large}>
                         <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
