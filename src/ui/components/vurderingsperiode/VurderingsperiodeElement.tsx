@@ -1,13 +1,15 @@
 import { Period } from '@navikt/k9-period-utils';
 import React from 'react';
-import { ContentWithTooltip } from '@navikt/k9-react-components';
+import {
+    ContentWithTooltip,
+    GreenCheckIconFilled,
+    OnePersonIconGray,
+    OnePersonOutlineGray,
+    RedCrossIconFilled,
+    TwoPersonsWithOneHighlightedIconGray,
+} from '@navikt/k9-react-components';
 import Kilde from '../../../types/Kilde';
 import Vurderingsresultat from '../../../types/Vurderingsresultat';
-import GreenCheckIconFilled from '../icons/GreenCheckIconFilled';
-import OnePersonIconGray from '../icons/OnePersonIconGray';
-import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
-import RedCrossIconFilled from '../icons/RedCrossIconFilled';
-import TwoPeopleGray from '../icons/TwoPeopleGray';
 import styles from './vurderingsperiodeElement.less';
 
 interface VurderingsperiodeElementProps {
@@ -46,7 +48,7 @@ const renderKildeIcon = (kilde: Kilde) => {
     if (kilde === Kilde.SØKER_OG_ANNEN_PART) {
         return (
             <ContentWithTooltip tooltipText="Søker og annen part">
-                <TwoPeopleGray />
+                <TwoPersonsWithOneHighlightedIconGray />
             </ContentWithTooltip>
         );
     }

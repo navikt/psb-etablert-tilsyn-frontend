@@ -1,10 +1,8 @@
-import { Box, Margin, ContentWithTooltip } from '@navikt/k9-react-components';
+import { Box, Margin, ContentWithTooltip, OnePersonIconGray, OnePersonOutlineGray } from '@navikt/k9-react-components';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
 import Kilde from '../../../types/Kilde';
-import OnePersonIconGray from '../icons/OnePersonIconGray';
-import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
 import styles from './etablertTilsyn.less';
 
 const renderIcon = (kilde: Kilde) => {
