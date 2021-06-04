@@ -58,9 +58,10 @@
     "dependencies": {
         "@navikt/fnrvalidator": "^1.1.4",
         "@navikt/k9-array-utils": "^0.0.1",
-        "@navikt/k9-date-utils": "^0.0.2",
-        "@navikt/k9-period-utils": "^0.0.3",
-        "@navikt/k9-react-components": "^0.0.4",
+        "@navikt/k9-date-utils": "^0.0.5",
+        "@navikt/k9-http-utils": "0.0.1",
+        "@navikt/k9-period-utils": "^0.0.7",
+        "@navikt/k9-react-components": "^0.0.11",
         "@types/react": "^16.9.52",
         "@types/react-dom": "^16.9.8",
         "@types/react-modal": "^3.10.6",
@@ -103,7 +104,7 @@
         "react-collapse": "^5.1.0",
         "react-day-picker": "^7.4.8",
         "react-dom": "^17.0.2",
-        "react-hook-form": "^7.5.3",
+        "react-hook-form": "^6.15.5",
         "react-modal": "^3.12.1"
     },
     "resolutions": {

@@ -1,14 +1,13 @@
-import { PageContainer } from '@navikt/k9-react-components';
+import { get } from '@navikt/k9-http-utils';
+import { PageContainer, WarningIcon } from '@navikt/k9-react-components';
 import axios from 'axios';
 import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
 import ContainerContract from '../types/ContainerContract';
 import { TilsynResponse } from '../types/TilsynResponse';
-import { get } from '../util/httpUtils';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
-import WarningIcon from './components/icons/WarningIcon';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
 import ContainerContext from './context/ContainerContext';
 import ActionType from './mainActionTypes';

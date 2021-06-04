@@ -1,5 +1,5 @@
 import React from 'react';
-import PlusIcon from '../icons/PlusIcon';
+import { PlusIcon } from '@navikt/k9-react-components';
 import styles from './addButton.less';
 
 interface AddButtonProps {
