@@ -1,5 +1,5 @@
 import { get } from '@navikt/k9-http-utils';
-import { PageContainer, WarningIcon } from '@navikt/k9-react-components';
+import { ChildIcon, Infostripe, PageContainer, WarningIcon } from '@navikt/k9-react-components';
 import axios from 'axios';
 import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
@@ -87,6 +87,10 @@ const MainComponent = ({ data }: MainComponentProps) => {
 
     return (
         <ContainerContext.Provider value={data}>
+            <Infostripe
+                text="Etablert tilsyn og vurdering av beredskap og nattevåk gjelder barnet og er felles for alle parter."
+                iconRenderer={() => <ChildIcon />}
+            />
             <div className={styles.mainComponent}>
                 <TabsPure
                     kompakt
