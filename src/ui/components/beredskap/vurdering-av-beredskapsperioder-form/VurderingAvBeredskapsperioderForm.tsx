@@ -141,7 +141,7 @@ const VurderingAvBeredskapsperioderForm = ({
                     </Box>
                     <Box marginTop={Margin.xLarge}>
                         <TextArea
-                            label="Gjør en vurdering av om det er behov for beredskap"
+                            label="Gjør en vurdering av om det er behov for beredskap etter § 9-11, tredje ledd."
                             name={FieldName.BEGRUNNELSE}
                             validators={{ required }}
                         />

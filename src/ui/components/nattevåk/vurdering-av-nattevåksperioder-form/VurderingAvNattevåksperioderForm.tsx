@@ -140,7 +140,7 @@ const VurderingAvNattevåksperioderForm = ({
                     </Box>
                     <Box marginTop={Margin.xLarge}>
                         <TextArea
-                            label="Gjør en vurdering av om det er behov for nattevåk"
+                            label="Gjør en vurdering av om det er behov for nattevåk etter § 9-11, tredje ledd."
                             name={FieldName.BEGRUNNELSE}
                         />
                     </Box>
