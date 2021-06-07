@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import { NavigationWithDetailView } from '@navikt/k9-react-components';
 import BeredskapType from '../../../../types/BeredskapType';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
-import NavigationWithDetailView from '../../navigation-with-detail-view/NavigationWithDetailView';
 import Periodenavigasjon from '../../periodenavigasjon/Periodenavigasjon';
 import BeredskapsperiodeoversiktController from '../beredskapsperiodeoversikt-controller/BeredskapsperiodeoversiktController';
 import BeredskapsperiodeoversiktMessages from '../beredskapsperiodeoversikt-messages/BeredskapsperiodeoversiktMessages';
@@ -42,6 +42,7 @@ const Beredskapsperiodeoversikt = ({ beredskapData }: BeredskapsperiodeoversiktP
                         harValgtPeriode={valgtPeriode !== null}
                     />
                 )}
+                showDetailSection={!!valgtPeriode}
                 detailSection={() => (
                     <BeredskapsperiodeoversiktController
                         valgtPeriode={valgtPeriode}

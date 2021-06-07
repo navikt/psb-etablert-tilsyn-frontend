@@ -1,12 +1,9 @@
+import { Box, Margin, DetailView, LabelledContent, LinkButton } from '@navikt/k9-react-components';
 import React from 'react';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
-import Box, { Margin } from '../../box/Box';
-import DetailView from '../../detail-view/DetailView';
-import LabelledContent from '../../labelled-content/LabelledContent';
-import LinkButton from '../../link-button/LinkButton';
 import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import styles from './nattevåksperiodeVurderingsdetaljer.less';
 
@@ -50,10 +47,7 @@ const NattevåksperiodeVurderingsdetaljer = ({
                 />
             </Box>
             <Box marginTop={Margin.xLarge}>
-                <LabelledContent
-                    label="I hvilken periode er det behov for nattevåk?"
-                    content={nattevåksperiode.periode.prettifyPeriod()}
-                />
+                <LabelledContent label="Perioder vurdert" content={nattevåksperiode.periode.prettifyPeriod()} />
             </Box>
         </DetailView>
     );

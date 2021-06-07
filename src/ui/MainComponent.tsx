@@ -1,15 +1,14 @@
+import { get } from '@navikt/k9-http-utils';
+import { ChildIcon, Infostripe, PageContainer, WarningIcon } from '@navikt/k9-react-components';
 import axios from 'axios';
 import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
 import ContainerContract from '../types/ContainerContract';
 import { TilsynResponse } from '../types/TilsynResponse';
-import { get } from '../util/httpUtils';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
-import WarningIcon from './components/icons/WarningIcon';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
-import PageContainer from './components/page-container/PageContainer';
 import ContainerContext from './context/ContainerContext';
 import ActionType from './mainActionTypes';
 import styles from './mainComponent.less';
@@ -88,6 +87,10 @@ const MainComponent = ({ data }: MainComponentProps) => {
 
     return (
         <ContainerContext.Provider value={data}>
+            <Infostripe
+                text="Etablert tilsyn og vurdering av beredskap og nattevåk gjelder barnet og er felles for alle parter."
+                iconRenderer={() => <ChildIcon />}
+            />
             <div className={styles.mainComponent}>
                 <TabsPure
                     kompakt

@@ -1,8 +1,8 @@
+import { Box, Margin } from '@navikt/k9-react-components';
 import React from 'react';
 import BeredskapType from '../../../../types/BeredskapType';
 import { getStringMedPerioder } from '../../../../util/periodUtils';
 import CustomAlertstripe from '../../alertstripe/Alertstripe';
-import Box, { Margin } from '../../box/Box';
 
 interface BeredskapsperiodeoversiktMessagesProps {
     beredskapData: BeredskapType;

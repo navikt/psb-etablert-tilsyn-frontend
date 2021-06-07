@@ -1,22 +1,26 @@
-import { getPeriodDifference, Period } from '@navikt/k9-period-utils';
+import { Period } from '@navikt/k9-period-utils';
+import {
+    Box,
+    Margin,
+    PeriodpickerList,
+    RadioGroupPanel,
+    TextArea,
+    DetailView,
+    LabelledContent,
+    Form,
+} from '@navikt/k9-react-components';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
 import { finnResterendePerioder } from '../../../../util/periodUtils';
 import ContainerContext from '../../../context/ContainerContext';
-import PeriodpickerList from '../../../form/wrappers/PeriodpickerList';
-import RadioGroup from '../../../form/wrappers/RadioGroup';
-import TextArea from '../../../form/wrappers/TextArea';
+
 import AddButton from '../../add-button/AddButton';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
-import Box, { Margin } from '../../box/Box';
 import DeleteButton from '../../delete-button/DeleteButton';
-import DetailView from '../../detail-view/DetailView';
-import Form from '../../form/Form';
-import LabelledContent from '../../labelled-content/LabelledContent';
 
 export enum FieldName {
     BEGRUNNELSE = 'begrunnelse',
@@ -52,6 +56,7 @@ const VurderingAvNattevåksperioderForm = ({
     beskrivelser,
 }: VurderingAvNattevåksperioderFormProps): JSX.Element => {
     const { lagreNattevåkvurdering } = React.useContext(ContainerContext);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
     const defaultBehovForNattevåk = () => {
         if (nattevåksperiode.resultat === Vurderingsresultat.OPPFYLT) {
             return RadioOptions.JA;
@@ -74,6 +79,8 @@ const VurderingAvNattevåksperioderForm = ({
     const erDetBehovForNattevåk = formMethods.watch(FieldName.HAR_BEHOV_FOR_NATTEVÅK);
 
     const handleSubmit = (formState: VurderingAvNattevåksperioderFormState) => {
+        setIsSubmitting(true);
+        setTimeout(() => setIsSubmitting(false), 2500);
         const { begrunnelse, perioder, harBehovForNattevåk } = formState;
         const { kilde } = nattevåksperiode;
 
@@ -124,19 +131,21 @@ const VurderingAvNattevåksperioderForm = ({
                 <Form
                     onSubmit={formMethods.handleSubmit(handleSubmit)}
                     buttonLabel="Bekreft og fortsett"
-                    onCancel={onCancelClick}
+                    onAvbryt={onCancelClick}
+                    cancelButtonDisabled={isSubmitting}
+                    submitButtonDisabled={isSubmitting}
                 >
                     <Box marginTop={Margin.large}>
                         <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
                         <TextArea
-                            label="Gjør en vurdering av om det er behov for nattevåk"
+                            label="Gjør en vurdering av om det er behov for nattevåk etter § 9-11, tredje ledd."
                             name={FieldName.BEGRUNNELSE}
                         />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
-                        <RadioGroup
+                        <RadioGroupPanel
                             question="Er det behov for nattevåk?"
                             radios={[
                                 { value: RadioOptions.JA, label: 'Ja' },

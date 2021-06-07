@@ -1,12 +1,8 @@
-import Lenke from 'nav-frontend-lenker';
+import { Box, Margin, ContentWithTooltip, OnePersonIconGray, OnePersonOutlineGray } from '@navikt/k9-react-components';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
 import Kilde from '../../../types/Kilde';
-import Box, { Margin } from '../box/Box';
-import ContentWithTooltip from '../content-with-tooltip/ContentWithTooltip';
-import OnePersonIconGray from '../icons/OnePersonIconGray';
-import OnePersonOutlineGray from '../icons/OnePersonOutlineGray';
 import styles from './etablertTilsyn.less';
 
 const renderIcon = (kilde: Kilde) => {
@@ -36,9 +32,6 @@ const EtablertTilsyn = ({ etablertTilsynData }: EtablertTilsynProps): JSX.Elemen
             <Box marginBottom={Margin.large}>
                 <Undertittel className={styles.etablertTilsyn__heading}>Alle perioder</Undertittel>
             </Box>
-            <Lenke className={styles.etablertTilsyn__lenke} href="#">
-                Gjør endringer i Punsj
-            </Lenke>
             {!harVurderinger && (
                 <p className={styles.etablertTilsyn__ingenTilsyn}>Søker har ikke oppgitt etablert tilsyn</p>
             )}
