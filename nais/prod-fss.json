@@ -1,0 +1,9 @@
+{
+    "app": "psb-etablert-tilsyn-frontend",
+    "cluster": "prod-fss",
+    "namespace": "pleiepenger",
+    "team": "pleiepenger",
+    "minReplicas": "1",
+    "maxReplicas": "2",
+    "ingresses": ["https://psb-etablert-tilsyn-frontend.intern.nav.no"]
+}
