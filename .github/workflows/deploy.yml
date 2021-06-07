@@ -67,6 +67,14 @@ jobs:
                   CLUSTER: dev-fss
                   RESOURCE: nais/naiserator.yml
                   VARS: nais/dev-fss.json
+            - name: Deploy til prod-fss
+              uses: nais/deploy/actions/deploy@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+                  CLUSTER: prod-fss
+                  RESOURCE: nais/naiserator.yml
+                  VARS: nais/prod-fss.json
             - name: Set changelog
               run: |
                   text="$(git --no-pager log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%h %s")"
