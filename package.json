@@ -1,6 +1,6 @@
 {
     "name": "psb-etablert-tilsyn-frontend",
-    "version": "0.0.9",
+    "version": "1.0.0",
     "main": "index.js",
     "scripts": {
         "test": "jest",
@@ -8,7 +8,7 @@
         "start": "node ./server.js",
         "build": "webpack --config webpack/webpack-config.production.js",
         "dev": "node webpack/webpack-config.development.js",
-        "version": "node ./version.js",
+        "majorVersion": "node ./majorVersion.js",
         "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
         "api-mock": "ts-node mock/api-mock.ts"
     },

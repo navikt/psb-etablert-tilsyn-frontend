@@ -5,10 +5,13 @@ on:
             - main
         paths:
             - 'build/**'
+            - '.github/workflows/deploy.yml'
+            - 'package.json'
+    workflow_dispatch:
+
 env:
     IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/psb-etablert-tilsyn-frontend
-    CLUSTER: dev-fss
-    NAMESPACE: default
+
 jobs:
     deploy-docker-image:
         name: Deploy Docker image
@@ -32,25 +35,16 @@ jobs:
               run: npm test
             - name: Sette versjon
               run: |
-                  echo "VERSION=$(npm run version --silent)" >> $GITHUB_ENV
-            - name: Sjekke om tag fins fra før
+                echo "MAJOR_VERSION=$(npm run majorVersion --silent)" >> $GITHUB_ENV
+            - name: Sette tag
               run: |
-                  if git rev-parse "$VERSION" >/dev/null 2>&1; then
-                    echo "Tag $VERSION already exists, aborting"
-                    exit 1
-                  fi
-            - name: Sjekk om bygg finnes
-              run: |
-                  if [ ! -d "build/$VERSION" ]; then
-                    echo "Build folder with name $VERSION does not exist, aborting"
-                    exit 1
-                  fi
+                echo "TAG=$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
             - name: Sette miljøvariabler
               run: |
-                  echo "IMAGE=${IMAGE_BASE}:${VERSION}" >> $GITHUB_ENV
+                  echo "IMAGE=${IMAGE_BASE}:${TAG}" >> $GITHUB_ENV
                   echo "LATEST=${IMAGE_BASE}:latest" >> $GITHUB_ENV
-                  echo "CSS_HASH=$(shasum -b -a 384 build/$VERSION/styles.css | awk '{ print $1 }' | xxd -r -p | base64)" >> $GITHUB_ENV
-                  echo "JS_HASH=$(shasum -b -a 384 build/$VERSION/app.js | awk '{ print $1 }' | xxd -r -p | base64)" >> $GITHUB_ENV
+                  echo "CSS_HASH=$(shasum -b -a 384 build/${MAJOR_VERSION}/styles.css | awk '{ print $1 }' | xxd -r -p | base64)" >> $GITHUB_ENV
+                  echo "JS_HASH=$(shasum -b -a 384 build/${MAJOR_VERSION}/app.js | awk '{ print $1 }' | xxd -r -p | base64)" >> $GITHUB_ENV
             - name: Bygg og laste opp docker-image
               run: |
                   docker build --tag ${IMAGE} --tag ${LATEST} .
@@ -67,33 +61,20 @@ jobs:
                   CLUSTER: dev-fss
                   RESOURCE: nais/naiserator.yml
                   VARS: nais/dev-fss.json
-            - name: Deploy til prod-fss
-              uses: nais/deploy/actions/deploy@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-                  CLUSTER: prod-fss
-                  RESOURCE: nais/naiserator.yml
-                  VARS: nais/prod-fss.json
-            - name: Set changelog
-              run: |
-                  text="$(git --no-pager log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%h %s")"
-                  text="${text//$'\n'/\\n}"
-                  echo "CHANGELOG=$text" >> $GITHUB_ENV
             - name: Create Release
               id: create_release
               uses: actions/create-release@latest
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: ${{ env.VERSION }}
-                  release_name: ${{ env.VERSION }}
+                  tag_name: ${{ env.TAG }}
+                  release_name: ${{ env.TAG }}
                   body: |
                       For JS, add this to your app:
                       ```
                       <script
                         type="text/javascript"
-                        src="https://psb-etablert-tilsyn-frontend.dev.adeo.no/${{ env.VERSION }}/app.js"
+                        src="https://psb-etablert-tilsyn-frontend.dev.adeo.no/${{ env.MAJOR_VERSION }}/app.js"
                         integrity="sha384-${{ env.JS_HASH }}"
                         crossorigin="anonymous"
                       ></script>
@@ -103,13 +84,10 @@ jobs:
                       ```
                       <link
                         rel="stylesheet"
-                        href="https://psb-etablert-tilsyn-frontend.dev.adeo.no/${{ env.VERSION }}/styles.css"
+                        href="https://psb-etablert-tilsyn-frontend.dev.adeo.no/${{ env.MAJOR_VERSION }}/styles.css"
                         integrity="sha384-${{ env.CSS_HASH }}"
                         crossorigin="anonymous"
                       >
                       ```
-
-                      **Changes in this Release**
-                      ${{ env.CHANGELOG }}
                   draft: false
                   prerelease: false
