@@ -61,6 +61,15 @@ jobs:
                   CLUSTER: dev-fss
                   RESOURCE: nais/naiserator.yml
                   VARS: nais/dev-fss.json
+            - name: Deploy til prod-fss
+              if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'ci skip')
+              uses: nais/deploy/actions/deploy@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+                  CLUSTER: prod-fss
+                  RESOURCE: nais/naiserator.yml
+                  VARS: nais/prod-fss.json
             - name: Create Release
               id: create_release
               uses: actions/create-release@latest
