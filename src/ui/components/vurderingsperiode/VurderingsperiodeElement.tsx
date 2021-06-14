@@ -6,7 +6,6 @@ import {
     OnePersonIconGray,
     OnePersonOutlineGray,
     RedCrossIconFilled,
-    TwoPersonsWithOneHighlightedIconGray,
 } from '@navikt/k9-react-components';
 import Kilde from '../../../types/Kilde';
 import Vurderingsresultat from '../../../types/Vurderingsresultat';
