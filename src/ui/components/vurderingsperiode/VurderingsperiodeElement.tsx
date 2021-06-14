@@ -6,7 +6,6 @@ import {
     OnePersonIconGray,
     OnePersonOutlineGray,
     RedCrossIconFilled,
-    TwoPersonsWithOneHighlightedIconGray,
 } from '@navikt/k9-react-components';
 import Kilde from '../../../types/Kilde';
 import Vurderingsresultat from '../../../types/Vurderingsresultat';
@@ -38,17 +37,10 @@ const renderStatusIcon = (resultat: Vurderingsresultat) => {
 };
 
 const renderKildeIcon = (kilde: Kilde) => {
-    if (kilde === Kilde.ANNEN_PART) {
+    if (kilde === Kilde.ANDRE) {
         return (
             <ContentWithTooltip tooltipText="Annen part">
                 <OnePersonOutlineGray />
-            </ContentWithTooltip>
-        );
-    }
-    if (kilde === Kilde.SØKER_OG_ANNEN_PART) {
-        return (
-            <ContentWithTooltip tooltipText="Søker og annen part">
-                <TwoPersonsWithOneHighlightedIconGray />
             </ContentWithTooltip>
         );
     }

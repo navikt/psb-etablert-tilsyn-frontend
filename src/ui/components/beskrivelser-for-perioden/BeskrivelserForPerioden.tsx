@@ -17,10 +17,10 @@ interface BeskrivelserForPeriodenProps {
 }
 
 const getLabel = (periodebeskrivelse: Beskrivelse) => {
-    const kilde = periodebeskrivelse.kilde === Kilde.ANNEN_PART ? 'annen part' : 'søker';
+    const kilde = periodebeskrivelse.kilde === Kilde.ANDRE ? 'annen part' : 'søker';
     return (
         <div className={styles.beskrivelserForPerioden__label}>
-            {periodebeskrivelse.kilde === Kilde.ANNEN_PART ? (
+            {periodebeskrivelse.kilde === Kilde.ANDRE ? (
                 <ContentWithTooltip tooltipText="Annen part">
                     <OnePersonOutlineGray />
                 </ContentWithTooltip>
