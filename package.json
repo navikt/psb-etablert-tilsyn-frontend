@@ -1,6 +1,6 @@
 {
     "name": "psb-etablert-tilsyn-frontend",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "main": "index.js",
     "scripts": {
         "test": "jest",
@@ -59,10 +59,10 @@
         "@navikt/fnrvalidator": "^1.1.4",
         "@navikt/k9-array-utils": "^0.0.1",
         "@navikt/k9-date-utils": "^0.0.5",
-        "@navikt/k9-form-utils": "^0.0.4",
+        "@navikt/k9-form-utils": "^0.0.5",
         "@navikt/k9-http-utils": "0.0.1",
         "@navikt/k9-period-utils": "^0.0.7",
-        "@navikt/k9-react-components": "^0.0.17",
+        "@navikt/k9-react-components": "^0.1.2",
         "@popperjs/core": "^2.9.2",
         "@types/react": "^16.9.52",
         "@types/react-dom": "^16.9.8",

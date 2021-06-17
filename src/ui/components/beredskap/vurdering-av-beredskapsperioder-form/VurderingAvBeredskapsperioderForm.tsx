@@ -137,6 +137,7 @@ const VurderingAvBeredskapsperioderForm = ({
                             label="Gjør en vurdering av om det er behov for beredskap etter § 9-11, tredje ledd."
                             name={FieldName.BEGRUNNELSE}
                             validators={{ required }}
+                            disabled={readOnly}
                         />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
@@ -149,6 +150,7 @@ const VurderingAvBeredskapsperioderForm = ({
                             ]}
                             name={FieldName.HAR_BEHOV_FOR_BEREDSKAP}
                             validators={{ required }}
+                            disabled={readOnly}
                         />
                     </Box>
                     {erDetBehovForBeredskap === RadioOptions.JA_DELER && (
@@ -158,6 +160,7 @@ const VurderingAvBeredskapsperioderForm = ({
                                 legend="I hvilke perioder er det behov for beredskap?"
                                 fromDatepickerProps={{ label: 'Fra', ariaLabel: 'Fra' }}
                                 toDatepickerProps={{ label: 'Til', ariaLabel: 'Til' }}
+                                disabled={readOnly}
                                 defaultValues={[
                                     new Period(beredskapsperiode.periode.fom, beredskapsperiode.periode.tom),
                                 ]}

@@ -135,6 +135,7 @@ const VurderingAvNattevåksperioderForm = ({
                         <TextArea
                             label="Gjør en vurdering av om det er behov for nattevåk etter § 9-11, tredje ledd."
                             name={FieldName.BEGRUNNELSE}
+                            disabled={readOnly}
                         />
                     </Box>
                     <Box marginTop={Margin.xLarge}>
@@ -146,6 +147,7 @@ const VurderingAvNattevåksperioderForm = ({
                                 { value: RadioOptions.NEI, label: 'Nei' },
                             ]}
                             name={FieldName.HAR_BEHOV_FOR_NATTEVÅK}
+                            disabled={readOnly}
                         />
                     </Box>
                     {erDetBehovForNattevåk === RadioOptions.JA_DELER && (
@@ -156,6 +158,7 @@ const VurderingAvNattevåksperioderForm = ({
                                 fromDatepickerProps={{ label: 'Fra', ariaLabel: 'Fra' }}
                                 toDatepickerProps={{ label: 'Til', ariaLabel: 'Til' }}
                                 defaultValues={[new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]}
+                                disabled={readOnly}
                                 renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => {
                                     return (
                                         <>
