@@ -6,6 +6,7 @@ import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
 import ContainerContract from '../types/ContainerContract';
 import { TilsynResponse } from '../types/TilsynResponse';
+import Alertstripe from './components/alertstripe/Alertstripe';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
@@ -58,7 +59,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         beredskap: null,
         nattevåk: null,
     });
-    const { isLoading, etablertTilsyn, beredskap, nattevåk } = state;
+    const { isLoading, etablertTilsyn, beredskap, nattevåk, tilsynHarFeilet } = state;
     const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
@@ -84,6 +85,16 @@ const MainComponent = ({ data }: MainComponentProps) => {
             httpCanceler.cancel();
         };
     }, []);
+
+    if (tilsynHarFeilet) {
+        return (
+            <Alertstripe type="info">
+                Noe gikk galt under henting av informasjon om etablert tilsyn. Dette kan skyldes at informasjon om
+                etablert tilsyn ikke er tilgjengelig ennå, og at andre steg i behandlingen må fullføres før de kan vises
+                her.
+            </Alertstripe>
+        );
+    }
 
     return (
         <ContainerContext.Provider value={data}>
