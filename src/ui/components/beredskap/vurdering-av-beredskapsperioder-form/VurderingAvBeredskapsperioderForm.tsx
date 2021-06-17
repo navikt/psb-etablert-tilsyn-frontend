@@ -47,7 +47,7 @@ const VurderingAvBeredskapsperioderForm = ({
     onCancelClick,
     beskrivelser,
 }: VurderingAvBeredskapsperioderFormProps): JSX.Element => {
-    const { lagreBeredskapvurdering } = React.useContext(ContainerContext);
+    const { lagreBeredskapvurdering, readOnly } = React.useContext(ContainerContext);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const defaultBehovForBeredeskap = () => {
         if (beredskapsperiode.resultat === Vurderingsresultat.OPPFYLT) {
@@ -127,6 +127,7 @@ const VurderingAvBeredskapsperioderForm = ({
                     onAvbryt={onCancelClick}
                     cancelButtonDisabled={isSubmitting}
                     submitButtonDisabled={isSubmitting}
+                    shouldShowSubmitButton={!readOnly}
                 >
                     <Box marginTop={Margin.large}>
                         <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />

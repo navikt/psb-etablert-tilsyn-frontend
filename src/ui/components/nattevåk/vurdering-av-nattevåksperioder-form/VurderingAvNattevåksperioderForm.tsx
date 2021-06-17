@@ -47,7 +47,7 @@ const VurderingAvNattevåksperioderForm = ({
     onCancelClick,
     beskrivelser,
 }: VurderingAvNattevåksperioderFormProps): JSX.Element => {
-    const { lagreNattevåkvurdering } = React.useContext(ContainerContext);
+    const { lagreNattevåkvurdering, readOnly } = React.useContext(ContainerContext);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const defaultBehovForNattevåk = () => {
         if (nattevåksperiode.resultat === Vurderingsresultat.OPPFYLT) {
@@ -126,6 +126,7 @@ const VurderingAvNattevåksperioderForm = ({
                     onAvbryt={onCancelClick}
                     cancelButtonDisabled={isSubmitting}
                     submitButtonDisabled={isSubmitting}
+                    shouldShowSubmitButton={!readOnly}
                 >
                     <Box marginTop={Margin.large}>
                         <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
