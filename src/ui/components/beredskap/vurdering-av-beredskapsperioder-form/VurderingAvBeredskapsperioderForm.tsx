@@ -113,13 +113,11 @@ const VurderingAvBeredskapsperioderForm = ({
     };
 
     const valgtePerioder = formMethods.watch(FieldName.PERIODER);
-    const perioderUtenBehovForBeredskap = finnResterendePerioder(
-        (valgtePerioder || []) as any,
-        beredskapsperiode.periode
-    );
+    const perioderUtenBehovForBeredskap = finnResterendePerioder(valgtePerioder || [], beredskapsperiode.periode);
 
     return (
         <DetailView title="Vurdering av beredskap">
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <FormProvider {...formMethods}>
                 <Form
                     onSubmit={formMethods.handleSubmit(handleSubmit)}
@@ -164,19 +162,17 @@ const VurderingAvBeredskapsperioderForm = ({
                                 defaultValues={[
                                     new Period(beredskapsperiode.periode.fom, beredskapsperiode.periode.tom),
                                 ]}
-                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => {
-                                    return (
-                                        <>
-                                            {numberOfItems > 1 && (
-                                                <DeleteButton
-                                                    onClick={() => {
-                                                        fieldArrayMethods.remove(index);
-                                                    }}
-                                                />
-                                            )}
-                                        </>
-                                    );
-                                }}
+                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => (
+                                    <>
+                                        {numberOfItems > 1 && (
+                                            <DeleteButton
+                                                onClick={() => {
+                                                    fieldArrayMethods.remove(index);
+                                                }}
+                                            />
+                                        )}
+                                    </>
+                                )}
                                 renderAfterFieldArray={(fieldArrayMethods) => (
                                     <Box marginTop={Margin.large}>
                                         <AddButton
@@ -194,8 +190,8 @@ const VurderingAvBeredskapsperioderForm = ({
                                                 (periodWrapper: any) => periodWrapper.period !== valgtPeriode
                                             )
                                             .map(({ period }: any) => new Period(period.fom, period.tom));
-
-                                        const valgtPeriodePeriod = new Period(valgtPeriode.fom, valgtPeriode.tom);
+                                        const { fom, tom } = valgtPeriode;
+                                        const valgtPeriodePeriod = new Period(fom, tom);
                                         if (valgtPeriodePeriod.overlapsWithSomePeriodInList(andreValgtePerioder)) {
                                             return 'Beredskapsperiodene kan ikke overlappe';
                                         }

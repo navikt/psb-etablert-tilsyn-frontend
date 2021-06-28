@@ -52,7 +52,7 @@ const setDefaultActiveTabIndex = ({ harAksjonspunktForBeredskap, harAksjonspunkt
     return 0;
 };
 
-const MainComponent = ({ data }: MainComponentProps) => {
+const MainComponent = ({ data }: MainComponentProps): JSX.Element => {
     const [state, dispatch] = React.useReducer(mainComponentReducer, {
         isLoading: true,
         etablertTilsyn: null,

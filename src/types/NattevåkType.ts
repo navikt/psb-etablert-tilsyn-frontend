@@ -17,19 +17,19 @@ class NattevåkType {
         this.vurderinger = vurderinger.map((vurdering) => new Vurderingsperiode(vurdering));
     }
 
-    finnPerioderTilVurdering() {
+    finnPerioderTilVurdering(): Vurderingsperiode[] {
         return this.vurderinger.filter((vurdering) => vurdering.skalVurderes());
     }
 
-    finnVurdertePerioder() {
+    finnVurdertePerioder(): Vurderingsperiode[] {
         return this.vurderinger.filter((vurdering) => vurdering.erVurdert());
     }
 
-    harPerioderTilVurdering() {
+    harPerioderTilVurdering(): boolean {
         return this.vurderinger.some((vurdering) => vurdering.skalVurderes());
     }
 
-    harPerioder() {
+    harPerioder(): boolean {
         return this.vurderinger.length > 0;
     }
 }

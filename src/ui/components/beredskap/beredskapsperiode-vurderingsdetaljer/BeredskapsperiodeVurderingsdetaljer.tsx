@@ -17,40 +17,38 @@ const BeredskapsperiodeVurderingsdetaljer = ({
     beredskapsperiode,
     onEditClick,
     beskrivelser,
-}: BeredskapsperiodeVurderingsdetaljerProps) => {
-    return (
-        <DetailView
-            title="Vurdering av beredskap"
-            contentAfterTitleRenderer={() => (
-                <WriteAccessBoundContent
-                    contentRenderer={() => (
-                        <LinkButton className={styles.endreLink} onClick={onEditClick}>
-                            Rediger vurdering
-                        </LinkButton>
-                    )}
-                />
-            )}
-        >
-            <Box marginTop={Margin.large}>
-                <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
-            </Box>
-            <Box marginTop={Margin.xLarge}>
-                <LabelledContent
-                    label="Vurdering av om det er behov for beredskap"
-                    content={beredskapsperiode.begrunnelse}
-                />
-            </Box>
-            <Box marginTop={Margin.xLarge}>
-                <LabelledContent
-                    label="Er det behov for beredskap?"
-                    content={beredskapsperiode.resultat === Vurderingsresultat.OPPFYLT ? 'Ja' : 'Nei'}
-                />
-            </Box>
-            <Box marginTop={Margin.xLarge}>
-                <LabelledContent label="Perioder vurdert" content={beredskapsperiode.periode.prettifyPeriod()} />
-            </Box>
-        </DetailView>
-    );
-};
+}: BeredskapsperiodeVurderingsdetaljerProps): JSX.Element => (
+    <DetailView
+        title="Vurdering av beredskap"
+        contentAfterTitleRenderer={() => (
+            <WriteAccessBoundContent
+                contentRenderer={() => (
+                    <LinkButton className={styles.endreLink} onClick={onEditClick}>
+                        Rediger vurdering
+                    </LinkButton>
+                )}
+            />
+        )}
+    >
+        <Box marginTop={Margin.large}>
+            <BeskrivelserForPerioden periodebeskrivelser={beskrivelser} />
+        </Box>
+        <Box marginTop={Margin.xLarge}>
+            <LabelledContent
+                label="Vurdering av om det er behov for beredskap"
+                content={beredskapsperiode.begrunnelse}
+            />
+        </Box>
+        <Box marginTop={Margin.xLarge}>
+            <LabelledContent
+                label="Er det behov for beredskap?"
+                content={beredskapsperiode.resultat === Vurderingsresultat.OPPFYLT ? 'Ja' : 'Nei'}
+            />
+        </Box>
+        <Box marginTop={Margin.xLarge}>
+            <LabelledContent label="Perioder vurdert" content={beredskapsperiode.periode.prettifyPeriod()} />
+        </Box>
+    </DetailView>
+);
 
 export default BeredskapsperiodeVurderingsdetaljer;

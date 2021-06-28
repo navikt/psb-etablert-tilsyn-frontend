@@ -31,6 +31,8 @@ jobs:
               run: npm install
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            - name: Kjøre linter
+              run: npm run lint
             - name: Kjøre enhetstester
               run: npm test
             - name: Sette versjon

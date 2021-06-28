@@ -19,7 +19,7 @@ const NattevåksperiodeoversiktController = ({
     onEditClick,
     onCancelClick,
     beskrivelser,
-}: NattevåksperiodeoversiktControllerProps) => {
+}: NattevåksperiodeoversiktControllerProps): JSX.Element => {
     if (valgtPeriode.resultat !== Vurderingsresultat.IKKE_VURDERT && !editMode) {
         return (
             <NattevåksperiodeVurderingsdetaljer

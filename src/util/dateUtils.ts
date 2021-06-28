@@ -10,17 +10,17 @@ dayjs.extend(utc);
 dayjs.extend(duration);
 dayjs.extend(customParseFormat);
 
-export function isSameOrBefore(date, otherDate) {
+export function isSameOrBefore(date: dayjs.Dayjs, otherDate: dayjs.Dayjs): boolean {
     const dateInQuestion = dayjs(date, dateFormats).utc(true);
     const formattedOtherDate = dayjs(otherDate, dateFormats).utc(true);
     return dateInQuestion.isBefore(formattedOtherDate) || dateInQuestion.isSame(formattedOtherDate);
 }
 
-export function dateFromString(dateString: string) {
+export function dateFromString(dateString: string): dayjs.Dayjs {
     return dayjs(dateString, dateFormats).utc(true);
 }
 
-export function getPeriodAsListOfDays(period: Period) {
+export function getPeriodAsListOfDays(period: Period): string[] {
     const fom = dayjs(period.fom).utc(true);
     const tom = dayjs(period.tom).utc(true);
 
@@ -40,7 +40,7 @@ function getDaySequencesAsListOfPeriods(daySequences: string[][]): Period[] {
     });
 }
 
-export function getPeriodDifference(basePeriod: Period, periods: Period[]) {
+export function getPeriodDifference(basePeriod: Period, periods: Period[]): Period[] {
     const baseListOfDays = getPeriodAsListOfDays(basePeriod);
 
     const listOfDaysToExclude = periods.map((period) => getPeriodAsListOfDays(period)).flat();
@@ -56,16 +56,12 @@ export function getPeriodDifference(basePeriod: Period, periods: Period[]) {
             } else {
                 daysToInclude[index] = [currentDay];
             }
-        } else {
-            if (daysToInclude[index]) {
-                index = index + 1;
-            }
+        } else if (daysToInclude[index]) {
+            index += 1;
         }
     });
 
     return getDaySequencesAsListOfPeriods(daysToInclude);
 }
 
-export const beregnDagerTimer = (dur: string) => {
-    return Math.round(dayjs.duration(dur).asHours() * 100) / 100;
-};
+export const beregnDagerTimer = (dur: string): number => Math.round(dayjs.duration(dur).asHours() * 100) / 100;

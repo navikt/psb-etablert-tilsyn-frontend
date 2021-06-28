@@ -57,24 +57,22 @@ const VurderingsperiodeElement = ({
     resultat,
     kilde,
     renderAfterElement,
-}: VurderingsperiodeElementProps): JSX.Element => {
-    return (
-        <div className={styles.vurderingsperiodeElement}>
-            <span className={styles.visuallyHidden}>Type</span>
-            {renderStatusIcon(resultat)}
-            <div className={styles.vurderingsperiodeElement__texts}>
-                <p className={styles.vurderingsperiodeElement__texts__period}>
-                    <span className={styles.visuallyHidden}>Periode</span>
-                    {periode.prettifyPeriod()}
-                </p>
-            </div>
-            <div className={styles.vurderingsperiodeElement__texts__kildeIcon}>
-                <span className={styles.visuallyHidden}>Kilde</span>
-                {renderKildeIcon(kilde)}
-            </div>
-            {renderAfterElement && renderAfterElement()}
+}: VurderingsperiodeElementProps): JSX.Element => (
+    <div className={styles.vurderingsperiodeElement}>
+        <span className={styles.visuallyHidden}>Type</span>
+        {renderStatusIcon(resultat)}
+        <div className={styles.vurderingsperiodeElement__texts}>
+            <p className={styles.vurderingsperiodeElement__texts__period}>
+                <span className={styles.visuallyHidden}>Periode</span>
+                {periode.prettifyPeriod()}
+            </p>
         </div>
-    );
-};
+        <div className={styles.vurderingsperiodeElement__texts__kildeIcon}>
+            <span className={styles.visuallyHidden}>Kilde</span>
+            {renderKildeIcon(kilde)}
+        </div>
+        {renderAfterElement && renderAfterElement()}
+    </div>
+);
 
 export default VurderingsperiodeElement;

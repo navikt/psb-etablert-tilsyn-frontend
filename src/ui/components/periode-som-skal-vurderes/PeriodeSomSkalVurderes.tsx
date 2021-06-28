@@ -7,28 +7,26 @@ interface PeriodeSomSkalVurderesProps {
     periode: Period;
 }
 
-const PeriodeSomSkalVurderes = ({ periode }: PeriodeSomSkalVurderesProps) => {
-    return (
-        <div className={styles.periodeSomSkalVurderes} id="periodeSomSkalVurderes">
-            <span className={styles.visuallyHidden}>Type</span>
-            <ContentWithTooltip tooltipText="Perioden må vurderes">
-                <WarningIcon />
-            </ContentWithTooltip>
-            <div className={styles.periodeSomSkalVurderes__texts}>
-                <div>
-                    <p key={`${periode.fom}_${periode.tom}`} className={styles.periodeSomSkalVurderes__texts__period}>
-                        {periode.prettifyPeriod()}
-                    </p>
-                </div>
-                <div className={styles.periodeSomSkalVurderes__texts__kildeIcon}>
-                    <span className={styles.visuallyHidden}>Kilde</span>
-                    <ContentWithTooltip tooltipText="Søker">
-                        <OnePersonIconGray />
-                    </ContentWithTooltip>
-                </div>
+const PeriodeSomSkalVurderes = ({ periode }: PeriodeSomSkalVurderesProps): JSX.Element => (
+    <div className={styles.periodeSomSkalVurderes} id="periodeSomSkalVurderes">
+        <span className={styles.visuallyHidden}>Type</span>
+        <ContentWithTooltip tooltipText="Perioden må vurderes">
+            <WarningIcon />
+        </ContentWithTooltip>
+        <div className={styles.periodeSomSkalVurderes__texts}>
+            <div>
+                <p key={`${periode.fom}_${periode.tom}`} className={styles.periodeSomSkalVurderes__texts__period}>
+                    {periode.prettifyPeriod()}
+                </p>
+            </div>
+            <div className={styles.periodeSomSkalVurderes__texts__kildeIcon}>
+                <span className={styles.visuallyHidden}>Kilde</span>
+                <ContentWithTooltip tooltipText="Søker">
+                    <OnePersonIconGray />
+                </ContentWithTooltip>
             </div>
         </div>
-    );
-};
+    </div>
+);
 
 export default PeriodeSomSkalVurderes;

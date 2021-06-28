@@ -22,9 +22,11 @@ export const getStringMedPerioder = (perioder: Period[]): string => {
 };
 
 export const finnResterendePerioder = (
-    perioderFraForm: {
-        period: Period;
-    }[],
+    perioderFraForm:
+        | Period[]
+        | {
+              period: Period;
+          }[],
     periodeTilVurdering: Period
 ): Period[] => {
     const formatertePerioderFraForm = perioderFraForm.map((periode) => {

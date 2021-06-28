@@ -8,7 +8,7 @@ interface BeredskapsperiodeoversiktMessagesProps {
     beredskapData: BeredskapType;
 }
 
-const BeredskapsperiodeoversiktMessages = ({ beredskapData }: BeredskapsperiodeoversiktMessagesProps) => {
+const BeredskapsperiodeoversiktMessages = ({ beredskapData }: BeredskapsperiodeoversiktMessagesProps): JSX.Element => {
     if (!beredskapData.harPerioder()) {
         return <p>Søker har ikke oppgitt at det er behov for beredskap.</p>;
     }

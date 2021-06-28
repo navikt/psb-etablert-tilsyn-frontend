@@ -1,6 +1,11 @@
+import ContainerContract from './types/ContainerContract';
 import renderers from './util/renderers';
 
-(window as any).renderTilsynApp = async (appId, data) => {
+interface ExtendedWindow extends Window {
+    renderTilsynApp: (id: string, contract: ContainerContract) => void;
+}
+
+(window as Partial<ExtendedWindow>).renderTilsynApp = async (appId, data) => {
     const { renderAppInSuccessfulState } = renderers;
     renderAppInSuccessfulState(appId, data);
 };

@@ -43,8 +43,11 @@ const BeskrivelserForPerioden = ({ periodebeskrivelser }: BeskrivelserForPeriode
     if (periodebeskrivelser?.length > 0) {
         return (
             <>
-                {periodebeskrivelser.map((periodebeskrivelse, index) => (
-                    <Box marginBottom={Margin.large} key={index}>
+                {periodebeskrivelser.map((periodebeskrivelse) => (
+                    <Box
+                        marginBottom={Margin.large}
+                        key={`${periodebeskrivelse.kilde}_${periodebeskrivelse.periode.prettifyPeriod()}`}
+                    >
                         <LabelledContent
                             label={getLabel(periodebeskrivelse)}
                             content={periodebeskrivelse.tekst}

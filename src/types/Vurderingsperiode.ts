@@ -22,11 +22,11 @@ class Vurderingsperiode {
         this.id = id;
     }
 
-    skalVurderes() {
+    skalVurderes(): boolean {
         return this.resultat === Vurderingsresultat.IKKE_VURDERT;
     }
 
-    erVurdert() {
+    erVurdert(): boolean {
         return this.resultat === Vurderingsresultat.OPPFYLT || this.resultat === Vurderingsresultat.IKKE_OPPFYLT;
     }
 }

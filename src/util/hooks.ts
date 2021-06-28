@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-export const usePrevious = (value) => {
-    const ref = useRef();
+// eslint-disable-next-line import/prefer-default-export
+export const usePrevious = (value: boolean): boolean => {
+    const ref = useRef<boolean>();
     useEffect(() => {
         ref.current = value;
     });

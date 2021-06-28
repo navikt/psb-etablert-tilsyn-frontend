@@ -12,32 +12,40 @@
         }
     },
     "plugins": ["@typescript-eslint", "react-hooks"],
-    "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier/@typescript-eslint", "prettier"],
-    "rules": {
-        "@typescript-eslint/explicit-function-return-type": 0,
-        "@typescript-eslint/no-use-before-define": ["error"],
-        "global-require": "off",
-        "import/extensions": 0,
-        "no-use-before-define": "off",
-        "react-hooks/exhaustive-deps": "warn",
-        "react-hooks/rules-of-hooks": "error",
-        "react/jsx-filename-extension": 0,
-        "react/jsx-indent-props": 0,
-        "react/jsx-indent": 0,
-        "react/jsx-props-no-spreading": 0,
-        "react/no-array-index-key": 0,
-        "react/prop-types": 0,
-        "react/require-default-props": 0,
-        "react/jsx-wrap-multilines": 0,
-        "import/prefer-default-export": 0,
-        "@typescript-eslint/no-shadow": "error",
-        "no-shadow": "off"
-    },
+    "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier"],
     "settings": {
         "import/resolver": {
             "node": {
                 "extensions": [".js", ".jsx", ".ts", ".tsx", ".less", ".scss"]
             }
         }
+    },
+    "overrides": [
+        {
+            "files": ["*.test.ts", "*.test.tsx"],
+            "rules": {
+                "@typescript-eslint/no-explicit-any": 0
+            }
+        }
+    ],
+    "rules": {
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/no-shadow": "error",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.ts", "**/*.test.tsx"] }],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "react/require-default-props": "off",
+        "react/prop-types": "off",
+        "no-use-before-define": "off",
+        "no-shadow": "off"
     }
 }

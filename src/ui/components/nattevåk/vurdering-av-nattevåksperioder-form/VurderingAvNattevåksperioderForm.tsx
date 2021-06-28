@@ -112,13 +112,11 @@ const VurderingAvNattevåksperioderForm = ({
     };
 
     const valgtePerioder = formMethods.watch(FieldName.PERIODER);
-    const perioderUtenBehovForNattevåk = finnResterendePerioder(
-        (valgtePerioder || []) as any,
-        nattevåksperiode.periode
-    );
+    const perioderUtenBehovForNattevåk = finnResterendePerioder(valgtePerioder || [], nattevåksperiode.periode);
 
     return (
         <DetailView title="Vurdering av nattevåk">
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <FormProvider {...formMethods}>
                 <Form
                     onSubmit={formMethods.handleSubmit(handleSubmit)}
@@ -159,19 +157,17 @@ const VurderingAvNattevåksperioderForm = ({
                                 toDatepickerProps={{ label: 'Til', ariaLabel: 'Til' }}
                                 defaultValues={[new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]}
                                 disabled={readOnly}
-                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => {
-                                    return (
-                                        <>
-                                            {numberOfItems > 1 && (
-                                                <DeleteButton
-                                                    onClick={() => {
-                                                        fieldArrayMethods.remove(index);
-                                                    }}
-                                                />
-                                            )}
-                                        </>
-                                    );
-                                }}
+                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => (
+                                    <>
+                                        {numberOfItems > 1 && (
+                                            <DeleteButton
+                                                onClick={() => {
+                                                    fieldArrayMethods.remove(index);
+                                                }}
+                                            />
+                                        )}
+                                    </>
+                                )}
                                 renderAfterFieldArray={(fieldArrayMethods) => (
                                     <Box marginTop={Margin.large}>
                                         <AddButton

@@ -19,7 +19,7 @@ const BeredskapsperiodeoversiktController = ({
     onEditClick,
     onCancelClick,
     beskrivelser,
-}: BeredskapsperiodeoversiktControllerProps) => {
+}: BeredskapsperiodeoversiktControllerProps): JSX.Element => {
     if (valgtPeriode.resultat !== Vurderingsresultat.IKKE_VURDERT && !editMode) {
         return (
             <BeredskapsperiodeVurderingsdetaljer

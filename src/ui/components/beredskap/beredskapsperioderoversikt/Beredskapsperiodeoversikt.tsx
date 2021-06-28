@@ -11,7 +11,7 @@ interface BeredskapsperiodeoversiktProps {
     beredskapData: BeredskapType;
 }
 
-const Beredskapsperiodeoversikt = ({ beredskapData }: BeredskapsperiodeoversiktProps) => {
+const Beredskapsperiodeoversikt = ({ beredskapData }: BeredskapsperiodeoversiktProps): JSX.Element => {
     const [valgtPeriode, setValgtPeriode] = React.useState<Vurderingsperiode>(null);
     const [editMode, setEditMode] = React.useState(false);
     const { beskrivelser } = beredskapData;

@@ -7,7 +7,7 @@ interface CustomAlertstripeProps {
     children: React.ReactNode;
 }
 
-const CustomAlertstripe = ({ type, children }: CustomAlertstripeProps) => (
+const CustomAlertstripe = ({ type, children }: CustomAlertstripeProps): JSX.Element => (
     <Alertstripe type={type} className={styles.customAlertstripe}>
         {children}
     </Alertstripe>

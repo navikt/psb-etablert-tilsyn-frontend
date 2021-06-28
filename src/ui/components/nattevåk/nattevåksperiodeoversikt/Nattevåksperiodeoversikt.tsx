@@ -11,7 +11,7 @@ interface NattevåksperiodeoversiktProps {
     nattevåkData: NattevåkType;
 }
 
-const Nattevåksperiodeoversikt = ({ nattevåkData }: NattevåksperiodeoversiktProps) => {
+const Nattevåksperiodeoversikt = ({ nattevåkData }: NattevåksperiodeoversiktProps): JSX.Element => {
     const [valgtPeriode, setValgtPeriode] = React.useState<Vurderingsperiode>(null);
     const [editMode, setEditMode] = React.useState(false);
     const { beskrivelser } = nattevåkData;
