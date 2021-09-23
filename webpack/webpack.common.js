@@ -4,9 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const cssExtractLoaderConfig = {
     loader: MiniCssExtractPlugin.loader,
-    options: {
-        hmr: process.env.NODE_ENV === 'development',
-    },
 };
 
 const nodeModules = path.resolve(__dirname, '../node_modules');
