@@ -30,15 +30,15 @@ jobs:
             - name: Installere dependencies
               run: npm install
               env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.READ_PACKAGES_PAT }}
             - name: Kjøre enhetstester
               run: npm test
             - name: Sette versjon
               run: |
-                echo "MAJOR_VERSION=$(npm run majorVersion --silent)" >> $GITHUB_ENV
+                  echo "MAJOR_VERSION=$(npm run majorVersion --silent)" >> $GITHUB_ENV
             - name: Sette tag
               run: |
-                echo "TAG=$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+                  echo "TAG=$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
             - name: Sette miljøvariabler
               run: |
                   echo "IMAGE=${IMAGE_BASE}:${TAG}" >> $GITHUB_ENV
