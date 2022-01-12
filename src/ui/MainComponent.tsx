@@ -60,7 +60,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         nattevåk: null,
     });
     const { isLoading, etablertTilsyn, beredskap, nattevåk, tilsynHarFeilet } = state;
-    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } = data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
 
@@ -74,7 +74,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         getTilsyn()
             .then((tilsynResponse) => {
                 if (isMounted) {
-                    dispatch({ type: ActionType.OK, tilsynResponse });
+                    dispatch({ type: ActionType.OK, tilsynResponse, saksbehandlere });
                 }
             })
             .catch(() => {
