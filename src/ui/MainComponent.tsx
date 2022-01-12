@@ -74,7 +74,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         getTilsyn()
             .then((tilsynResponse) => {
                 if (isMounted) {
-                    dispatch({ type: ActionType.OK, tilsynResponse, saksbehandlere });
+                    dispatch({ type: ActionType.OK, tilsynResponse });
                 }
             })
             .catch(() => {

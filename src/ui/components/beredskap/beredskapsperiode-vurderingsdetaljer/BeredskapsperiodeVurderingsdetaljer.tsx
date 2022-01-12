@@ -1,9 +1,9 @@
 import { Box, Margin, DetailView, LabelledContent, LinkButton, AssessedBy } from '@navikt/k9-react-components';
-import React, {useReducer} from 'react';
+import React, { useContext } from 'react';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import mainComponentReducer from '../../../mainReducer';
+import ContainerContext from '../../../context/ContainerContext';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import styles from './beredskapsperiodeVurderingsdetaljer.less';
@@ -18,10 +18,9 @@ const BeredskapsperiodeVurderingsdetaljer = ({
     beredskapsperiode,
     onEditClick,
     beskrivelser,
-}: BeredskapsperiodeVurderingsdetaljerProps) => {
-
-    const {saksbehandlere} = useReducer(mainComponentReducer)
-    const {endretAv, endretTidspunkt} = beredskapsperiode;
+}: BeredskapsperiodeVurderingsdetaljerProps): JSX.Element => {
+    const { saksbehandlere } = useContext(ContainerContext);
+    const { endretAv, endretTidspunkt } = beredskapsperiode;
     return (
         <DetailView
             title="Vurdering av beredskap"
@@ -44,9 +43,7 @@ const BeredskapsperiodeVurderingsdetaljer = ({
                     content={beredskapsperiode.begrunnelse}
                     indentContent
                 />
-                    <AssessedBy
-                        name={saksbehandlere[endretAv] || endretAv}
-                        date={endretTidspunkt} />
+                <AssessedBy name={saksbehandlere[endretAv] || endretAv} date={endretTidspunkt} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent

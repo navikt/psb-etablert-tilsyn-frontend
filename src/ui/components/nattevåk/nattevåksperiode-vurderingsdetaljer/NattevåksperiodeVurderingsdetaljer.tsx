@@ -1,9 +1,9 @@
 import { Box, Margin, DetailView, LabelledContent, LinkButton, AssessedBy } from '@navikt/k9-react-components';
-import React, {useReducer} from 'react';
+import React, { useContext } from 'react';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
-import mainComponentReducer from '../../../mainReducer';
+import ContainerContext from '../../../context/ContainerContext';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import styles from './nattevåksperiodeVurderingsdetaljer.less';
@@ -19,9 +19,8 @@ const NattevåksperiodeVurderingsdetaljer = ({
     onEditClick,
     beskrivelser,
 }: NattevåksperiodeVurderingsdetaljerProps) => {
-
-    const saksbehandlere = useReducer(mainComponentReducer)
-    const {endretAv, endretTidspunkt} = nattevåksperiode;
+    const { saksbehandlere } = useContext(ContainerContext);
+    const { endretAv, endretTidspunkt } = nattevåksperiode;
     return (
         <DetailView
             title="Vurdering av nattevåk"
@@ -44,9 +43,7 @@ const NattevåksperiodeVurderingsdetaljer = ({
                     content={nattevåksperiode.begrunnelse}
                     indentContent
                 />
-                    <AssessedBy
-                        name={saksbehandlere[endretAv] || endretAv}
-                        date={endretTidspunkt} />
+                <AssessedBy name={saksbehandlere[endretAv] || endretAv} date={endretTidspunkt} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
