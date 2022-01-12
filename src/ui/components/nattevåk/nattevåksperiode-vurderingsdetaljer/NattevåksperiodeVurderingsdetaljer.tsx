@@ -1,8 +1,9 @@
-import { Box, Margin, DetailView, LabelledContent, LinkButton } from '@navikt/k9-react-components';
-import React from 'react';
+import { Box, Margin, DetailView, LabelledContent, LinkButton, AssessedBy } from '@navikt/k9-react-components';
+import React, {useReducer} from 'react';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
+import mainComponentReducer from '../../../mainReducer';
 import BeskrivelserForPerioden from '../../beskrivelser-for-perioden/BeskrivelserForPerioden';
 import WriteAccessBoundContent from '../../write-access-bound-content/WriteAccessBoundContent';
 import styles from './nattevåksperiodeVurderingsdetaljer.less';
@@ -18,6 +19,9 @@ const NattevåksperiodeVurderingsdetaljer = ({
     onEditClick,
     beskrivelser,
 }: NattevåksperiodeVurderingsdetaljerProps) => {
+
+    const saksbehandlere = useReducer(mainComponentReducer)
+    const {endretAv, endretTidspunkt} = nattevåksperiode;
     return (
         <DetailView
             title="Vurdering av nattevåk"
@@ -38,7 +42,11 @@ const NattevåksperiodeVurderingsdetaljer = ({
                 <LabelledContent
                     label="Vurdering av om det er behov for nattevåk"
                     content={nattevåksperiode.begrunnelse}
+                    indentContent
                 />
+                    <AssessedBy
+                        name={saksbehandlere[endretAv] || endretAv}
+                        date={endretTidspunkt} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
