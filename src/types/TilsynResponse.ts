@@ -35,6 +35,8 @@ export interface Vurdering {
     begrunnelse: string;
     resultat: Vurderingsresultat;
     kilde: Kilde;
+    endretAv: string;
+    endretTidspunkt: string;
 }
 
 export interface EtablertTilsynPeriode {

@@ -1,4 +1,5 @@
 import { HttpErrorHandler } from '@navikt/k9-http-utils';
+import Saksbehandlere from './Saksbehandlere';
 
 interface ContainerContract {
     readOnly: boolean;
@@ -12,9 +13,7 @@ interface ContainerContract {
     lagreNattevåkvurdering: (data: any) => void;
     harAksjonspunktForBeredskap: boolean;
     harAksjonspunktForNattevåk: boolean;
-    saksbehandlere: {
-        [saksbehandlerId: string]: string;
-    }
+    saksbehandlere: Saksbehandlere
 }
 
 export default ContainerContract;

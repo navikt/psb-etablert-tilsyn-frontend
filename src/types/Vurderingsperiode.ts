@@ -13,13 +13,19 @@ class Vurderingsperiode {
     begrunnelse: string;
 
     id: number;
+    
+    endretAv: string;
 
-    constructor({ periode, kilde, resultat, begrunnelse, id }: Vurdering) {
+    endretTidspunkt: string
+
+    constructor({ periode, kilde, resultat, begrunnelse, id, endretAv, endretTidspunkt }: Vurdering) {
         this.periode = new Period(periode.fom, periode.tom);
         this.kilde = kilde;
         this.resultat = resultat;
         this.begrunnelse = begrunnelse;
         this.id = id;
+        this.endretAv = endretAv;
+        this.endretTidspunkt = endretTidspunkt;
     }
 
     skalVurderes() {
