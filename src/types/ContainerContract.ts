@@ -12,6 +12,9 @@ interface ContainerContract {
     lagreNattevåkvurdering: (data: any) => void;
     harAksjonspunktForBeredskap: boolean;
     harAksjonspunktForNattevåk: boolean;
+    saksbehandlere: {
+        [saksbehandlerId: string]: string;
+    }
 }
 
 export default ContainerContract;
