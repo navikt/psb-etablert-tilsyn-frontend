@@ -20,7 +20,7 @@ const BeredskapsperiodeVurderingsdetaljer = ({
     beskrivelser,
 }: BeredskapsperiodeVurderingsdetaljerProps): JSX.Element => {
     const { saksbehandlere } = useContext(ContainerContext);
-    const { endretAv, endretTidspunkt } = beredskapsperiode;
+    const { opprettetAv, opprettetTidspunkt } = beredskapsperiode;
     return (
         <DetailView
             title="Vurdering av beredskap"
@@ -43,7 +43,7 @@ const BeredskapsperiodeVurderingsdetaljer = ({
                     content={beredskapsperiode.begrunnelse}
                     indentContent
                 />
-                <AssessedBy name={saksbehandlere[endretAv] || endretAv} date={endretTidspunkt} />
+                <AssessedBy name={saksbehandlere[opprettetAv] || opprettetAv} date={opprettetTidspunkt} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent

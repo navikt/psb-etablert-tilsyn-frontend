@@ -20,7 +20,7 @@ const NattevåksperiodeVurderingsdetaljer = ({
     beskrivelser,
 }: NattevåksperiodeVurderingsdetaljerProps) => {
     const { saksbehandlere } = useContext(ContainerContext);
-    const { endretAv, endretTidspunkt } = nattevåksperiode;
+    const { opprettetAv, opprettetTidspunkt } = nattevåksperiode;
     return (
         <DetailView
             title="Vurdering av nattevåk"
@@ -43,7 +43,7 @@ const NattevåksperiodeVurderingsdetaljer = ({
                     content={nattevåksperiode.begrunnelse}
                     indentContent
                 />
-                <AssessedBy name={saksbehandlere[endretAv] || endretAv} date={endretTidspunkt} />
+                <AssessedBy name={saksbehandlere[opprettetAv] || opprettetAv} date={opprettetTidspunkt} />
             </Box>
             <Box marginTop={Margin.xLarge}>
                 <LabelledContent
