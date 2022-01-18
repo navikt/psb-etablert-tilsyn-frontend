@@ -33,6 +33,8 @@ jobs:
                   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
             - name: Kjøre enhetstester
               run: npm test
+            - name: Bygge applikasjon
+              run: npm run build
             - name: Sette versjon
               run: |
                   echo "MAJOR_VERSION=$(npm run majorVersion --silent)" >> $GITHUB_ENV
