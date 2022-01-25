@@ -60,7 +60,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         nattevåk: null,
     });
     const { isLoading, etablertTilsyn, beredskap, nattevåk, tilsynHarFeilet } = state;
-    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } = data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
 

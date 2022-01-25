@@ -65,7 +65,7 @@
         "@navikt/k9-form-utils": "^0.0.5",
         "@navikt/k9-http-utils": "0.0.1",
         "@navikt/k9-period-utils": "^0.0.7",
-        "@navikt/k9-react-components": "^0.1.2",
+        "@navikt/k9-react-components": "^0.1.14",
         "@popperjs/core": "^2.9.2",
         "@types/react": "^16.9.52",
         "@types/react-dom": "^16.9.8",
