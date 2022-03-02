@@ -10,7 +10,8 @@
         "dev": "node webpack/webpack-config.development.js",
         "majorVersion": "node ./majorVersion.js",
         "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
-        "api-mock": "ts-node mock/api-mock.ts"
+        "api-mock": "ts-node mock/api-mock.ts",
+        "start:e2e": "nodemon mock/api-mock.ts & node webpack/webpack-config.development.js"
     },
     "keywords": [],
     "author": "NAV IT",
@@ -45,6 +46,7 @@
         "less": "^3.12.2",
         "less-loader": "^7.0.1",
         "mini-css-extract-plugin": "^1.3.9",
+        "nodemon": "^2.0.15",
         "normalize-url": "^4.5.1",
         "pre-commit": "^1.2.2",
         "prettier": "^2.1.2",
