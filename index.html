@@ -19,7 +19,9 @@
                     },
                     onFinished: () => console.log('Aksjonspunkt løst'),
                     beredskapMåVurderes: true,
-                    nattevåkMåVurderes: true
+                    nattevåkMåVurderes: true,
+                    lagreBeredskapvurdering: (data) => console.log(data),
+                    lagreNattevåkvurdering: (data) => console.log(data),
                 });
             }, 300);
         </script>
