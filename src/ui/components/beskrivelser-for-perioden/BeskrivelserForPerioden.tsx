@@ -5,7 +5,7 @@ import {
     LabelledContent,
     OnePersonIconGray,
     OnePersonOutlineGray,
-} from '@navikt/k9-react-components';
+} from '@navikt/ft-plattform-komponenter';
 import * as React from 'react';
 import Beskrivelse from '../../../types/Beskrivelse';
 import Kilde from '../../../types/Kilde';

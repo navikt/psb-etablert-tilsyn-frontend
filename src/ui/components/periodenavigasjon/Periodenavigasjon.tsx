@@ -1,4 +1,4 @@
-import { Box, Margin, InteractiveList } from '@navikt/k9-react-components';
+import { Box, Margin, InteractiveList } from '@navikt/ft-plattform-komponenter';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React, { useEffect } from 'react';
 import Vurderingsperiode from '../../../types/Vurderingsperiode';

@@ -1,4 +1,10 @@
-import { Box, Margin, ContentWithTooltip, OnePersonIconGray, OnePersonOutlineGray } from '@navikt/k9-react-components';
+import {
+    Box,
+    Margin,
+    ContentWithTooltip,
+    OnePersonIconGray,
+    OnePersonOutlineGray,
+} from '@navikt/ft-plattform-komponenter';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';

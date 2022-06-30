@@ -1,5 +1,6 @@
 import { get } from '@navikt/k9-http-utils';
-import { ChildIcon, Infostripe, PageContainer, WarningIcon } from '@navikt/k9-react-components';
+import { ChildIcon, Infostripe, PageContainer, WarningIcon } from '@navikt/ft-plattform-komponenter';
+import '@navikt/ft-plattform-komponenter/dist/style.css';
 import axios from 'axios';
 import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
@@ -60,7 +61,8 @@ const MainComponent = ({ data }: MainComponentProps) => {
         nattevåk: null,
     });
     const { isLoading, etablertTilsyn, beredskap, nattevåk, tilsynHarFeilet } = state;
-    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } = data;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } =
+        data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
 

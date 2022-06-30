@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { NavigationWithDetailView } from '@navikt/k9-react-components';
+import { NavigationWithDetailView } from '@navikt/ft-plattform-komponenter';
 import NattevåkType from '../../../../types/NattevåkType';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Periodenavigasjon from '../../periodenavigasjon/Periodenavigasjon';
