@@ -6,7 +6,6 @@ import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 import '@navikt/ds-css';
-import 'nav-frontend-core/dist/main.css';
 import ContainerContract from '../types/ContainerContract';
 import { TilsynResponse } from '../types/TilsynResponse';
 import Alertstripe from './components/alertstripe/Alertstripe';
