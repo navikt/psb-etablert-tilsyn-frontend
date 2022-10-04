@@ -9,7 +9,8 @@
         "build": "webpack --config webpack/webpack-config.production.js",
         "dev": "node webpack/webpack-config.development.js",
         "majorVersion": "node ./majorVersion.js",
-        "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
+        "lint": "eslint --cache 'src/**/*.{ts,tsx,js,jsx}'",
+        "ts-check": "tsc --pretty --noEmit",
         "api-mock": "ts-node mock/api-mock.ts",
         "start:e2e": "nodemon mock/api-mock.ts & node webpack/webpack-config.development.js"
     },

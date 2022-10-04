@@ -1,0 +1,32 @@
+name: Validere pull request
+on:
+    pull_request:
+        types: [opened, synchronize]
+jobs:
+    valid-pull-request:
+        name: Validere pull request
+        runs-on: ubuntu-latest
+        steps:
+            - name: Hente kode
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+            - name: Sette opp Node
+              uses: actions/setup-node@v2.1.2
+              with:
+                  node-version: 16.x
+                  registry-url: https://npm.pkg.github.com/
+                  scope: '@navikt'
+                  cache: 'yarn'
+            - name: Installere dependencies
+              run: yarn
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+            - name: Valider typescript
+              run: yarn ts-check
+            - name: Kjøre linter
+              run: yarn lint
+            - name: Kjøre enhetstester
+              run: yarn test
+            - name: Kjøre bygg
+              run: yarn build
