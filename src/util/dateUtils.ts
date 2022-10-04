@@ -56,16 +56,12 @@ export function getPeriodDifference(basePeriod: Period, periods: Period[]) {
             } else {
                 daysToInclude[index] = [currentDay];
             }
-        } else {
-            if (daysToInclude[index]) {
-                index = index + 1;
-            }
+        } else if (daysToInclude[index]) {
+            index += 1;
         }
     });
 
     return getDaySequencesAsListOfPeriods(daysToInclude);
 }
 
-export const beregnDagerTimer = (dur: string) => {
-    return Math.round(dayjs.duration(dur).asHours() * 100) / 100;
-};
+export const beregnDagerTimer = (dur: string) => Math.round(dayjs.duration(dur).asHours() * 100) / 100;

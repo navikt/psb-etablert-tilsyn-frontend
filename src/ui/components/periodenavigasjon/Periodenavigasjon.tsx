@@ -30,13 +30,13 @@ const Periodenavigasjon = ({
         }
     }, [harValgtPeriode]);
 
-    const vurdertePerioderElements = vurdertePerioder.map(({ periode, resultat, kilde }) => {
-        return <VurderingsperiodeElement periode={periode} resultat={resultat} kilde={kilde} />;
-    });
+    const vurdertePerioderElements = vurdertePerioder.map(({ periode, resultat, kilde }) => (
+        <VurderingsperiodeElement periode={periode} resultat={resultat} kilde={kilde} />
+    ));
 
-    const periodeTilVurderingElements = perioderTilVurdering.map(({ periode }) => {
-        return <PeriodeSomSkalVurderes periode={periode} />;
-    });
+    const periodeTilVurderingElements = perioderTilVurdering.map(({ periode }) => (
+        <PeriodeSomSkalVurderes periode={periode} />
+    ));
 
     const perioder = [...perioderTilVurdering, ...vurdertePerioder];
     const elements = [...periodeTilVurderingElements, ...vurdertePerioderElements];

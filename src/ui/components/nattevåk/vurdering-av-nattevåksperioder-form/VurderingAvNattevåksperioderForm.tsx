@@ -157,19 +157,17 @@ const VurderingAvNattevåksperioderForm = ({
                                 toDatepickerProps={{ label: 'Til', ariaLabel: 'Til' }}
                                 defaultValues={[new Period(nattevåksperiode.periode.fom, nattevåksperiode.periode.tom)]}
                                 disabled={readOnly}
-                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => {
-                                    return (
-                                        <>
-                                            {numberOfItems > 1 && (
-                                                <DeleteButton
-                                                    onClick={() => {
-                                                        fieldArrayMethods.remove(index);
-                                                    }}
-                                                />
-                                            )}
-                                        </>
-                                    );
-                                }}
+                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => (
+                                    <>
+                                        {numberOfItems > 1 && (
+                                            <DeleteButton
+                                                onClick={() => {
+                                                    fieldArrayMethods.remove(index);
+                                                }}
+                                            />
+                                        )}
+                                    </>
+                                )}
                                 renderAfterFieldArray={(fieldArrayMethods) => (
                                     <Box marginTop={Margin.large}>
                                         <AddButton

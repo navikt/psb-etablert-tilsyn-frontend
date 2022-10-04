@@ -163,19 +163,17 @@ const VurderingAvBeredskapsperioderForm = ({
                                 defaultValues={[
                                     new Period(beredskapsperiode.periode.fom, beredskapsperiode.periode.tom),
                                 ]}
-                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => {
-                                    return (
-                                        <>
-                                            {numberOfItems > 1 && (
-                                                <DeleteButton
-                                                    onClick={() => {
-                                                        fieldArrayMethods.remove(index);
-                                                    }}
-                                                />
-                                            )}
-                                        </>
-                                    );
-                                }}
+                                renderContentAfterElement={(index, numberOfItems, fieldArrayMethods) => (
+                                    <>
+                                        {numberOfItems > 1 && (
+                                            <DeleteButton
+                                                onClick={() => {
+                                                    fieldArrayMethods.remove(index);
+                                                }}
+                                            />
+                                        )}
+                                    </>
+                                )}
                                 renderAfterFieldArray={(fieldArrayMethods) => (
                                     <Box marginTop={Margin.large}>
                                         <AddButton
