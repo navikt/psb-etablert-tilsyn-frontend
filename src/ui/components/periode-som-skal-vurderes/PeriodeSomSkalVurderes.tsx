@@ -1,7 +1,7 @@
 import { Period } from '@navikt/k9-period-utils';
 import React from 'react';
-import { ContentWithTooltip, OnePersonIconGray, WarningIcon } from '@navikt/k9-react-components';
-import styles from './periodeSomSkalVurderes.less';
+import { ContentWithTooltip, OnePersonIconGray, WarningIcon } from '@navikt/ft-plattform-komponenter';
+import styles from './periodeSomSkalVurderes.css';
 
 interface PeriodeSomSkalVurderesProps {
     periode: Period;

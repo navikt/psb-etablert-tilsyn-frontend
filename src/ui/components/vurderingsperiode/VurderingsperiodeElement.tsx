@@ -6,10 +6,10 @@ import {
     OnePersonIconGray,
     OnePersonOutlineGray,
     RedCrossIconFilled,
-} from '@navikt/k9-react-components';
+} from '@navikt/ft-plattform-komponenter';
 import Kilde from '../../../types/Kilde';
 import Vurderingsresultat from '../../../types/Vurderingsresultat';
-import styles from './vurderingsperiodeElement.less';
+import styles from './vurderingsperiodeElement.css';
 
 interface VurderingsperiodeElementProps {
     periode: Period;

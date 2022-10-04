@@ -1,9 +1,9 @@
 import { Period } from '@navikt/k9-period-utils';
-import { Box, Margin, DetailView, LabelledContent, Form } from '@navikt/k9-react-components';
+import { Box, Margin, DetailView, LabelledContent, Form } from '@navikt/ft-plattform-komponenter';
 import { PeriodpickerList, RadioGroupPanel, TextArea } from '@navikt/k9-form-utils';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
@@ -32,13 +32,9 @@ interface VurderingAvBeredskapsperioderFormProps {
     beskrivelser: Beskrivelse[];
 }
 
-interface FormPeriod {
-    period: Period;
-}
-
 interface VurderingAvBeredskapsperioderFormState {
     [FieldName.BEGRUNNELSE]: string;
-    [FieldName.PERIODER]: FormPeriod[];
+    [FieldName.PERIODER]: Period[];
     [FieldName.HAR_BEHOV_FOR_BEREDSKAP]: RadioOptions;
 }
 
@@ -69,7 +65,7 @@ const VurderingAvBeredskapsperioderForm = ({
         },
     });
 
-    const erDetBehovForBeredskap = formMethods.watch(FieldName.HAR_BEHOV_FOR_BEREDSKAP);
+    const erDetBehovForBeredskap = useWatch({ control: formMethods.control, name: FieldName.HAR_BEHOV_FOR_BEREDSKAP });
 
     const handleSubmit = (formState: VurderingAvBeredskapsperioderFormState) => {
         setIsSubmitting(true);
@@ -80,12 +76,14 @@ const VurderingAvBeredskapsperioderForm = ({
         let perioderMedEllerUtenBeredskap;
         let perioderUtenBeredskap = [];
         if (harBehovForBeredskap === RadioOptions.JA_DELER) {
-            perioderMedEllerUtenBeredskap = perioder.map(({ period }) => ({
-                periode: period,
-                resultat: Vurderingsresultat.OPPFYLT,
-                begrunnelse,
-                kilde,
-            }));
+            perioderMedEllerUtenBeredskap = perioder
+                .map((periode: any) => (periode.period ? periode.period : periode))
+                .map((periode) => ({
+                    periode,
+                    resultat: Vurderingsresultat.OPPFYLT,
+                    begrunnelse,
+                    kilde,
+                }));
 
             const resterendePerioder = finnResterendePerioder(perioder, beredskapsperiode.periode);
             perioderUtenBeredskap = resterendePerioder.map((periode) => ({
@@ -112,7 +110,8 @@ const VurderingAvBeredskapsperioderForm = ({
         lagreBeredskapvurdering({ vurderinger: kombinertePerioder });
     };
 
-    const valgtePerioder = formMethods.watch(FieldName.PERIODER);
+    const valgtePerioder = useWatch({ control: formMethods.control, name: FieldName.PERIODER });
+
     const perioderUtenBehovForBeredskap = finnResterendePerioder(
         (valgtePerioder || []) as any,
         beredskapsperiode.periode
@@ -195,6 +194,7 @@ const VurderingAvBeredskapsperioderForm = ({
                                             )
                                             .map(({ period }: any) => new Period(period.fom, period.tom));
 
+                                        // eslint-disable-next-line react/destructuring-assignment
                                         const valgtPeriodePeriod = new Period(valgtPeriode.fom, valgtPeriode.tom);
                                         if (valgtPeriodePeriod.overlapsWithSomePeriodInList(andreValgtePerioder)) {
                                             return 'Beredskapsperiodene kan ikke overlappe';

@@ -21,15 +21,12 @@ export const getStringMedPerioder = (perioder: Period[]): string => {
     return `periodene ${perioderString}`;
 };
 
-export const finnResterendePerioder = (
-    perioderFraForm: {
-        period: Period;
-    }[],
-    periodeTilVurdering: Period
-): Period[] => {
+export const finnResterendePerioder = (perioderFraForm: Period[], periodeTilVurdering: Period): Period[] => {
     const formatertePerioderFraForm = perioderFraForm.map((periode) => {
-        if (!periode.period) return periode;
-        return periode.period;
+        if ((periode as any).period) {
+            return (periode as any).period;
+        }
+        return periode;
     });
     const resterendePerioder =
         formatertePerioderFraForm.length > 0 &&

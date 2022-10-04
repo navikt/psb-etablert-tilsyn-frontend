@@ -1,9 +1,9 @@
 import { Period } from '@navikt/k9-period-utils';
-import { Box, Margin, DetailView, LabelledContent, Form } from '@navikt/k9-react-components';
+import { Box, Margin, DetailView, LabelledContent, Form } from '@navikt/ft-plattform-komponenter';
 import { PeriodpickerList, RadioGroupPanel, TextArea } from '@navikt/k9-form-utils';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import Beskrivelse from '../../../../types/Beskrivelse';
 import Vurderingsperiode from '../../../../types/Vurderingsperiode';
 import Vurderingsresultat from '../../../../types/Vurderingsresultat';
@@ -32,13 +32,9 @@ interface VurderingAvNattevåksperioderFormProps {
     beskrivelser: Beskrivelse[];
 }
 
-interface FormPeriod {
-    period: Period;
-}
-
 interface VurderingAvNattevåksperioderFormState {
     [FieldName.BEGRUNNELSE]: string;
-    [FieldName.PERIODER]: FormPeriod[];
+    [FieldName.PERIODER]: Period[];
     [FieldName.HAR_BEHOV_FOR_NATTEVÅK]: RadioOptions;
 }
 
@@ -68,7 +64,7 @@ const VurderingAvNattevåksperioderForm = ({
         },
     });
 
-    const erDetBehovForNattevåk = formMethods.watch(FieldName.HAR_BEHOV_FOR_NATTEVÅK);
+    const erDetBehovForNattevåk = useWatch({ control: formMethods.control, name: FieldName.HAR_BEHOV_FOR_NATTEVÅK });
 
     const handleSubmit = (formState: VurderingAvNattevåksperioderFormState) => {
         setIsSubmitting(true);
@@ -79,12 +75,14 @@ const VurderingAvNattevåksperioderForm = ({
         let perioderMedEllerUtenNattevåk;
         let perioderUtenNattevåk = [];
         if (harBehovForNattevåk === RadioOptions.JA_DELER) {
-            perioderMedEllerUtenNattevåk = perioder.map(({ period }) => ({
-                periode: period,
-                resultat: Vurderingsresultat.OPPFYLT,
-                begrunnelse,
-                kilde,
-            }));
+            perioderMedEllerUtenNattevåk = perioder
+                .map((periode: any) => (periode.period ? periode.period : periode))
+                .map((periode) => ({
+                    periode,
+                    resultat: Vurderingsresultat.OPPFYLT,
+                    begrunnelse,
+                    kilde,
+                }));
 
             const resterendePerioder = finnResterendePerioder(perioder, nattevåksperiode.periode);
             perioderUtenNattevåk = resterendePerioder.map((periode) => ({
@@ -111,7 +109,7 @@ const VurderingAvNattevåksperioderForm = ({
         lagreNattevåkvurdering({ vurderinger: kombinertePerioder });
     };
 
-    const valgtePerioder = formMethods.watch(FieldName.PERIODER);
+    const valgtePerioder = useWatch({ control: formMethods.control, name: FieldName.PERIODER });
     const perioderUtenBehovForNattevåk = finnResterendePerioder(
         (valgtePerioder || []) as any,
         nattevåksperiode.periode

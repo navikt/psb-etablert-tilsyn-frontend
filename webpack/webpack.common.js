@@ -11,7 +11,7 @@ const nodeModules = path.resolve(__dirname, '../node_modules');
 module.exports = {
     entry: path.resolve(__dirname, '../', 'src') + '/app.ts',
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.less'],
+        extensions: ['.ts', '.tsx', '.js', '.css'],
     },
     module: {
         rules: [
@@ -23,7 +23,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.less$/,
+                test: /\.css$/,
                 use: [
                     cssExtractLoaderConfig,
                     {
@@ -32,19 +32,6 @@ module.exports = {
                             importLoaders: 1,
                             modules: {
                                 localIdentName: '[name]_[local]_[contenthash:base64:5]',
-                            },
-                        },
-                    },
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            lessOptions: {
-                                modules: true,
-                                localIdentName: '[name]_[local]_[contenthash:base64:5]',
-                                modifyVars: {
-                                    nodeModulesPath: '~',
-                                    coreModulePath: '~',
-                                },
                             },
                         },
                     },

@@ -1,34 +1,32 @@
-Frontend for etablert tilsyn
-================
+# Frontend for etablert tilsyn
 
 Dette er en frontend for "etablert tilsyn" i saksbehandlingen av pleiepenger ved sykt barn.
 
 ## Komme i gang
 
-For å kjøre frontend-appen i utvikling, kjør `npm install` etterfulgt av `npm run dev` på rot av prosjektet. 
+For å kjøre frontend-appen i utvikling, kjør `yarn install` etterfulgt av `yarn dev` på rot av prosjektet.
 
 Utviklingsmiljøet er konfigurert opp med en egen webpack-konfig som hoster `index.html` som ligger på rot.
 Denne index-filen er kun ment for utvikling.
 
 For enkelthet i utvikling ligger det et eget mockup-api under `/mock` som server mockede data, og som
 `index.html` på rot by default konfigurerer frontenden til å gjøre sine api-kall mot. Mockup-apiet kjøres
-opp ved å kjøre `npm run api-mock` på rot av prosjektet.
-
+opp ved å kjøre `yarn api-mock` på rot av prosjektet.
 
 ### Kjøring av tester
 
-`npm test` på rot av prosjektet
+`yarn test` på rot av prosjektet
 
 ### Bygging av appen
 
-`npm run build` på rot av prosjektet
+`yarn build` på rot av prosjektet
 
 Denne kommandoen vil se på `version` spesifisert i `package.json`, opprette en ny katalog under `build`
 som samsvarer med det versjonsnummeret, og legge de bygde filene der.
 
 ### Kjøring av bygg
 
-`npm run start` kjører opp en server som statisk hoster innholdet under `build`
+`yarn start` kjører opp en server som statisk hoster innholdet under `build`
 
 ---
 
