@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { BucketIcon } from '@navikt/k9-react-components';
-import styles from './deleteButton.less';
+import { BucketIcon } from '@navikt/ft-plattform-komponenter';
+import styles from './deleteButton.css';
 
 const DeleteButton = ({ onClick }) => (
     <div className={styles.deleteButton__container}>

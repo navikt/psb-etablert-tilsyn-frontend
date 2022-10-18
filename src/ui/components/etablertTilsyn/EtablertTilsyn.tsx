@@ -1,9 +1,15 @@
-import { Box, Margin, ContentWithTooltip, OnePersonIconGray, OnePersonOutlineGray } from '@navikt/k9-react-components';
+import {
+    Box,
+    Margin,
+    ContentWithTooltip,
+    OnePersonIconGray,
+    OnePersonOutlineGray,
+} from '@navikt/ft-plattform-komponenter';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
 import Kilde from '../../../types/Kilde';
-import styles from './etablertTilsyn.less';
+import styles from './etablertTilsyn.css';
 
 const renderIcon = (kilde: Kilde) => {
     if (kilde === Kilde.SØKER) {

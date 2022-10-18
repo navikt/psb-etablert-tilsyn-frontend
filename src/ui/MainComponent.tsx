@@ -1,9 +1,11 @@
 import { get } from '@navikt/k9-http-utils';
-import { ChildIcon, Infostripe, PageContainer, WarningIcon } from '@navikt/k9-react-components';
+import { ChildIcon, Infostripe, PageContainer, WarningIcon } from '@navikt/ft-plattform-komponenter';
 import axios from 'axios';
 import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
+import '@navikt/ft-plattform-komponenter/dist/style.css';
+import '@navikt/ds-css';
 import ContainerContract from '../types/ContainerContract';
 import { TilsynResponse } from '../types/TilsynResponse';
 import Alertstripe from './components/alertstripe/Alertstripe';
@@ -12,7 +14,7 @@ import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
 import ContainerContext from './context/ContainerContext';
 import ActionType from './mainActionTypes';
-import styles from './mainComponent.less';
+import styles from './mainComponent.css';
 import mainComponentReducer from './mainReducer';
 
 interface MainComponentProps {
@@ -60,7 +62,8 @@ const MainComponent = ({ data }: MainComponentProps) => {
         nattevåk: null,
     });
     const { isLoading, etablertTilsyn, beredskap, nattevåk, tilsynHarFeilet } = state;
-    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } = data;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } =
+        data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
 

@@ -6,10 +6,10 @@ import {
     OnePersonIconGray,
     OnePersonOutlineGray,
     RedCrossIconFilled,
-} from '@navikt/k9-react-components';
+} from '@navikt/ft-plattform-komponenter';
 import Kilde from '../../../types/Kilde';
 import Vurderingsresultat from '../../../types/Vurderingsresultat';
-import styles from './vurderingsperiodeElement.less';
+import styles from './vurderingsperiodeElement.css';
 
 interface VurderingsperiodeElementProps {
     periode: Period;
@@ -57,24 +57,22 @@ const VurderingsperiodeElement = ({
     resultat,
     kilde,
     renderAfterElement,
-}: VurderingsperiodeElementProps): JSX.Element => {
-    return (
-        <div className={styles.vurderingsperiodeElement}>
-            <span className={styles.visuallyHidden}>Type</span>
-            {renderStatusIcon(resultat)}
-            <div className={styles.vurderingsperiodeElement__texts}>
-                <p className={styles.vurderingsperiodeElement__texts__period}>
-                    <span className={styles.visuallyHidden}>Periode</span>
-                    {periode.prettifyPeriod()}
-                </p>
-            </div>
-            <div className={styles.vurderingsperiodeElement__texts__kildeIcon}>
-                <span className={styles.visuallyHidden}>Kilde</span>
-                {renderKildeIcon(kilde)}
-            </div>
-            {renderAfterElement && renderAfterElement()}
+}: VurderingsperiodeElementProps): JSX.Element => (
+    <div className={styles.vurderingsperiodeElement}>
+        <span className={styles.visuallyHidden}>Type</span>
+        {renderStatusIcon(resultat)}
+        <div className={styles.vurderingsperiodeElement__texts}>
+            <p className={styles.vurderingsperiodeElement__texts__period}>
+                <span className={styles.visuallyHidden}>Periode</span>
+                {periode.prettifyPeriod()}
+            </p>
         </div>
-    );
-};
+        <div className={styles.vurderingsperiodeElement__texts__kildeIcon}>
+            <span className={styles.visuallyHidden}>Kilde</span>
+            {renderKildeIcon(kilde)}
+        </div>
+        {renderAfterElement && renderAfterElement()}
+    </div>
+);
 
 export default VurderingsperiodeElement;

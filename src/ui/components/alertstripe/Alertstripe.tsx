@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Alertstripe, { AlertStripeType } from 'nav-frontend-alertstriper';
-import styles from './alertstripe.less';
+import styles from './alertstripe.css';
 
 interface CustomAlertstripeProps {
     type: AlertStripeType;
