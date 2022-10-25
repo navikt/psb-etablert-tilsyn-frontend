@@ -31,6 +31,7 @@ const BeredskapsperiodeoversiktController = ({
     }
     return (
         <VurderingAvBeredskapsperioderForm
+            key={valgtPeriode.id}
             beredskapsperiode={valgtPeriode}
             onCancelClick={onCancelClick}
             beskrivelser={beskrivelser}

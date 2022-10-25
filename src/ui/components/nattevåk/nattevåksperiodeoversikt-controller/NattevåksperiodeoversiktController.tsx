@@ -31,6 +31,7 @@ const NattevåksperiodeoversiktController = ({
     }
     return (
         <VurderingAvNattevåksperioderForm
+            key={valgtPeriode.id}
             nattevåksperiode={valgtPeriode}
             onCancelClick={onCancelClick}
             beskrivelser={beskrivelser}
