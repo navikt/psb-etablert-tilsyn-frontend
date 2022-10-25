@@ -10,7 +10,7 @@ import ContainerContract from '../types/ContainerContract';
 import { TilsynResponse } from '../types/TilsynResponse';
 import Alertstripe from './components/alertstripe/Alertstripe';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
-import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
+import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsynMedSmoring';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
 import ContainerContext from './context/ContainerContext';
 import ActionType from './mainActionTypes';
@@ -61,7 +61,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         beredskap: null,
         nattevåk: null,
     });
-    const { isLoading, etablertTilsyn, beredskap, nattevåk, tilsynHarFeilet } = state;
+    const { isLoading, etablertTilsyn, smortEtablertTilsynPerioder, beredskap, nattevåk, tilsynHarFeilet } = state;
     const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } =
         data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
@@ -124,7 +124,12 @@ const MainComponent = ({ data }: MainComponentProps) => {
                 />
                 <PageContainer isLoading={isLoading}>
                     <div className={styles.mainComponent__contentContainer}>
-                        {activeTab === 0 && <EtablertTilsyn etablertTilsynData={etablertTilsyn} />}
+                        {activeTab === 0 && (
+                            <EtablertTilsyn
+                                etablertTilsynData={etablertTilsyn}
+                                smortEtablertTilsynPerioder={smortEtablertTilsynPerioder}
+                            />
+                        )}
                         {activeTab === 1 && <Beredskapsperiodeoversikt beredskapData={beredskap} />}
                         {activeTab === 2 && <Nattevåksperiodeoversikt nattevåkData={nattevåk} />}
                     </div>

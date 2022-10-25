@@ -5,6 +5,7 @@ export interface TilsynResponse {
     etablertTilsynPerioder: EtablertTilsynPeriode[];
     nattevåk: Nattevåk;
     beredskap: Beredskap;
+    smortEtablertTilsynPerioder: EtablertTilsynPeriode[];
 }
 
 export interface Beredskap {

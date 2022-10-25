@@ -8,6 +8,7 @@ interface MainComponentState {
     etablertTilsyn: EtablertTilsynType[];
     beredskap: BeredskapType;
     nattevåk: NattevåkType;
+    smortEtablertTilsynPerioder: EtablertTilsynType[];
     tilsynHarFeilet: boolean;
     isLoading: boolean;
 }
@@ -26,11 +27,15 @@ const mainComponentReducer = (state: MainComponentState, action: Action): Partia
             );
             const beredskap = new BeredskapType(tilsynResponse.beredskap);
             const nattevåk = new NattevåkType(tilsynResponse.nattevåk);
+            const smortEtablertTilsynPerioder = tilsynResponse.smortEtablertTilsynPerioder.map(
+                (etablertTilsynPeriode) => new EtablertTilsynType(etablertTilsynPeriode)
+            );
             return {
                 ...state,
                 etablertTilsyn,
                 beredskap,
                 nattevåk,
+                smortEtablertTilsynPerioder,
                 tilsynHarFeilet: false,
                 isLoading: false,
             };
