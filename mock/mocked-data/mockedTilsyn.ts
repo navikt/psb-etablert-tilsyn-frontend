@@ -14,7 +14,7 @@ export default {
                 tom: '2022-10-04',
             },
             tidPerDag: 'PT1H30M',
-            kilde: 'SØKER',
+            kilde: 'ANDRE',
         },
         {
             periode: {
@@ -30,7 +30,7 @@ export default {
                 tom: '2022-10-06',
             },
             tidPerDag: 'PT2H33M',
-            kilde: 'SØKER',
+            kilde: 'ANDRE',
         },
         {
             periode: {
@@ -54,7 +54,7 @@ export default {
                 tom: '2022-10-21',
             },
             tidPerDag: 'PT7H2M',
-            kilde: 'SØKER',
+            kilde: 'ANDRE',
         },
     ],
     smortEtablertTilsynPerioder: [

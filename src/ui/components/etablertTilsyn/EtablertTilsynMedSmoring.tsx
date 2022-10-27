@@ -1,37 +1,24 @@
-import { ContentWithTooltip, OnePersonIconGray, OnePersonOutlineGray } from '@navikt/ft-plattform-komponenter';
+import React from 'react';
 import { Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import { uniq } from 'lodash';
-import { Element, Undertittel } from 'nav-frontend-typografi';
-import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { isDayAfter } from '@navikt/k9-date-utils';
+import { Period } from '@navikt/k9-period-utils';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
 import Kilde from '../../../types/Kilde';
+import EtablertTilsynRowContent from './EtablertTilsynRowContent';
 import styles from './etablertTilsynMedSmoring.css';
-
-const renderIcon = (kilde: Kilde) => {
-    if (kilde === Kilde.SØKER) {
-        return (
-            <ContentWithTooltip tooltipText="Søker">
-                <OnePersonIconGray />
-            </ContentWithTooltip>
-        );
-    }
-    return (
-        <ContentWithTooltip tooltipText="Annen part">
-            <OnePersonOutlineGray />
-        </ContentWithTooltip>
-    );
-};
+import PartIkon from './PartIkon';
 
 interface EtablertTilsynProps {
     etablertTilsynData: EtablertTilsynType[];
-    smortEtablertTilsynPerioder: EtablertTilsynType[];
+    smurtEtablertTilsynPerioder: EtablertTilsynType[];
 }
 
 interface EtablertTilsynMappet {
     etablertTilsyn: EtablertTilsynType[];
-    etablertTilsynSmort: EtablertTilsynType[];
+    etablertTilsynSmurt: EtablertTilsynType[];
     uke: number;
     delAvUke?: number;
 }
@@ -45,47 +32,53 @@ const ukeVisning = (uke, delAvUke) => {
 
 const periodeVisning = (usmurtePerioder, smurtePerioder) => {
     if (smurtePerioder.length) {
-        return `${smurtePerioder[0].periode.fom} - ${smurtePerioder[smurtePerioder.length - 1].periode.tom}`;
+        return new Period(
+            smurtePerioder[0].periode.fom,
+            smurtePerioder[smurtePerioder.length - 1].periode.tom
+        ).prettifyPeriod();
     }
-    return `${usmurtePerioder[0].periode.fom} - ${usmurtePerioder[smurtePerioder.length - 1].periode.tom}`;
+    return new Period(
+        usmurtePerioder[0].periode.fom,
+        usmurtePerioder[usmurtePerioder.length - 1].periode.tom
+    ).prettifyPeriod();
 };
 
-const EtablertTilsyn = ({ etablertTilsynData, smortEtablertTilsynPerioder }: EtablertTilsynProps): JSX.Element => {
+const EtablertTilsyn = ({ etablertTilsynData, smurtEtablertTilsynPerioder }: EtablertTilsynProps): JSX.Element => {
     const harVurderinger = etablertTilsynData.length > 0;
 
     const uker = uniq(etablertTilsynData.map((data) => dayjs(data.periode.fom).week()));
     const tilsynPerUke = uker.map((uke) => ({
         etablertTilsyn: etablertTilsynData.filter((v) => dayjs(v.periode.fom).week() === uke),
-        etablertTilsynSmort: smortEtablertTilsynPerioder.filter((v) => dayjs(v.periode.fom).week() === uke),
+        etablertTilsynSmurt: smurtEtablertTilsynPerioder.filter((v) => dayjs(v.periode.fom).week() === uke),
         uke,
     }));
     const tilsynPerUkeOppdeltSmoering = [];
     const tilsynPerUkeUtenOppdeltSmoering = tilsynPerUke
         .map((v) => {
             const smurtePerioder = [] as EtablertTilsynType[][];
-            v.etablertTilsynSmort.forEach((smortPeriode) => {
+            v.etablertTilsynSmurt.forEach((smurtPeriode) => {
                 const usmurtPeriode = v.etablertTilsyn.find((etablertTilsyn) =>
-                    smortPeriode.periode.includesDate(etablertTilsyn.periode.fom)
+                    smurtPeriode.periode.includesDate(etablertTilsyn.periode.fom)
                 );
-                if (usmurtPeriode.tidPerDag !== smortPeriode.tidPerDag) {
+                if (usmurtPeriode.tidPerDag !== smurtPeriode.tidPerDag) {
                     const sammenhengendePeriode = smurtePerioder.find((periodeArray) =>
                         periodeArray.find(
-                            (v) =>
-                                v.tidPerDag === smortPeriode.tidPerDag &&
-                                isDayAfter(dayjs(v.periode.tom), dayjs(smortPeriode.periode.fom))
+                            (periode) =>
+                                periode.tidPerDag === smurtPeriode.tidPerDag &&
+                                isDayAfter(dayjs(periode.periode.tom), dayjs(smurtPeriode.periode.fom))
                         )
                     );
                     if (sammenhengendePeriode) {
-                        sammenhengendePeriode.push(smortPeriode);
+                        sammenhengendePeriode.push(smurtPeriode);
                     } else {
-                        smurtePerioder.push([smortPeriode]);
+                        smurtePerioder.push([smurtPeriode]);
                     }
                 }
             });
             smurtePerioder.forEach((smurtPeriode, index) =>
                 tilsynPerUkeOppdeltSmoering.push({
                     etablertTilsyn: v.etablertTilsyn,
-                    etablertTilsynSmort: smurtPeriode,
+                    etablertTilsynSmurt: smurtPeriode,
                     uke: v.uke,
                     delAvUke: index === 0 ? 1 : 2,
                 })
@@ -98,10 +91,10 @@ const EtablertTilsyn = ({ etablertTilsynData, smortEtablertTilsynPerioder }: Eta
         .sort((a, b) => a.uke - b.uke)
         .sort((a, b) => a.delAvUke - b.delAvUke) as EtablertTilsynMappet[];
 
-    console.log(etablertTilsynMappet);
     if (!harVurderinger) {
         return <p className={styles.etablertTilsyn__ingenTilsyn}>Søker har ikke oppgitt etablert tilsyn</p>;
     }
+
     return (
         <div className={styles.etablertTilsynMedSmoringTabell}>
             <Table>
@@ -115,22 +108,37 @@ const EtablertTilsyn = ({ etablertTilsynData, smortEtablertTilsynPerioder }: Eta
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {etablertTilsynMappet.map((tilsyn) => (
-                        <Table.ExpandableRow
-                            key={ukeVisning(tilsyn.uke, tilsyn.delAvUke)}
-                            content="Innhold i ekspanderbar rad"
-                        >
-                            <Table.DataCell scope="row">{ukeVisning(tilsyn.uke, tilsyn.delAvUke)}</Table.DataCell>
-                            <Table.DataCell>
-                                {periodeVisning(tilsyn.etablertTilsyn, tilsyn.etablertTilsynSmort)}
-                            </Table.DataCell>
-                            <Table.DataCell>30%</Table.DataCell>
-                            <Table.DataCell>
-                                <span className={styles.visuallyHidden}>Kilde</span>
-                                {renderIcon(Kilde.SØKER)}
-                            </Table.DataCell>
-                        </Table.ExpandableRow>
-                    ))}
+                    {etablertTilsynMappet.map((tilsyn) => {
+                        const tidPerDagArray = tilsyn.etablertTilsynSmurt?.map((v) => v.tidPerDag).filter(Boolean);
+                        const tidPerDag = tidPerDagArray[0] || 0;
+                        const tilsynIPeriodeProsent = ((tidPerDag / 7.5) * 100).toFixed(2).replace(/[.,]00$/, '');
+
+                        const parter = tilsyn.etablertTilsyn.map((v) => v.kilde);
+
+                        return (
+                            <Table.ExpandableRow
+                                key={ukeVisning(tilsyn.uke, tilsyn.delAvUke)}
+                                content={
+                                    <EtablertTilsynRowContent
+                                        etablertTilsyn={tilsyn.etablertTilsyn}
+                                        etablertTilsynSmurt={tilsyn.etablertTilsynSmurt}
+                                        tilsynProsent={tilsynIPeriodeProsent}
+                                        skalViseIkoner={!!uniq(parter).length}
+                                    />
+                                }
+                            >
+                                <Table.DataCell scope="row">{ukeVisning(tilsyn.uke, tilsyn.delAvUke)}</Table.DataCell>
+                                <Table.DataCell>
+                                    {periodeVisning(tilsyn.etablertTilsyn, tilsyn.etablertTilsynSmurt)}
+                                </Table.DataCell>
+                                <Table.DataCell>{`${tilsynIPeriodeProsent}%`}</Table.DataCell>
+                                <Table.DataCell>
+                                    <span className={styles.visuallyHidden}>Kilde</span>
+                                    <PartIkon parter={parter} />
+                                </Table.DataCell>
+                            </Table.ExpandableRow>
+                        );
+                    })}
                 </Table.Body>
             </Table>
         </div>

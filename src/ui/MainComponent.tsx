@@ -61,7 +61,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         beredskap: null,
         nattevåk: null,
     });
-    const { isLoading, etablertTilsyn, smortEtablertTilsynPerioder, beredskap, nattevåk, tilsynHarFeilet } = state;
+    const { isLoading, etablertTilsyn, smurtEtablertTilsynPerioder, beredskap, nattevåk, tilsynHarFeilet } = state;
     const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } =
         data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
@@ -127,7 +127,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
                         {activeTab === 0 && (
                             <EtablertTilsyn
                                 etablertTilsynData={etablertTilsyn}
-                                smortEtablertTilsynPerioder={smortEtablertTilsynPerioder}
+                                smurtEtablertTilsynPerioder={smurtEtablertTilsynPerioder}
                             />
                         )}
                         {activeTab === 1 && <Beredskapsperiodeoversikt beredskapData={beredskap} />}

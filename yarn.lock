@@ -1601,6 +1601,11 @@
   resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/1.3.29/fcfce2b373f30242b5d4b67908153b98dc9c8b95#fcfce2b373f30242b5d4b67908153b98dc9c8b95"
   integrity sha512-I4BRBQg2R/ViWgqWVsT56YoO9Xmu5rnff7aXCuMR6AZwm7UnWvkMZ9WspPqzM7VU6rLUbUmXlco4KA63oc880g==
 
+"@navikt/ds-icons@^1.3.37":
+  version "1.3.37"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/1.3.37/b17b99f9b45ad39ed71eabef4d7911ff31dda17e#b17b99f9b45ad39ed71eabef4d7911ff31dda17e"
+  integrity sha512-4MsDDwks/tCx7v/xzbfrSbejeMkwhsD7v1iaGOT+0uKilFsGpRaQrEgqdqXMouHqh1CX04+ILNAGoDqkBlkygg==
+
 "@navikt/ds-icons@^1.3.5":
   version "1.3.5"
   resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/1.3.5/8750ba442903aca9bc95d4557e64328c4b872c26#8750ba442903aca9bc95d4557e64328c4b872c26"
