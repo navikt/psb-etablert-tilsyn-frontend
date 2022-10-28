@@ -127,7 +127,7 @@ const EtablertTilsyn = ({
                     {etablertTilsynMappet.map((tilsyn) => {
                         const tidPerDagArray = tilsyn.etablertTilsynSmurt?.map((v) => v.tidPerDag).filter(Boolean);
                         const tidPerDag = tidPerDagArray[0] || 0;
-                        const tilsynIPeriodeProsent = ((tidPerDag / 7.5) * 100).toFixed(2).replace(/[.,]00$/, '');
+                        const tilsynIPeriodeProsent = Math.round(((tidPerDag / 7.5) * 100));
                         const parter = tilsyn.etablertTilsyn.map((v) => v.kilde);
                         return (
                             <Table.ExpandableRow

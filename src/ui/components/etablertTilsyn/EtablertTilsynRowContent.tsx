@@ -10,7 +10,7 @@ import Kilde from '../../../types/Kilde';
 interface OwnProps {
     etablertTilsyn: EtablertTilsynType[];
     etablertTilsynSmurt: EtablertTilsynType[];
-    tilsynProsent: string;
+    tilsynProsent: number;
     visIkon: boolean;
 }
 
