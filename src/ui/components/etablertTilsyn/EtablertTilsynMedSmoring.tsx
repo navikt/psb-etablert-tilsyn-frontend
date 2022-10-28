@@ -100,21 +100,8 @@ const EtablertTilsyn = ({
             return smurtePerioder.length ? null : v;
         })
         .filter(Boolean);
-    const usmurtTilsynMedTreEnkeltdager = tilsynPerUkeUtenOppdeltSmoering.filter((v) => v.etablertTilsyn.length === 3);
 
-    const usmurtTilsynMedTreEnkeltdagerMappet = usmurtTilsynMedTreEnkeltdager.flatMap((uke) =>
-        uke.etablertTilsyn.map((_, index) => ({
-            etablertTilsyn: uke.etablertTilsyn,
-            etablertTilsynSmurt: [uke.etablertTilsynSmurt[index]],
-            uke: uke.uke,
-            delAvUke: index + 1,
-        }))
-    );
-    const etablertTilsynMappet = [
-        ...tilsynPerUkeUtenOppdeltSmoering.filter((v) => v.etablertTilsyn.length !== 3),
-        ...tilsynPerUkeOppdeltSmoering,
-        ...usmurtTilsynMedTreEnkeltdagerMappet,
-    ].sort(
+    const etablertTilsynMappet = [...tilsynPerUkeUtenOppdeltSmoering, ...tilsynPerUkeOppdeltSmoering].sort(
         (a: EtablertTilsynMappet, b: EtablertTilsynMappet) =>
             new Date(a.etablertTilsynSmurt[0].periode.fom).getTime() -
             new Date(b.etablertTilsynSmurt[0].periode.fom).getTime()
