@@ -11,16 +11,17 @@ interface OwnProps {
     timer: number;
     kilde: Kilde;
     disabled: boolean;
+    visIkon?: boolean;
 }
-export default function EtablertTilsynDag({ tittel, timer, kilde, disabled }: OwnProps) {
+export default function EtablertTilsynDag({ tittel, timer, kilde, disabled, visIkon = true }: OwnProps) {
     return (
         <div>
             <Detail>{tittel}</Detail>
             <Tag
                 className={classNames(styles.etablertTilsyn__tag, disabled && styles.etablertTilsyn__tag__disabled)}
                 variant="info"
-            >   
-            <PartIkon parter={[kilde]} fontSize="18px" />
+            >
+                {visIkon && <PartIkon parter={[kilde]} fontSize="18px" />}
                 {timer}
             </Tag>
         </div>

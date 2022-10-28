@@ -7,7 +7,7 @@ import React, { useMemo } from 'react';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 import '@navikt/ds-css';
 import ContainerContract from '../types/ContainerContract';
-import { TilsynResponse } from '../types/TilsynResponse';
+import { SykdomResponse, TilsynResponse } from '../types/TilsynResponse';
 import Alertstripe from './components/alertstripe/Alertstripe';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsynMedSmoring';
@@ -60,15 +60,28 @@ const MainComponent = ({ data }: MainComponentProps) => {
         etablertTilsyn: null,
         beredskap: null,
         nattevåk: null,
+        avslaattePerioder: [],
     });
-    const { isLoading, etablertTilsyn, smurtEtablertTilsynPerioder, beredskap, nattevåk, tilsynHarFeilet } = state;
-    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } =
-        data;
+    const {
+        isLoading,
+        etablertTilsyn,
+        smurtEtablertTilsynPerioder,
+        beredskap,
+        nattevåk,
+        avslaattePerioder,
+        tilsynHarFeilet,
+        sykdomHarFeilet,
+    } = state;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
 
     const getTilsyn = () =>
         get<TilsynResponse>(endpoints.tilsyn, httpErrorHandler, {
+            cancelToken: httpCanceler.token,
+        });
+    const getSykdom = () =>
+        get<SykdomResponse>(endpoints.sykdom, httpErrorHandler, {
             cancelToken: httpCanceler.token,
         });
 
@@ -83,13 +96,22 @@ const MainComponent = ({ data }: MainComponentProps) => {
             .catch(() => {
                 dispatch({ type: ActionType.FAILED });
             });
+        getSykdom()
+            .then((sykdomResponse) => {
+                if (isMounted) {
+                    dispatch({ type: ActionType.SYKDOM_OK, sykdomResponse });
+                }
+            })
+            .catch(() => {
+                dispatch({ type: ActionType.SYKDOM_FAILED });
+            });
         return () => {
             isMounted = false;
             httpCanceler.cancel();
         };
     }, []);
 
-    if (tilsynHarFeilet) {
+    if (tilsynHarFeilet || sykdomHarFeilet) {
         return (
             <Alertstripe type="info">
                 Noe gikk galt under henting av informasjon om etablert tilsyn. Dette kan skyldes at informasjon om
@@ -128,6 +150,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
                             <EtablertTilsyn
                                 etablertTilsynData={etablertTilsyn}
                                 smurtEtablertTilsynPerioder={smurtEtablertTilsynPerioder}
+                                avslaattePerioder={avslaattePerioder}
                             />
                         )}
                         {activeTab === 1 && <Beredskapsperiodeoversikt beredskapData={beredskap} />}

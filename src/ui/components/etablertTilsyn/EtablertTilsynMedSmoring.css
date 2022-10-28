@@ -1,4 +1,5 @@
 .etablertTilsynMedSmoringTabell {
+  max-width: 800px;
 }
 .etablertTilsynMedSmoringTabell .visuallyHidden {
     position: absolute;

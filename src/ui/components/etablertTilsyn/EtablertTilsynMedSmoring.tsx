@@ -6,7 +6,6 @@ import { uniq } from 'lodash';
 import { isDayAfter } from '@navikt/k9-date-utils';
 import { Period } from '@navikt/k9-period-utils';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
-import Kilde from '../../../types/Kilde';
 import EtablertTilsynRowContent from './EtablertTilsynRowContent';
 import styles from './etablertTilsynMedSmoring.css';
 import PartIkon from './PartIkon';
@@ -14,6 +13,7 @@ import PartIkon from './PartIkon';
 interface EtablertTilsynProps {
     etablertTilsynData: EtablertTilsynType[];
     smurtEtablertTilsynPerioder: EtablertTilsynType[];
+    avslaattePerioder: Period[];
 }
 
 interface EtablertTilsynMappet {
@@ -25,7 +25,7 @@ interface EtablertTilsynMappet {
 
 const ukeVisning = (uke, delAvUke) => {
     if (delAvUke) {
-        return `Uke ${uke} - ${delAvUke === 1 ? 'A' : 'B'}`;
+        return `Uke ${uke} - ${String.fromCharCode(64 + delAvUke)}`;
     }
     return `Uke ${uke}`;
 };
@@ -43,53 +43,82 @@ const periodeVisning = (usmurtePerioder, smurtePerioder) => {
     ).prettifyPeriod();
 };
 
-const EtablertTilsyn = ({ etablertTilsynData, smurtEtablertTilsynPerioder }: EtablertTilsynProps): JSX.Element => {
+const EtablertTilsyn = ({
+    etablertTilsynData,
+    smurtEtablertTilsynPerioder,
+    avslaattePerioder,
+}: EtablertTilsynProps): JSX.Element => {
     const harVurderinger = etablertTilsynData.length > 0;
+    const avlsaatteDager = avslaattePerioder.flatMap((periode) =>
+        periode.asListOfDays().map((date) => new Period(date, date))
+    );
+    const etablertTilsynEnkeltdager = etablertTilsynData.flatMap((v) =>
+        v.periode.asListOfDays().map((date) => ({ ...v, periode: new Period(date, date) }))
+    );
+    const smurtEtablertTilsynEnkeltdager = smurtEtablertTilsynPerioder.flatMap((v) =>
+        v.periode.asListOfDays().map((date) => ({ ...v, periode: new Period(date, date) }))
+    );
 
-    const uker = uniq(etablertTilsynData.map((data) => dayjs(data.periode.fom).week()));
+    const uker = uniq(etablertTilsynEnkeltdager.map((data) => dayjs(data.periode.fom).week()));
     const tilsynPerUke = uker.map((uke) => ({
-        etablertTilsyn: etablertTilsynData.filter((v) => dayjs(v.periode.fom).week() === uke),
-        etablertTilsynSmurt: smurtEtablertTilsynPerioder.filter((v) => dayjs(v.periode.fom).week() === uke),
+        etablertTilsyn: etablertTilsynEnkeltdager.filter((v) => dayjs(v.periode.fom).week() === uke),
+        etablertTilsynSmurt: smurtEtablertTilsynEnkeltdager.filter((v) => dayjs(v.periode.fom).week() === uke),
         uke,
     }));
     const tilsynPerUkeOppdeltSmoering = [];
     const tilsynPerUkeUtenOppdeltSmoering = tilsynPerUke
+        .map((v) => ({
+            ...v,
+            etablertTilsynSmurt: v.etablertTilsynSmurt.filter(
+                (smurt) => !avlsaatteDager.some((periode) => periode.includesDate(smurt.periode.fom))
+            ),
+        }))
         .map((v) => {
             const smurtePerioder = [] as EtablertTilsynType[][];
             v.etablertTilsynSmurt.forEach((smurtPeriode) => {
-                const usmurtPeriode = v.etablertTilsyn.find((etablertTilsyn) =>
-                    smurtPeriode.periode.includesDate(etablertTilsyn.periode.fom)
+                const sammenhengendePeriode = smurtePerioder.find((periodeArray) =>
+                    periodeArray.find(
+                        (periode) =>
+                            periode.tidPerDag === smurtPeriode.tidPerDag &&
+                            isDayAfter(dayjs(periode.periode.tom), dayjs(smurtPeriode.periode.fom))
+                    )
                 );
-                if (usmurtPeriode.tidPerDag !== smurtPeriode.tidPerDag) {
-                    const sammenhengendePeriode = smurtePerioder.find((periodeArray) =>
-                        periodeArray.find(
-                            (periode) =>
-                                periode.tidPerDag === smurtPeriode.tidPerDag &&
-                                isDayAfter(dayjs(periode.periode.tom), dayjs(smurtPeriode.periode.fom))
-                        )
-                    );
-                    if (sammenhengendePeriode) {
-                        sammenhengendePeriode.push(smurtPeriode);
-                    } else {
-                        smurtePerioder.push([smurtPeriode]);
-                    }
+                if (sammenhengendePeriode) {
+                    sammenhengendePeriode.push(smurtPeriode);
+                } else {
+                    smurtePerioder.push([smurtPeriode]);
                 }
             });
-            smurtePerioder.forEach((smurtPeriode, index) =>
+            smurtePerioder.forEach((smurtPeriode, index, array) =>
                 tilsynPerUkeOppdeltSmoering.push({
                     etablertTilsyn: v.etablertTilsyn,
                     etablertTilsynSmurt: smurtPeriode,
                     uke: v.uke,
-                    delAvUke: index === 0 ? 1 : 2,
+                    delAvUke: array.length > 1 ? index + 1 : undefined,
                 })
             );
             return smurtePerioder.length ? null : v;
         })
         .filter(Boolean);
+    const usmurtTilsynMedTreEnkeltdager = tilsynPerUkeUtenOppdeltSmoering.filter((v) => v.etablertTilsyn.length === 3);
 
-    const etablertTilsynMappet = [...tilsynPerUkeUtenOppdeltSmoering, ...tilsynPerUkeOppdeltSmoering]
-        .sort((a, b) => a.uke - b.uke)
-        .sort((a, b) => a.delAvUke - b.delAvUke) as EtablertTilsynMappet[];
+    const usmurtTilsynMedTreEnkeltdagerMappet = usmurtTilsynMedTreEnkeltdager.flatMap((uke) =>
+        uke.etablertTilsyn.map((_, index) => ({
+            etablertTilsyn: uke.etablertTilsyn,
+            etablertTilsynSmurt: [uke.etablertTilsynSmurt[index]],
+            uke: uke.uke,
+            delAvUke: index + 1,
+        }))
+    );
+    const etablertTilsynMappet = [
+        ...tilsynPerUkeUtenOppdeltSmoering.filter((v) => v.etablertTilsyn.length !== 3),
+        ...tilsynPerUkeOppdeltSmoering,
+        ...usmurtTilsynMedTreEnkeltdagerMappet,
+    ].sort(
+        (a: EtablertTilsynMappet, b: EtablertTilsynMappet) =>
+            new Date(a.etablertTilsynSmurt[0].periode.fom).getTime() -
+            new Date(b.etablertTilsynSmurt[0].periode.fom).getTime()
+    );
 
     if (!harVurderinger) {
         return <p className={styles.etablertTilsyn__ingenTilsyn}>Søker har ikke oppgitt etablert tilsyn</p>;
@@ -112,9 +141,7 @@ const EtablertTilsyn = ({ etablertTilsynData, smurtEtablertTilsynPerioder }: Eta
                         const tidPerDagArray = tilsyn.etablertTilsynSmurt?.map((v) => v.tidPerDag).filter(Boolean);
                         const tidPerDag = tidPerDagArray[0] || 0;
                         const tilsynIPeriodeProsent = ((tidPerDag / 7.5) * 100).toFixed(2).replace(/[.,]00$/, '');
-
                         const parter = tilsyn.etablertTilsyn.map((v) => v.kilde);
-
                         return (
                             <Table.ExpandableRow
                                 key={ukeVisning(tilsyn.uke, tilsyn.delAvUke)}
@@ -123,7 +150,7 @@ const EtablertTilsyn = ({ etablertTilsynData, smurtEtablertTilsynPerioder }: Eta
                                         etablertTilsyn={tilsyn.etablertTilsyn}
                                         etablertTilsynSmurt={tilsyn.etablertTilsynSmurt}
                                         tilsynProsent={tilsynIPeriodeProsent}
-                                        skalViseIkoner={!!uniq(parter).length}
+                                        visIkon
                                     />
                                 }
                             >

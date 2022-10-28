@@ -9,12 +9,12 @@
     margin-top: 0.25rem;
     padding: 0.5rem;
     min-width: 4.5625rem;
+    min-height: 2.5rem;
     background-color: #E6F0FF;
     border: none;
 }
 
 .etablertTilsyn__tag__disabled {
-    border: 1px solid #CFCFCF;
     background-color: #CFCFCF;
     color: #707070;
 }

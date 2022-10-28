@@ -8,6 +8,17 @@ export interface TilsynResponse {
     smortEtablertTilsynPerioder: EtablertTilsynPeriode[];
 }
 
+export interface Vurderingselementer {
+    periode: {
+        fom: string;
+        tom: string;
+    };
+    resultat: string;
+}
+export interface SykdomResponse {
+    vurderingselementer: Vurderingselementer[];
+}
+
 export interface Beredskap {
     beskrivelser: Beskrivelse[];
     vurderinger: Vurdering[];

@@ -2,6 +2,70 @@ export default {
     etablertTilsynPerioder: [
         {
             periode: {
+                fom: '2022-09-19',
+                tom: '2022-09-19',
+            },
+            tidPerDag: 'PT5H30M',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-20',
+                tom: '2022-09-20',
+            },
+            tidPerDag: 'PT0H',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-21',
+                tom: '2022-09-21',
+            },
+            tidPerDag: 'PT5H30M',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-22',
+                tom: '2022-09-22',
+            },
+            tidPerDag: 'PT0H',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-23',
+                tom: '2022-09-23',
+            },
+            tidPerDag: 'PT5H30M',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-26',
+                tom: '2022-09-26',
+            },
+            tidPerDag: 'PT7H',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-28',
+                tom: '2022-09-28',
+            },
+            tidPerDag: 'PT2H',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-30',
+                tom: '2022-09-30',
+            },
+            tidPerDag: 'PT4H',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
                 fom: '2022-10-03',
                 tom: '2022-10-03',
             },
@@ -56,8 +120,80 @@ export default {
             tidPerDag: 'PT7H2M',
             kilde: 'ANDRE',
         },
+        {
+            periode: {
+                fom: '2022-10-24',
+                tom: '2022-10-25',
+            },
+            tidPerDag: 'PT0H',
+            kilde: 'ANDRE',
+        },
+        {
+            periode: {
+                fom: '2022-10-26',
+                tom: '2022-10-28',
+            },
+            tidPerDag: 'PT7H30M',
+            kilde: 'ANDRE',
+        },
     ],
     smortEtablertTilsynPerioder: [
+        {
+            periode: {
+                fom: '2022-09-19',
+                tom: '2022-09-19',
+            },
+            tidPerDag: 'PT5H30M',
+        },
+        {
+            periode: {
+                fom: '2022-09-20',
+                tom: '2022-09-20',
+            },
+            tidPerDag: 'PT0H',
+        },
+        {
+            periode: {
+                fom: '2022-09-21',
+                tom: '2022-09-21',
+            },
+            tidPerDag: 'PT5H30M',
+        },
+        {
+            periode: {
+                fom: '2022-09-22',
+                tom: '2022-09-22',
+            },
+            tidPerDag: 'PT0H',
+        },
+        {
+            periode: {
+                fom: '2022-09-23',
+                tom: '2022-09-23',
+            },
+            tidPerDag: 'PT5H30M',
+        },
+        {
+            periode: {
+                fom: '2022-09-26',
+                tom: '2022-09-26',
+            },
+            tidPerDag: 'PT7H',
+        },
+        {
+            periode: {
+                fom: '2022-09-28',
+                tom: '2022-09-28',
+            },
+            tidPerDag: 'PT2H',
+        },
+        {
+            periode: {
+                fom: '2022-09-30',
+                tom: '2022-09-30',
+            },
+            tidPerDag: 'PT4H',
+        },
         {
             periode: {
                 fom: '2022-10-03',
@@ -106,6 +242,20 @@ export default {
                 tom: '2022-10-21',
             },
             tidPerDag: 'PT7H2M',
+        },
+        {
+            periode: {
+                fom: '2022-10-24',
+                tom: '2022-10-25',
+            },
+            tidPerDag: 'PT0H',
+        },
+        {
+            periode: {
+                fom: '2022-10-26',
+                tom: '2022-10-28',
+            },
+            tidPerDag: 'PT7H30M',
         },
     ],
     nattevåk: {

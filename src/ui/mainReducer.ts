@@ -1,7 +1,8 @@
+import { Period } from '@navikt/k9-period-utils';
 import BeredskapType from '../types/BeredskapType';
 import EtablertTilsynType from '../types/EtablertTilsynType';
 import NattevåkType from '../types/NattevåkType';
-import { TilsynResponse } from '../types/TilsynResponse';
+import { SykdomResponse, TilsynResponse, Vurderingselementer } from '../types/TilsynResponse';
 import ActionType from './mainActionTypes';
 
 interface MainComponentState {
@@ -9,13 +10,16 @@ interface MainComponentState {
     beredskap: BeredskapType;
     nattevåk: NattevåkType;
     smurtEtablertTilsynPerioder: EtablertTilsynType[];
+    avslaattePerioder: Period[];
     tilsynHarFeilet: boolean;
+    sykdomHarFeilet: boolean;
     isLoading: boolean;
 }
 
 interface Action {
     type: ActionType;
     tilsynResponse?: TilsynResponse;
+    sykdomResponse?: SykdomResponse;
 }
 
 const mainComponentReducer = (state: MainComponentState, action: Action): Partial<MainComponentState> => {
@@ -51,6 +55,22 @@ const mainComponentReducer = (state: MainComponentState, action: Action): Partia
                 ...state,
                 tilsynHarFeilet: false,
                 isLoading: true,
+            };
+        case ActionType.SYKDOM_OK: {
+            const { sykdomResponse } = action;
+            const avslaattePerioder = sykdomResponse.vurderingselementer
+                .filter((v) => v.resultat === 'IKKE_OPPFYLT')
+                .map((v) => new Period(v.periode.fom, v.periode.tom));
+            return {
+                ...state,
+                avslaattePerioder,
+                sykdomHarFeilet: false,
+            };
+        }
+        case ActionType.SYKDOM_FAILED:
+            return {
+                ...state,
+                sykdomHarFeilet: true,
             };
         default:
             return { ...state };

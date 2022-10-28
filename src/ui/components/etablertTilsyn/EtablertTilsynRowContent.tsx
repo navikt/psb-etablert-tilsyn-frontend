@@ -11,14 +11,14 @@ interface OwnProps {
     etablertTilsyn: EtablertTilsynType[];
     etablertTilsynSmurt: EtablertTilsynType[];
     tilsynProsent: string;
-    skalViseIkoner: boolean;
+    visIkon: boolean;
 }
 
 export default function EtablertTilsynRowContent({
     etablertTilsyn,
     etablertTilsynSmurt,
     tilsynProsent,
-    skalViseIkoner,
+    visIkon,
 }: OwnProps) {
     const etablertTilsynDager = etablertTilsyn.flatMap((v) =>
         v.periode.asListOfDays().map((date) => ({ date, tidPerDag: v.tidPerDag, kilde: v.kilde }))
@@ -47,39 +47,44 @@ export default function EtablertTilsynRowContent({
             <div className={styles.etablertTilsynRowContent}>
                 <EtablertTilsynDag
                     tittel="Mandag"
-                    timer={mandag.tidPerDag}
-                    kilde={mandag.kilde}
+                    timer={mandag?.tidPerDag}
+                    kilde={mandag?.kilde}
                     disabled={!mandagSmurt}
+                    visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Tirsdag"
-                    timer={tirsdag.tidPerDag}
-                    kilde={tirsdag.kilde}
+                    timer={tirsdag?.tidPerDag}
+                    kilde={tirsdag?.kilde}
                     disabled={!tirsdagSmurt}
+                    visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Onsdag"
-                    timer={onsdag.tidPerDag}
-                    kilde={onsdag.kilde}
+                    timer={onsdag?.tidPerDag}
+                    kilde={onsdag?.kilde}
                     disabled={!onsdagSmurt}
+                    visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Torsdag"
-                    timer={torsdag.tidPerDag}
-                    kilde={torsdag.kilde}
+                    timer={torsdag?.tidPerDag}
+                    kilde={torsdag?.kilde}
                     disabled={!torsdagSmurt}
+                    visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Fredag"
-                    timer={fredag.tidPerDag}
-                    kilde={fredag.kilde}
+                    timer={fredag?.tidPerDag}
+                    kilde={fredag?.kilde}
                     disabled={!fredagSmurt}
+                    visIkon={visIkon}
                 />
                 <div className={styles.etablertTilsyn__timer__container}>
                     <BodyShort>{`= ${timerSmurt} t per dag (${tilsynProsent}%)`}</BodyShort>
                 </div>
             </div>
-            {skalViseIkoner && (
+            {visIkon && (
                 <div className={styles.etablertTilsyn__ikon__container}>
                     <div className={styles.etablertTilsyn__ikon__forklaring__container}>
                         <PartIkon parter={[Kilde.SØKER]} fontSize="16px" />

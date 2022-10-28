@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import mockedTilsyn from './mocked-data/mockedTilsyn';
+import mockedSykdom from './mocked-data/mockedSykdom';
 
 const app = express();
 
@@ -14,6 +15,9 @@ app.use(
 
 app.use('/mock/tilsyn', (req, res) => {
     res.send(mockedTilsyn);
+});
+app.use('/mock/sykdom', (req, res) => {
+    res.send(mockedSykdom);
 });
 
 const port = 8082;
