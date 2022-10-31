@@ -31,3 +31,8 @@
     display: inline-flex;
     align-items: center;
 }
+
+.etablertTilsyn__innrapportert_timer__container {
+    display: flex;
+    column-gap: 0.625rem;
+}

@@ -1,4 +1,4 @@
-import { BodyShort, Detail, Label, Tag } from '@navikt/ds-react';
+import { BodyShort, Detail, HelpText, Label, Tag } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import React from 'react';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
@@ -43,7 +43,14 @@ export default function EtablertTilsynRowContent({
     const timerSmurt = etablertTilsynSmurtDager.find((v) => v.tidPerDag)?.tidPerDag;
     return (
         <>
-            <Label>Innrapportert timer tilsyn</Label>
+            <div className={styles.etablertTilsyn__innrapportert_timer__container}>
+                <Label>Innrapportert timer tilsyn</Label>
+                <HelpText title="Hva er innrapportert timer tilsyn?">
+                    Timer tilsyn innrapportert fordeles/smøres utover sammenhengende dager hvor behovet for tilsyn og
+                    pleie er godkjent innenfor en uke. Søker graderes ikke mot timer tilsyn innrapportert på dager
+                    barnet er innlagt eller dager foreldrene er i beredskap eller har nattevåk.
+                </HelpText>
+            </div>
             <div className={styles.etablertTilsynRowContent}>
                 <EtablertTilsynDag
                     tittel="Mandag"
