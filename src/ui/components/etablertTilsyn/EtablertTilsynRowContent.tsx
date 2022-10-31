@@ -81,7 +81,7 @@ export default function EtablertTilsynRowContent({
                     visIkon={visIkon}
                 />
                 <div className={styles.etablertTilsyn__timer__container}>
-                    <BodyShort>{`= ${timerSmurt} t per dag (${tilsynProsent}%)`}</BodyShort>
+                    <BodyShort>{`= ${timerSmurt || 0} t per dag (${tilsynProsent}%)`}</BodyShort>
                 </div>
             </div>
             {visIkon && (
