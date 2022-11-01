@@ -73,12 +73,17 @@ const MainComponent = ({ data }: MainComponentProps) => {
         tilsynHarFeilet,
         sykdomHarFeilet,
     } = state;
-    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
+    const {
+        endpoints,
+        httpErrorHandler,
+        harAksjonspunktForBeredskap,
+        harAksjonspunktForNattevåk,
+        smoeringErTilgjengelig,
+    } = data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const [innleggelsesperioder, setInnleggelsesperioder] = React.useState<Period[]>([]);
     const [innleggelserFeilet, setInnleggelserFeilet] = React.useState(false);
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
-
     const getTilsyn = () =>
         get<TilsynResponse>(endpoints.tilsyn, httpErrorHandler, {
             cancelToken: httpCanceler.token,

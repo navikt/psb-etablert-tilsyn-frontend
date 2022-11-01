@@ -2,7 +2,7 @@ import { Period } from '@navikt/k9-period-utils';
 import BeredskapType from '../types/BeredskapType';
 import EtablertTilsynType from '../types/EtablertTilsynType';
 import NattevåkType from '../types/NattevåkType';
-import { SykdomResponse, TilsynResponse, Vurderingselementer } from '../types/TilsynResponse';
+import { SykdomResponse, TilsynResponse } from '../types/TilsynResponse';
 import ActionType from './mainActionTypes';
 
 interface MainComponentState {
