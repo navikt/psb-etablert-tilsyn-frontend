@@ -6,6 +6,7 @@ interface ContainerContract {
     endpoints: {
         tilsyn: string;
         sykdom: string;
+        sykdomInnleggelse: string
     };
     httpErrorHandler: HttpErrorHandler;
     beredskapMåVurderes: boolean;
@@ -15,6 +16,7 @@ interface ContainerContract {
     harAksjonspunktForBeredskap: boolean;
     harAksjonspunktForNattevåk: boolean;
     saksbehandlere: Saksbehandlere;
+    smoeringErTilgjengelig: boolean;
 }
 
 export default ContainerContract;

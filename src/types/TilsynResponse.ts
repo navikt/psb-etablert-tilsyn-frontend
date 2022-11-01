@@ -1,3 +1,4 @@
+import { Period } from '@navikt/k9-period-utils';
 import Kilde from './Kilde';
 import Vurderingsresultat from './Vurderingsresultat';
 
@@ -17,6 +18,11 @@ export interface Vurderingselementer {
 }
 export interface SykdomResponse {
     vurderingselementer: Vurderingselementer[];
+}
+export interface InnleggelsesperiodeResponse {
+    behandlingUuid: string;
+    versjon: string;
+    perioder: Period[];
 }
 
 export interface Beredskap {

@@ -14,6 +14,7 @@ interface EtablertTilsynProps {
     etablertTilsynData: EtablertTilsynType[];
     smurtEtablertTilsynPerioder: EtablertTilsynType[];
     avslaattePerioder: Period[];
+    innleggelsesperioder: Period[];
 }
 
 interface EtablertTilsynMappet {
@@ -47,11 +48,21 @@ const EtablertTilsyn = ({
     etablertTilsynData,
     smurtEtablertTilsynPerioder,
     avslaattePerioder,
+    innleggelsesperioder,
 }: EtablertTilsynProps): JSX.Element => {
     const harVurderinger = etablertTilsynData.length > 0;
-    const avlsaatteDager = avslaattePerioder.flatMap((periode) =>
+    const avslaatteDager = avslaattePerioder.flatMap((periode) =>
         periode.asListOfDays().map((date) => new Period(date, date))
     );
+    const innleggelsesdager = innleggelsesperioder.flatMap((periode) =>
+        periode.asListOfDays().map((date) => new Period(date, date))
+    );
+
+    const avslaatteDagerFiltrert = avslaatteDager.filter(
+        (v) => !innleggelsesdager.some((innlagtDag) => v.includesDate(innlagtDag.fom))
+    );
+
+    const dagerSomSkalEkskluderes = [...avslaatteDagerFiltrert, ...innleggelsesdager];
     const etablertTilsynEnkeltdager = etablertTilsynData.flatMap((v) =>
         v.periode.asListOfDays().map((date) => ({ ...v, periode: new Period(date, date) }))
     );
@@ -70,7 +81,7 @@ const EtablertTilsyn = ({
         .map((v) => ({
             ...v,
             etablertTilsynSmurt: v.etablertTilsynSmurt.filter(
-                (smurt) => !avlsaatteDager.some((periode) => periode.includesDate(smurt.periode.fom))
+                (smurt) => !dagerSomSkalEkskluderes.some((periode) => periode.includesDate(smurt.periode.fom))
             ),
         }))
         .map((v) => {
@@ -127,7 +138,7 @@ const EtablertTilsyn = ({
                     {etablertTilsynMappet.map((tilsyn) => {
                         const tidPerDagArray = tilsyn.etablertTilsynSmurt?.map((v) => v.tidPerDag).filter(Boolean);
                         const tidPerDag = tidPerDagArray[0] || 0;
-                        const tilsynIPeriodeProsent = Math.round(((tidPerDag / 7.5) * 100));
+                        const tilsynIPeriodeProsent = Math.round((tidPerDag / 7.5) * 100);
                         const parter = tilsyn.etablertTilsyn.map((v) => v.kilde);
                         return (
                             <Table.ExpandableRow
