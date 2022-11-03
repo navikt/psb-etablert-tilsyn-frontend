@@ -186,3 +186,99 @@ export const treEnkeltdager = () => {
 
     return { etablertTilsynData, smurtEtablertTilsynPerioder, avslaattePerioder, innleggelsesperioder: [] };
 };
+
+export const toSmøringer = () => {
+    const etablertTilsynData = [
+        {
+            periode: {
+                fom: '2022-10-03',
+                tom: '2022-10-03',
+            },
+            tidPerDag: 'PT7H',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-10-04',
+                tom: '2022-10-04',
+            },
+            tidPerDag: 'PT1H30M',
+            kilde: 'ANDRE',
+        },
+        {
+            periode: {
+                fom: '2022-10-05',
+                tom: '2022-10-05',
+            },
+            tidPerDag: 'PT4H33M',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-10-06',
+                tom: '2022-10-06',
+            },
+            tidPerDag: 'PT2H33M',
+            kilde: 'ANDRE',
+        },
+        {
+            periode: {
+                fom: '2022-10-07',
+                tom: '2022-10-07',
+            },
+            tidPerDag: 'PT6H',
+            kilde: 'SØKER',
+        },
+    ].map(mapTilEtablertTilsynType);
+
+    const smurtEtablertTilsynPerioder = [
+        {
+            periode: {
+                fom: '2022-10-03',
+                tom: '2022-10-03',
+            },
+            tidPerDag: 'PT4H15M',
+        },
+        {
+            periode: {
+                fom: '2022-10-04',
+                tom: '2022-10-04',
+            },
+            tidPerDag: 'PT4H15M',
+        },
+        {
+            periode: {
+                fom: '2022-10-05',
+                tom: '2022-10-05',
+            },
+            tidPerDag: 'PT4H33M',
+        },
+        {
+            periode: {
+                fom: '2022-10-06',
+                tom: '2022-10-06',
+            },
+            tidPerDag: 'PT4H16M30S',
+        },
+        {
+            periode: {
+                fom: '2022-10-07',
+                tom: '2022-10-07',
+            },
+            tidPerDag: 'PT4H16M30S',
+        },
+    ].map(mapTilEtablertTilsynType);
+
+    const avslaattePerioder = [
+        {
+            id: '999999',
+            resultat: 'IKKE_OPPFYLT',
+            periode: {
+                fom: '2022-10-05',
+                tom: '2022-10-05',
+            },
+        },
+    ].map(mapPeriode);
+
+    return { etablertTilsynData, smurtEtablertTilsynPerioder, avslaattePerioder, innleggelsesperioder: [] };
+};
