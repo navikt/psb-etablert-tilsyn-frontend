@@ -75,6 +75,7 @@
         "@navikt/k9-http-utils": "0.0.3",
         "@navikt/k9-period-utils": "^0.0.12",
         "@popperjs/core": "2.11.6",
+        "@testing-library/user-event": "^14.4.3",
         "@types/react": "^18.0.21",
         "@types/react-dom": "^18.0.6",
         "axios": "^0.27.2",

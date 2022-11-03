@@ -20,6 +20,10 @@ app.use('/mock/sykdom', (req, res) => {
     res.send(mockedSykdom);
 });
 
+app.use('/mock/sykdomInnleggelse', (req, res) => {
+    res.send({ perioder: [] });
+});
+
 const port = 8082;
 app.listen(port, () => {
     console.log('API-mock listening on port', port);

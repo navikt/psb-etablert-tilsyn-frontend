@@ -73,13 +73,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         tilsynHarFeilet,
         sykdomHarFeilet,
     } = state;
-    const {
-        endpoints,
-        httpErrorHandler,
-        harAksjonspunktForBeredskap,
-        harAksjonspunktForNattevåk,
-        smoeringErTilgjengelig,
-    } = data;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
     const [innleggelsesperioder, setInnleggelsesperioder] = React.useState<Period[]>([]);
     const [innleggelserFeilet, setInnleggelserFeilet] = React.useState(false);
@@ -122,7 +116,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
             .then((innleggelserResponse) => {
                 setInnleggelsesperioder(innleggelserResponse.perioder.map((v) => new Period(v.fom, v.tom)));
             })
-            .catch(() => {
+            .catch((e) => {
                 setInnleggelserFeilet(true);
             });
         return () => {
@@ -130,6 +124,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
             httpCanceler.cancel();
         };
     }, []);
+
 
     if (tilsynHarFeilet || sykdomHarFeilet || innleggelserFeilet) {
         return (
