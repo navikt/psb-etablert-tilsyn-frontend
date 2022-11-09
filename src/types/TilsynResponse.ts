@@ -18,6 +18,10 @@ export interface Vurderingselementer {
 }
 export interface SykdomResponse {
     vurderingselementer: Vurderingselementer[];
+    resterendeVurderingsperioder: {
+        fom: string;
+        tom: string;
+    }[];
 }
 export interface InnleggelsesperiodeResponse {
     behandlingUuid: string;

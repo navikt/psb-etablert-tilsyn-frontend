@@ -58,12 +58,15 @@ const mainComponentReducer = (state: MainComponentState, action: Action): Partia
             };
         case ActionType.SYKDOM_OK: {
             const { sykdomResponse } = action;
+            const resterendeVurderingsperioder = sykdomResponse.resterendeVurderingsperioder.map(
+                (v) => new Period(v.fom, v.tom)
+            );
             const sykdomsperioderSomIkkeErOppfylt = sykdomResponse.vurderingselementer
                 .filter((v) => v.resultat !== 'OPPFYLT')
                 .map((v) => new Period(v.periode.fom, v.periode.tom));
             return {
                 ...state,
-                sykdomsperioderSomIkkeErOppfylt,
+                sykdomsperioderSomIkkeErOppfylt: [...sykdomsperioderSomIkkeErOppfylt, ...resterendeVurderingsperioder],
                 sykdomHarFeilet: false,
             };
         }
