@@ -10,7 +10,7 @@ interface MainComponentState {
     beredskap: BeredskapType;
     nattevåk: NattevåkType;
     smurtEtablertTilsynPerioder: EtablertTilsynType[];
-    avslaattePerioder: Period[];
+    sykdomsperioderSomIkkeErOppfylt: Period[];
     tilsynHarFeilet: boolean;
     sykdomHarFeilet: boolean;
     isLoading: boolean;
@@ -58,12 +58,12 @@ const mainComponentReducer = (state: MainComponentState, action: Action): Partia
             };
         case ActionType.SYKDOM_OK: {
             const { sykdomResponse } = action;
-            const avslaattePerioder = sykdomResponse.vurderingselementer
-                .filter((v) => v.resultat === 'IKKE_OPPFYLT')
+            const sykdomsperioderSomIkkeErOppfylt = sykdomResponse.vurderingselementer
+                .filter((v) => v.resultat !== 'OPPFYLT')
                 .map((v) => new Period(v.periode.fom, v.periode.tom));
             return {
                 ...state,
-                avslaattePerioder,
+                sykdomsperioderSomIkkeErOppfylt,
                 sykdomHarFeilet: false,
             };
         }

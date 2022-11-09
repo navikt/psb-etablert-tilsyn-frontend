@@ -10,8 +10,8 @@ describe('Etablert tilsyn med smøring', () => {
             <EtablertTilsynMedSmoring
                 etablertTilsynData={data.etablertTilsynData}
                 smurtEtablertTilsynPerioder={data.smurtEtablertTilsynPerioder}
-                avslaattePerioder={data.avslaattePerioder}
-                innleggelsesperioder={data.innleggelsesperioder}
+                sykdomsperioderSomIkkeErOppfylt={data.avslaattePerioder}
+                perioderSomOverstyrerTilsyn={data.innleggelsesperioder}
             />
         );
 
@@ -24,8 +24,8 @@ describe('Etablert tilsyn med smøring', () => {
             <EtablertTilsynMedSmoring
                 etablertTilsynData={data.etablertTilsynData}
                 smurtEtablertTilsynPerioder={data.smurtEtablertTilsynPerioder}
-                avslaattePerioder={data.avslaattePerioder}
-                innleggelsesperioder={data.innleggelsesperioder}
+                sykdomsperioderSomIkkeErOppfylt={data.avslaattePerioder}
+                perioderSomOverstyrerTilsyn={data.innleggelsesperioder}
             />
         );
 
@@ -41,8 +41,8 @@ describe('Etablert tilsyn med smøring', () => {
             <EtablertTilsynMedSmoring
                 etablertTilsynData={data.etablertTilsynData}
                 smurtEtablertTilsynPerioder={data.smurtEtablertTilsynPerioder}
-                avslaattePerioder={data.avslaattePerioder}
-                innleggelsesperioder={data.innleggelsesperioder}
+                sykdomsperioderSomIkkeErOppfylt={data.avslaattePerioder}
+                perioderSomOverstyrerTilsyn={data.innleggelsesperioder}
             />
         );
 

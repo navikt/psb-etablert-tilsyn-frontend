@@ -61,7 +61,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         etablertTilsyn: null,
         beredskap: null,
         nattevåk: null,
-        avslaattePerioder: [],
+        sykdomsperioderSomIkkeErOppfylt: [],
     });
     const {
         isLoading,
@@ -69,7 +69,7 @@ const MainComponent = ({ data }: MainComponentProps) => {
         smurtEtablertTilsynPerioder,
         beredskap,
         nattevåk,
-        avslaattePerioder,
+        sykdomsperioderSomIkkeErOppfylt,
         tilsynHarFeilet,
         sykdomHarFeilet,
     } = state;
@@ -125,6 +125,17 @@ const MainComponent = ({ data }: MainComponentProps) => {
         };
     }, []);
 
+    const bedredskapVurderinger = beredskap?.vurderinger || [];
+    const nattevåkVurderinger = nattevåk?.vurderinger || [];
+    const perioderSomOverstyrerTilsyn = [
+        ...bedredskapVurderinger
+            .filter((v) => v.resultat === 'OPPFYLT')
+            .map((v) => new Period(v.periode.fom, v.periode.tom)),
+        ...nattevåkVurderinger
+            .filter((v) => v.resultat === 'OPPFYLT')
+            .map((v) => new Period(v.periode.fom, v.periode.tom)),
+        ...innleggelsesperioder,
+    ];
 
     if (tilsynHarFeilet || sykdomHarFeilet || innleggelserFeilet) {
         return (
@@ -165,8 +176,8 @@ const MainComponent = ({ data }: MainComponentProps) => {
                             <EtablertTilsyn
                                 etablertTilsynData={etablertTilsyn}
                                 smurtEtablertTilsynPerioder={smurtEtablertTilsynPerioder}
-                                avslaattePerioder={avslaattePerioder}
-                                innleggelsesperioder={innleggelsesperioder}
+                                sykdomsperioderSomIkkeErOppfylt={sykdomsperioderSomIkkeErOppfylt}
+                                perioderSomOverstyrerTilsyn={perioderSomOverstyrerTilsyn}
                             />
                         )}
                         {activeTab === 1 && <Beredskapsperiodeoversikt beredskapData={beredskap} />}

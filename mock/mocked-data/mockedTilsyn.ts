@@ -346,6 +346,16 @@ export default {
                 resultat: 'IKKE_VURDERT',
                 kilde: '',
             },
+            {
+                id: 3,
+                periode: {
+                    fom: '2022-10-19',
+                    tom: '2022-10-19',
+                },
+                begrunnelse: '',
+                resultat: 'OPPFYLT',
+                kilde: '',
+            },
         ],
     },
 };

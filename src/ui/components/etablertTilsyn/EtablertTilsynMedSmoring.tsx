@@ -13,8 +13,8 @@ import PartIkon from './PartIkon';
 interface EtablertTilsynProps {
     etablertTilsynData: EtablertTilsynType[];
     smurtEtablertTilsynPerioder: EtablertTilsynType[];
-    avslaattePerioder: Period[];
-    innleggelsesperioder: Period[];
+    sykdomsperioderSomIkkeErOppfylt: Period[];
+    perioderSomOverstyrerTilsyn: Period[];
 }
 
 interface EtablertTilsynMappet {
@@ -47,22 +47,22 @@ const periodeVisning = (usmurtePerioder, smurtePerioder) => {
 const EtablertTilsyn = ({
     etablertTilsynData,
     smurtEtablertTilsynPerioder,
-    avslaattePerioder,
-    innleggelsesperioder,
+    sykdomsperioderSomIkkeErOppfylt,
+    perioderSomOverstyrerTilsyn,
 }: EtablertTilsynProps): JSX.Element => {
     const harVurderinger = etablertTilsynData.length > 0;
-    const avslaatteDager = avslaattePerioder.flatMap((periode) =>
+    const avslaatteDager = sykdomsperioderSomIkkeErOppfylt.flatMap((periode) =>
         periode.asListOfDays().map((date) => new Period(date, date))
     );
-    const innleggelsesdager = innleggelsesperioder.flatMap((periode) =>
+    const dagerSomOverstyrerTilsyn = perioderSomOverstyrerTilsyn.flatMap((periode) =>
         periode.asListOfDays().map((date) => new Period(date, date))
     );
 
     const avslaatteDagerFiltrert = avslaatteDager.filter(
-        (v) => !innleggelsesdager.some((innlagtDag) => v.includesDate(innlagtDag.fom))
+        (v) => !dagerSomOverstyrerTilsyn.some((innlagtDag) => v.includesDate(innlagtDag.fom))
     );
 
-    const dagerSomSkalEkskluderes = [...avslaatteDagerFiltrert, ...innleggelsesdager];
+    const dagerSomSkalEkskluderes = [...avslaatteDagerFiltrert, ...dagerSomOverstyrerTilsyn];
     const etablertTilsynEnkeltdager = etablertTilsynData.flatMap((v) =>
         v.periode.asListOfDays().map((date) => ({ ...v, periode: new Period(date, date) }))
     );
