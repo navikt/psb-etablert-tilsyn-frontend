@@ -58,7 +58,7 @@ const mainComponentReducer = (state: MainComponentState, action: Action): Partia
             };
         case ActionType.SYKDOM_OK: {
             const { sykdomResponse } = action;
-            const resterendeVurderingsperioder = sykdomResponse.resterendeVurderingsperioder.map(
+            const resterendeVurderingsperioder = sykdomResponse?.resterendeVurderingsperioder?.map(
                 (v) => new Period(v.fom, v.tom)
             );
             const sykdomsperioderSomIkkeErOppfylt = sykdomResponse.vurderingselementer

@@ -1,4 +1,5 @@
 export default {
+    resterendeVurderingsperioder: [],
     vurderingselementer: [
         {
             id: '999997',
