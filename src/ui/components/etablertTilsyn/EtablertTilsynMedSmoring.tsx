@@ -62,7 +62,7 @@ const EtablertTilsyn = ({
         (v) => !dagerSomOverstyrerTilsyn.some((innlagtDag) => v.includesDate(innlagtDag.fom))
     );
 
-    const dagerSomSkalEkskluderes = [...avslaatteDagerFiltrert, ...dagerSomOverstyrerTilsyn];
+    const dagerSomSkalEkskluderes = [...avslaatteDagerFiltrert];
     const etablertTilsynEnkeltdager = etablertTilsynData.flatMap((v) =>
         v.periode.asListOfDays().map((date) => ({ ...v, periode: new Period(date, date) }))
     );
@@ -100,6 +100,7 @@ const EtablertTilsyn = ({
                     smurtePerioder.push([smurtPeriode]);
                 }
             });
+
             smurtePerioder.forEach((smurtPeriode, index, array) =>
                 tilsynPerUkeOppdeltSmoering.push({
                     etablertTilsyn: v.etablertTilsyn,
@@ -147,6 +148,7 @@ const EtablertTilsyn = ({
                                     <EtablertTilsynRowContent
                                         etablertTilsyn={tilsyn.etablertTilsyn}
                                         etablertTilsynSmurt={tilsyn.etablertTilsynSmurt}
+                                        dagerSomOverstyrerTilsyn={dagerSomOverstyrerTilsyn}
                                         tilsynProsent={tilsynIPeriodeProsent}
                                         visIkon
                                     />

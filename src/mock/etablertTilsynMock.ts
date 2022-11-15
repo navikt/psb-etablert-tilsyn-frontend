@@ -11,7 +11,7 @@ export const toPerioderSammeUke = () => {
                 fom: '2022-09-05',
                 tom: '2022-09-06',
             },
-            tidPerDag: 2,
+            tidPerDag: 'PT2H',
             kilde: 'SØKER',
         },
         {
@@ -19,7 +19,7 @@ export const toPerioderSammeUke = () => {
                 fom: '2022-09-07',
                 tom: '2022-09-08',
             },
-            tidPerDag: 5,
+            tidPerDag: 'PT5H',
             kilde: 'SØKER',
         },
         {
@@ -27,7 +27,7 @@ export const toPerioderSammeUke = () => {
                 fom: '2022-09-09',
                 tom: '2022-09-09',
             },
-            tidPerDag: 6,
+            tidPerDag: 'PT6H',
             kilde: 'SØKER',
         },
     ].map(mapTilEtablertTilsynType);
@@ -38,35 +38,35 @@ export const toPerioderSammeUke = () => {
                 fom: '2022-09-05',
                 tom: '2022-09-05',
             },
-            tidPerDag: 2.6,
+            tidPerDag: 'PT2H36M',
         },
         {
             periode: {
                 fom: '2022-09-06',
                 tom: '2022-09-06',
             },
-            tidPerDag: 2.6,
+            tidPerDag: 'PT2H36M',
         },
         {
             periode: {
                 fom: '2022-09-07',
                 tom: '2022-09-07',
             },
-            tidPerDag: 2.6,
+            tidPerDag: 'PT2H36M',
         },
         {
             periode: {
                 fom: '2022-09-08',
                 tom: '2022-09-08',
             },
-            tidPerDag: 2.6,
+            tidPerDag: 'PT2H36M',
         },
         {
             periode: {
                 fom: '2022-09-09',
                 tom: '2022-09-09',
             },
-            tidPerDag: 2.6,
+            tidPerDag: 'PT2H36M',
         },
     ].map(mapTilEtablertTilsynType);
 
@@ -77,11 +77,79 @@ export const toPerioderSammeUke = () => {
         },
     ].map(mapPeriode);
 
-    const innleggelsesperioder = [
+    const innleggelsesperioder = [].map(mapPeriode);
+
+    return { etablertTilsynData, smurtEtablertTilsynPerioder, avslaattePerioder, innleggelsesperioder };
+};
+export const dagOverstyrt = () => {
+    const etablertTilsynData = [
         {
-            fom: '2022-09-05',
-            tom: '2022-09-05',
+            periode: {
+                fom: '2022-09-05',
+                tom: '2022-09-06',
+            },
+            tidPerDag: 'PT2H',
+            kilde: 'SØKER',
         },
+        {
+            periode: {
+                fom: '2022-09-07',
+                tom: '2022-09-08',
+            },
+            tidPerDag: 'PT5H',
+            kilde: 'SØKER',
+        },
+        {
+            periode: {
+                fom: '2022-09-09',
+                tom: '2022-09-09',
+            },
+            tidPerDag: 'PT6H',
+            kilde: 'SØKER',
+        },
+    ].map(mapTilEtablertTilsynType);
+
+    const smurtEtablertTilsynPerioder = [
+        {
+            periode: {
+                fom: '2022-09-05',
+                tom: '2022-09-05',
+            },
+            tidPerDag: 'PT2H36M',
+        },
+        {
+            periode: {
+                fom: '2022-09-06',
+                tom: '2022-09-06',
+            },
+            tidPerDag: 'PT2H36M',
+        },
+        {
+            periode: {
+                fom: '2022-09-07',
+                tom: '2022-09-07',
+            },
+            tidPerDag: 'PT2H36M',
+        },
+        {
+            periode: {
+                fom: '2022-09-08',
+                tom: '2022-09-08',
+            },
+            tidPerDag: 'PT2H36M',
+        },
+        {
+            periode: {
+                fom: '2022-09-09',
+                tom: '2022-09-09',
+            },
+            tidPerDag: 'PT2H36M',
+        },
+    ].map(mapTilEtablertTilsynType);
+
+    const avslaattePerioder = [].map(mapPeriode);
+
+    const innleggelsesperioder = [
         {
             fom: '2022-09-08',
             tom: '2022-09-08',

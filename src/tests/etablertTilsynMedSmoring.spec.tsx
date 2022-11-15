@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import EtablertTilsynMedSmoring from '../ui/components/etablertTilsyn/EtablertTilsynMedSmoring';
-import { toPerioderSammeUke, toSmøringer, treEnkeltdager } from '../mock/etablertTilsynMock';
+import { toPerioderSammeUke, toSmøringer, treEnkeltdager, dagOverstyrt } from '../mock/etablertTilsynMock';
 
 describe('Etablert tilsyn med smøring', () => {
     test('Kan vise etablert tilsyn med to smøringer', () => {
@@ -51,5 +51,21 @@ describe('Etablert tilsyn med smøring', () => {
 
         expect(screen.getByText('= 4.25 t per dag (57%)')).toBeDefined();
         expect(screen.getByText('= 4.28 t per dag (57%)')).toBeDefined();
+    });
+    test('Uke med innleggelse skal ikke deles opp', async () => {
+        const data = dagOverstyrt();
+        render(
+            <EtablertTilsynMedSmoring
+                etablertTilsynData={data.etablertTilsynData}
+                smurtEtablertTilsynPerioder={data.smurtEtablertTilsynPerioder}
+                sykdomsperioderSomIkkeErOppfylt={data.avslaattePerioder}
+                perioderSomOverstyrerTilsyn={data.innleggelsesperioder}
+            />
+        );
+
+        expect(screen.getByText('Uke 37')).toBeDefined();
+        expect(screen.queryByText('Uke 37 - B'));
+
+        expect(screen.getByText('= 2.6 t per dag (35%)')).toBeDefined();
     });
 });

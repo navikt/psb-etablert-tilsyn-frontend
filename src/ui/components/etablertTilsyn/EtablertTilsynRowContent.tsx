@@ -1,4 +1,5 @@
 import { BodyShort, Detail, HelpText, Label, Tag } from '@navikt/ds-react';
+import { Period } from '@navikt/k9-period-utils';
 import dayjs from 'dayjs';
 import React from 'react';
 import EtablertTilsynType from '../../../types/EtablertTilsynType';
@@ -10,6 +11,7 @@ import Kilde from '../../../types/Kilde';
 interface OwnProps {
     etablertTilsyn: EtablertTilsynType[];
     etablertTilsynSmurt: EtablertTilsynType[];
+    dagerSomOverstyrerTilsyn: Period[];
     tilsynProsent: number;
     visIkon: boolean;
 }
@@ -17,6 +19,7 @@ interface OwnProps {
 export default function EtablertTilsynRowContent({
     etablertTilsyn,
     etablertTilsynSmurt,
+    dagerSomOverstyrerTilsyn,
     tilsynProsent,
     visIkon,
 }: OwnProps) {
@@ -40,6 +43,9 @@ export default function EtablertTilsynRowContent({
     const torsdagSmurt = etablertTilsynSmurtDager.find((v) => dayjs(v.date).day() === 4);
     const fredagSmurt = etablertTilsynSmurtDager.find((v) => dayjs(v.date).day() === 5);
 
+    const dagOverstyres = (tilsyn: { date: string; tidPerDag: number }) =>
+        dagerSomOverstyrerTilsyn.some((dag) => dag.fom === tilsyn.date);
+
     const timerSmurt = etablertTilsynSmurtDager.find((v) => v.tidPerDag)?.tidPerDag;
     return (
         <>
@@ -56,35 +62,35 @@ export default function EtablertTilsynRowContent({
                     tittel="Mandag"
                     timer={mandag?.tidPerDag}
                     kilde={mandag?.kilde}
-                    disabled={!mandagSmurt}
+                    disabled={!mandagSmurt || dagOverstyres(mandagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Tirsdag"
                     timer={tirsdag?.tidPerDag}
                     kilde={tirsdag?.kilde}
-                    disabled={!tirsdagSmurt}
+                    disabled={!tirsdagSmurt || dagOverstyres(tirsdagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Onsdag"
                     timer={onsdag?.tidPerDag}
                     kilde={onsdag?.kilde}
-                    disabled={!onsdagSmurt}
+                    disabled={!onsdagSmurt || dagOverstyres(onsdagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Torsdag"
                     timer={torsdag?.tidPerDag}
                     kilde={torsdag?.kilde}
-                    disabled={!torsdagSmurt}
+                    disabled={!torsdagSmurt || dagOverstyres(torsdagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Fredag"
                     timer={fredag?.tidPerDag}
                     kilde={fredag?.kilde}
-                    disabled={!fredagSmurt}
+                    disabled={!fredagSmurt || dagOverstyres(fredagSmurt)}
                     visIkon={visIkon}
                 />
                 <div className={styles.etablertTilsyn__timer__container}>
