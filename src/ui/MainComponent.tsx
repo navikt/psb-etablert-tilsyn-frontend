@@ -114,7 +114,9 @@ const MainComponent = ({ data }: MainComponentProps) => {
 
         getInnleggelser()
             .then((innleggelserResponse) => {
-                setInnleggelsesperioder(innleggelserResponse.perioder.map((v) => new Period(v.fom, v.tom)));
+                if (isMounted) {
+                    setInnleggelsesperioder(innleggelserResponse.perioder.map((v) => new Period(v.fom, v.tom)));
+                }
             })
             .catch((e) => {
                 setInnleggelserFeilet(true);
