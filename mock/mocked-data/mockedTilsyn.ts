@@ -136,7 +136,14 @@ export default {
             tidPerDag: 'PT7H30M',
             kilde: 'ANDRE',
         },
-       
+        {
+            periode: {
+                fom: '2023-01-02',
+                tom: '2023-01-04',
+            },
+            tidPerDag: 'PT7H30M',
+            kilde: 'ANDRE',
+        },
     ],
     smortEtablertTilsynPerioder: [
         {

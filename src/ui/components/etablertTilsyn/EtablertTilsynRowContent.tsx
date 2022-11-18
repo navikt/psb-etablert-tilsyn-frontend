@@ -71,9 +71,11 @@ export default function EtablertTilsynRowContent({
                 <HelpText title="Hva er innrapportert timer tilsyn?">
                     Timer tilsyn innrapportert fordeles/smøres utover sammenhengende dager hvor behovet for tilsyn og
                     pleie er godkjent innenfor en uke. Søker graderes ikke mot timer tilsyn innrapportert på dager
-                    barnet er innlagt eller dager foreldrene er i beredskap eller har nattevåk. Timer tilsyn på perioder
-                    før 02.01.2023 vil ikke fordeles/smøres utover sammenhengende dager, og prosent tilsyn på uken vil
-                    alltid stå som 0.
+                    barnet er innlagt eller dager foreldrene er i beredskap eller har nattevåk.
+                    <div className={styles.marginTop_1rem}>
+                        Timer tilsyn på perioder før 02.01.2023 vil ikke fordeles/smøres utover sammenhengende dager, og
+                        prosent tilsyn på uken vil alltid stå som 0.
+                    </div>
                 </HelpText>
             </div>
             <div className={styles.etablertTilsynRowContent}>
