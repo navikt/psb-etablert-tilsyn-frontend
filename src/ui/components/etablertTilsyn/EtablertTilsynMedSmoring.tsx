@@ -112,11 +112,10 @@ const EtablertTilsyn = ({
             return smurtePerioder.length ? null : v;
         })
         .filter(Boolean);
-
     const etablertTilsynMappet = [...tilsynPerUkeUtenOppdeltSmoering, ...tilsynPerUkeOppdeltSmoering].sort(
         (a: EtablertTilsynMappet, b: EtablertTilsynMappet) =>
-            new Date(a.etablertTilsynSmurt[0].periode.fom).getTime() -
-            new Date(b.etablertTilsynSmurt[0].periode.fom).getTime()
+            new Date(a.etablertTilsynSmurt[0]?.periode?.fom).getTime() -
+            new Date(b.etablertTilsynSmurt[0]?.periode?.fom).getTime()
     );
 
     if (!harVurderinger) {

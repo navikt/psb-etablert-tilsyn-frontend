@@ -28,10 +28,9 @@ const renderIcon = (kilde: Kilde) => {
 
 interface EtablertTilsynProps {
     etablertTilsynData: EtablertTilsynType[];
-    smurtEtablertTilsynPerioder: EtablertTilsynType[];
 }
 
-const EtablertTilsyn = ({ etablertTilsynData, smurtEtablertTilsynPerioder }: EtablertTilsynProps): JSX.Element => {
+const EtablertTilsyn = ({ etablertTilsynData }: EtablertTilsynProps): JSX.Element => {
     const harVurderinger = etablertTilsynData.length > 0;
 
     return (
