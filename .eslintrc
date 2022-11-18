@@ -14,6 +14,7 @@
     "plugins": ["@typescript-eslint", "react-hooks"],
     "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier"],
     "rules": {
+        "import/no-extraneous-dependencies": 0,
         "@typescript-eslint/explicit-function-return-type": 0,
         "@typescript-eslint/no-use-before-define": ["error"],
         "global-require": "off",
