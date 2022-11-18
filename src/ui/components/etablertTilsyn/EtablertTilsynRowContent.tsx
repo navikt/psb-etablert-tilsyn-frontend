@@ -51,8 +51,14 @@ export default function EtablertTilsynRowContent({
 
     const timerSmurt = etablertTilsynSmurtDager.find((v) => v.tidPerDag)?.tidPerDag;
 
+    const stederViAlleredeSmoerer = ['app-q1.adeo.no', 'localhost:8484'];
     const skalDisables = (tilsyn: TilsynMappet, tilsynSmurt: TilsynMappet) => {
-        if (dayjs(tilsyn?.date).isBefore('2023.01.02') && tilsyn?.tidPerDag) {
+        // Vil ikke smøres i prod før etter 2023.01.01. Men det smøres i Q allerede, og testdata er smurt
+        if (
+            dayjs(tilsyn?.date).isBefore('2023.01.02') &&
+            !stederViAlleredeSmoerer.includes(window.location.host) &&
+            tilsyn?.tidPerDag
+        ) {
             return false;
         }
         if (tilsynSmurt) {
