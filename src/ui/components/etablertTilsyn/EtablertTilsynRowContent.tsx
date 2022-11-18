@@ -59,6 +59,7 @@ export default function EtablertTilsynRowContent({
             !stederViAlleredeSmoerer.includes(window.location.host) &&
             tilsyn?.tidPerDag
         ) {
+            console.log('skal ikke logge her')
             return false;
         }
         if (tilsynSmurt) {
