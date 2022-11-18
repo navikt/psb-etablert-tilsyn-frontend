@@ -4,7 +4,6 @@ import axios from 'axios';
 import classnames from 'classnames';
 import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
-import dayjs from 'dayjs';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 import '@navikt/ds-css';
 import { Period } from '@navikt/k9-period-utils';
@@ -12,7 +11,6 @@ import ContainerContract from '../types/ContainerContract';
 import { InnleggelsesperiodeResponse, SykdomResponse, TilsynResponse } from '../types/TilsynResponse';
 import Alertstripe from './components/alertstripe/Alertstripe';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
-import EtablertTilsynGammel from './components/etablertTilsyn/EtablertTilsyn';
 import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsynMedSmoring';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
 import ContainerContext from './context/ContainerContext';
@@ -149,24 +147,6 @@ const MainComponent = ({ data }: MainComponentProps) => {
         );
     }
 
-    const etablertTilsynKomponent = () => {
-        const harPeriodeEtter2023 = etablertTilsyn
-            ?.flatMap((tilsyn) => tilsyn.periode.asListOfDays())
-            ?.some((date) => dayjs(date).isAfter('2023-01-01'));
-        // perioder før 2023.01.02 vil ikke smøres og skal derfor vises i gammel visning
-        if (!harPeriodeEtter2023) {
-            return <EtablertTilsynGammel etablertTilsynData={etablertTilsyn} />;
-        }
-        return (
-            <EtablertTilsyn
-                etablertTilsynData={etablertTilsyn}
-                smurtEtablertTilsynPerioder={smurtEtablertTilsynPerioder}
-                sykdomsperioderSomIkkeErOppfylt={sykdomsperioderSomIkkeErOppfylt}
-                perioderSomOverstyrerTilsyn={perioderSomOverstyrerTilsyn}
-            />
-        );
-    };
-
     return (
         <ContainerContext.Provider value={data}>
             <Infostripe
@@ -192,7 +172,14 @@ const MainComponent = ({ data }: MainComponentProps) => {
                 />
                 <PageContainer isLoading={isLoading}>
                     <div className={styles.mainComponent__contentContainer}>
-                        {activeTab === 0 && etablertTilsynKomponent()}
+                        {activeTab === 0 && (
+                            <EtablertTilsyn
+                                etablertTilsynData={etablertTilsyn}
+                                smurtEtablertTilsynPerioder={smurtEtablertTilsynPerioder}
+                                sykdomsperioderSomIkkeErOppfylt={sykdomsperioderSomIkkeErOppfylt}
+                                perioderSomOverstyrerTilsyn={perioderSomOverstyrerTilsyn}
+                            />
+                        )}
                         {activeTab === 1 && <Beredskapsperiodeoversikt beredskapData={beredskap} />}
                         {activeTab === 2 && <Nattevåksperiodeoversikt nattevåkData={nattevåk} />}
                     </div>
