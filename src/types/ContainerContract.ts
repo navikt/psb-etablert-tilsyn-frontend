@@ -5,6 +5,8 @@ interface ContainerContract {
     readOnly: boolean;
     endpoints: {
         tilsyn: string;
+        sykdom: string;
+        sykdomInnleggelse: string
     };
     httpErrorHandler: HttpErrorHandler;
     beredskapMåVurderes: boolean;
@@ -13,7 +15,8 @@ interface ContainerContract {
     lagreNattevåkvurdering: (data: any) => void;
     harAksjonspunktForBeredskap: boolean;
     harAksjonspunktForNattevåk: boolean;
-    saksbehandlere: Saksbehandlere
+    saksbehandlere: Saksbehandlere;
+    smoeringErTilgjengelig: boolean;
 }
 
 export default ContainerContract;

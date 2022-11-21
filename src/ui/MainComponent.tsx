@@ -6,11 +6,12 @@ import { TabsPure } from 'nav-frontend-tabs';
 import React, { useMemo } from 'react';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 import '@navikt/ds-css';
+import { Period } from '@navikt/k9-period-utils';
 import ContainerContract from '../types/ContainerContract';
-import { TilsynResponse } from '../types/TilsynResponse';
+import { InnleggelsesperiodeResponse, SykdomResponse, TilsynResponse } from '../types/TilsynResponse';
 import Alertstripe from './components/alertstripe/Alertstripe';
 import Beredskapsperiodeoversikt from './components/beredskap/beredskapsperioderoversikt/Beredskapsperiodeoversikt';
-import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsyn';
+import EtablertTilsyn from './components/etablertTilsyn/EtablertTilsynMedSmoring';
 import Nattevåksperiodeoversikt from './components/nattevåk/nattevåksperiodeoversikt/Nattevåksperiodeoversikt';
 import ContainerContext from './context/ContainerContext';
 import ActionType from './mainActionTypes';
@@ -60,15 +61,33 @@ const MainComponent = ({ data }: MainComponentProps) => {
         etablertTilsyn: null,
         beredskap: null,
         nattevåk: null,
+        sykdomsperioderSomIkkeErOppfylt: [],
     });
-    const { isLoading, etablertTilsyn, beredskap, nattevåk, tilsynHarFeilet } = state;
-    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk, saksbehandlere } =
-        data;
+    const {
+        isLoading,
+        etablertTilsyn,
+        smurtEtablertTilsynPerioder,
+        beredskap,
+        nattevåk,
+        sykdomsperioderSomIkkeErOppfylt,
+        tilsynHarFeilet,
+        sykdomHarFeilet,
+    } = state;
+    const { endpoints, httpErrorHandler, harAksjonspunktForBeredskap, harAksjonspunktForNattevåk } = data;
     const [activeTab, setActiveTab] = React.useState(setDefaultActiveTabIndex(data));
+    const [innleggelsesperioder, setInnleggelsesperioder] = React.useState<Period[]>([]);
+    const [innleggelserFeilet, setInnleggelserFeilet] = React.useState(false);
     const httpCanceler = useMemo(() => axios.CancelToken.source(), []);
-
     const getTilsyn = () =>
         get<TilsynResponse>(endpoints.tilsyn, httpErrorHandler, {
+            cancelToken: httpCanceler.token,
+        });
+    const getSykdom = () =>
+        get<SykdomResponse>(endpoints.sykdom, httpErrorHandler, {
+            cancelToken: httpCanceler.token,
+        });
+    const getInnleggelser = () =>
+        get<InnleggelsesperiodeResponse>(endpoints.sykdomInnleggelse, httpErrorHandler, {
             cancelToken: httpCanceler.token,
         });
 
@@ -83,13 +102,44 @@ const MainComponent = ({ data }: MainComponentProps) => {
             .catch(() => {
                 dispatch({ type: ActionType.FAILED });
             });
+        getSykdom()
+            .then((sykdomResponse) => {
+                if (isMounted) {
+                    dispatch({ type: ActionType.SYKDOM_OK, sykdomResponse });
+                }
+            })
+            .catch(() => {
+                dispatch({ type: ActionType.SYKDOM_FAILED });
+            });
+
+        getInnleggelser()
+            .then((innleggelserResponse) => {
+                if (isMounted) {
+                    setInnleggelsesperioder(innleggelserResponse.perioder.map((v) => new Period(v.fom, v.tom)));
+                }
+            })
+            .catch((e) => {
+                setInnleggelserFeilet(true);
+            });
         return () => {
             isMounted = false;
             httpCanceler.cancel();
         };
     }, []);
 
-    if (tilsynHarFeilet) {
+    const bedredskapVurderinger = beredskap?.vurderinger || [];
+    const nattevåkVurderinger = nattevåk?.vurderinger || [];
+    const perioderSomOverstyrerTilsyn = [
+        ...bedredskapVurderinger
+            .filter((v) => v.resultat === 'OPPFYLT')
+            .map((v) => new Period(v.periode.fom, v.periode.tom)),
+        ...nattevåkVurderinger
+            .filter((v) => v.resultat === 'OPPFYLT')
+            .map((v) => new Period(v.periode.fom, v.periode.tom)),
+        ...innleggelsesperioder,
+    ];
+
+    if (tilsynHarFeilet || sykdomHarFeilet || innleggelserFeilet) {
         return (
             <Alertstripe type="info">
                 Noe gikk galt under henting av informasjon om etablert tilsyn. Dette kan skyldes at informasjon om
@@ -124,7 +174,14 @@ const MainComponent = ({ data }: MainComponentProps) => {
                 />
                 <PageContainer isLoading={isLoading}>
                     <div className={styles.mainComponent__contentContainer}>
-                        {activeTab === 0 && <EtablertTilsyn etablertTilsynData={etablertTilsyn} />}
+                        {activeTab === 0 && (
+                            <EtablertTilsyn
+                                etablertTilsynData={etablertTilsyn}
+                                smurtEtablertTilsynPerioder={smurtEtablertTilsynPerioder}
+                                sykdomsperioderSomIkkeErOppfylt={sykdomsperioderSomIkkeErOppfylt}
+                                perioderSomOverstyrerTilsyn={perioderSomOverstyrerTilsyn}
+                            />
+                        )}
                         {activeTab === 1 && <Beredskapsperiodeoversikt beredskapData={beredskap} />}
                         {activeTab === 2 && <Nattevåksperiodeoversikt nattevåkData={nattevåk} />}
                     </div>
