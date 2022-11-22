@@ -51,16 +51,7 @@ export default function EtablertTilsynRowContent({
 
     const timerSmurt = etablertTilsynSmurtDager.find((v) => v.tidPerDag)?.tidPerDag;
 
-    const stederViAlleredeSmoerer = ['app-q1.adeo.no', 'localhost:8484'];
-    const skalDisables = (tilsyn: TilsynMappet, tilsynSmurt: TilsynMappet) => {
-        // Vil ikke smøres i prod før etter 2023.01.01. Men det smøres i Q allerede, og testdata er smurt
-        if (
-            dayjs(tilsyn?.date).isBefore('2023.01.02') &&
-            !stederViAlleredeSmoerer.includes(window.location.host) &&
-            tilsyn?.tidPerDag
-        ) {
-            return false;
-        }
+    const skalDisables = (tilsynSmurt: TilsynMappet) => {
         if (tilsynSmurt) {
             return false;
         }
@@ -78,10 +69,6 @@ export default function EtablertTilsynRowContent({
                     Timer tilsyn innrapportert fordeles/smøres utover sammenhengende dager hvor behovet for tilsyn og
                     pleie er godkjent innenfor en uke. Søker graderes ikke mot timer tilsyn innrapportert på dager
                     barnet er innlagt eller dager foreldrene er i beredskap eller har nattevåk.
-                    <div className={styles.marginTop_1rem}>
-                        Timer tilsyn på perioder før 02.01.2023 vil ikke fordeles/smøres utover sammenhengende dager, og
-                        prosent tilsyn på uken vil alltid stå som 0.
-                    </div>
                 </HelpText>
             </div>
             <div className={styles.etablertTilsynRowContent}>
@@ -89,35 +76,35 @@ export default function EtablertTilsynRowContent({
                     tittel="Mandag"
                     timer={mandag?.tidPerDag}
                     kilde={mandag?.kilde}
-                    disabled={skalDisables(mandag, mandagSmurt)}
+                    disabled={skalDisables(mandagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Tirsdag"
                     timer={tirsdag?.tidPerDag}
                     kilde={tirsdag?.kilde}
-                    disabled={skalDisables(tirsdag, tirsdagSmurt)}
+                    disabled={skalDisables(tirsdagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Onsdag"
                     timer={onsdag?.tidPerDag}
                     kilde={onsdag?.kilde}
-                    disabled={skalDisables(onsdag, onsdagSmurt)}
+                    disabled={skalDisables(onsdagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Torsdag"
                     timer={torsdag?.tidPerDag}
                     kilde={torsdag?.kilde}
-                    disabled={skalDisables(torsdag, torsdagSmurt)}
+                    disabled={skalDisables(torsdagSmurt)}
                     visIkon={visIkon}
                 />
                 <EtablertTilsynDag
                     tittel="Fredag"
                     timer={fredag?.tidPerDag}
                     kilde={fredag?.kilde}
-                    disabled={skalDisables(fredag, fredagSmurt)}
+                    disabled={skalDisables(fredagSmurt)}
                     visIkon={visIkon}
                 />
                 <div className={styles.etablertTilsyn__timer__container}>

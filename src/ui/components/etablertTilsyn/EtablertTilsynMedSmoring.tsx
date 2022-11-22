@@ -24,6 +24,8 @@ interface EtablertTilsynMappet {
     delAvUke?: number;
 }
 
+const erHelg = (dag: Date) => [6, 0].includes(dayjs(dag).day());
+
 const ukeVisning = (uke, delAvUke) => {
     if (delAvUke) {
         return `Uke ${uke} - ${String.fromCharCode(64 + delAvUke)}`;
@@ -64,10 +66,16 @@ const EtablertTilsyn = ({
 
     const dagerSomSkalEkskluderes = [...avslaatteDagerFiltrert];
     const etablertTilsynEnkeltdager = etablertTilsynData.flatMap((v) =>
-        v.periode.asListOfDays().map((date) => ({ ...v, periode: new Period(date, date) }))
+        v.periode
+            .asListOfDays()
+            .filter((date) => !erHelg(date))
+            .map((date) => ({ ...v, periode: new Period(date, date) }))
     );
     const smurtEtablertTilsynEnkeltdager = smurtEtablertTilsynPerioder.flatMap((v) =>
-        v.periode.asListOfDays().map((date) => ({ ...v, periode: new Period(date, date) }))
+        v.periode
+            .asListOfDays()
+            .filter((date) => !erHelg(date))
+            .map((date) => ({ ...v, periode: new Period(date, date) }))
     );
 
     const uker = uniq(etablertTilsynEnkeltdager.map((data) => dayjs(data.periode.fom).week()));
