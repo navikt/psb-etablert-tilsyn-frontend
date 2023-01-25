@@ -1720,6 +1720,11 @@
     dayjs "1.11.5"
     react-intl "6.1.2"
 
+"@navikt/k9-array-utils@1.0.1":
+  version "1.0.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-array-utils/1.0.1/ebcc44c1356bc2af138d6140a722219aa9952139#ebcc44c1356bc2af138d6140a722219aa9952139"
+  integrity sha512-3/l6D4sfcNUT5NHu8BVPe9zWaL3CsntIk6pul7sjT4w7xmrB1sct21I+XPv8HCWBKUck8yqYXbzgTdRGvbISjQ==
+
 "@navikt/k9-array-utils@^0.0.1":
   version "0.0.1"
   resolved "https://npm.pkg.github.com/download/@navikt/k9-array-utils/0.0.1/5f1fd9b78afcc5fe1d73b67d93fc1d5c4377d9d1#5f1fd9b78afcc5fe1d73b67d93fc1d5c4377d9d1"
@@ -1729,6 +1734,11 @@
   version "1.0.1"
   resolved "https://npm.pkg.github.com/download/@navikt/k9-bem-utils/1.0.1/451f330cbf3636c6406468c157468ea07dfb3b10#451f330cbf3636c6406468c157468ea07dfb3b10"
   integrity sha512-DRV0rm6NDyAIosWGeMk0RlfUciUNIdD4AxpnGYOpqJCTIoCJHxLtzwRa1Zv15LEX5BHDWbiDYF5ZxDFhfE4yBg==
+
+"@navikt/k9-date-utils@0.1.0":
+  version "0.1.0"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-date-utils/0.1.0/4b3c0a162bd31145593a8b12a535d74211c0d437#4b3c0a162bd31145593a8b12a535d74211c0d437"
+  integrity sha512-JWix2fJibcPnxRIK2coWBVkmwxkWoocJxTLqzocTMXdE5KWcdIuWUKV/Vba9rj82MniPW66nmeYZvv+TBQltbQ==
 
 "@navikt/k9-date-utils@^0.0.8":
   version "0.0.8"
@@ -1744,10 +1754,10 @@
     "@navikt/k9-bem-utils" "^1.0.1"
     "@navikt/k9-period-utils" "^0.0.12"
 
-"@navikt/k9-http-utils@0.0.3":
-  version "0.0.3"
-  resolved "https://npm.pkg.github.com/download/@navikt/k9-http-utils/0.0.3/133dec9df786c1f1aa27da7a0598bd4ba77823fa#133dec9df786c1f1aa27da7a0598bd4ba77823fa"
-  integrity sha512-GPLcn/64+HfLQd/1/JQ0WV9iicDdApiAtb0bU67y9FowKRlKIUKitaulSFCYFKjD1dUP3oArxHKd1qmZrBBqnQ==
+"@navikt/k9-http-utils@1.0.3":
+  version "1.0.2"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-http-utils/1.0.2/a03b6a16f89c988f5c311762a3e7f43b9f63b5ca#a03b6a16f89c988f5c311762a3e7f43b9f63b5ca"
+  integrity sha512-f8WrOtTLyE+WAmQNlj2EbOJ2G3zMTCymDYt6mhbhN/hmALiLYnI+of244d9anSMPOdxbwCfd3+ccwlhndFtu3A==
 
 "@navikt/k9-period-utils@^0.0.12":
   version "0.0.12"
@@ -1756,6 +1766,14 @@
   dependencies:
     "@navikt/k9-array-utils" "^0.0.1"
     "@navikt/k9-date-utils" "^0.0.8"
+
+"@navikt/k9-period-utils@^1.0.12":
+  version "1.0.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/k9-period-utils/1.0.1/39ecb9a306628635d763cc3a084b783adb48d516#39ecb9a306628635d763cc3a084b783adb48d516"
+  integrity sha512-cqyiwEIZsZJKF6LKWdDNhBW7gbEoYRilmdDvcM5li4uOqBIUkzyAy57dj8Nw1rpmmcp4PSyM1o76A5ptWTMY6A==
+  dependencies:
+    "@navikt/k9-array-utils" "1.0.1"
+    "@navikt/k9-date-utils" "0.1.0"
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
