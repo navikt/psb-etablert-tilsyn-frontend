@@ -117,8 +117,5 @@
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.36.1",
         "react-popper": "^2.3.0"
-    },
-    "resolutions": {
-        "multicast-dns": "7.2.3"
     }
 }
