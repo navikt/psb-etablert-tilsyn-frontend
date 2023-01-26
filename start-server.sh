@@ -10,7 +10,7 @@ _shutdown_() {
 }
 
 export APP_HOSTNAME="${HOSTNAME:-localhost}"
-export APP_PORT="${APP_PORT:-8383}"
+export APP_PORT="${APP_PORT:-8484}"
 
 envsubst '$APP_PORT $APP_HOSTNAME' < /etc/nginx/conf.d/app.conf.template > /etc/nginx/conf.d/default.conf
 
