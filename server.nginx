@@ -1,5 +1,5 @@
 server {
-  listen       8484
+  listen       8484;
   server_name  "${APP_HOSTNAME}";
 	location / {
             root   /usr/share/nginx/html;
