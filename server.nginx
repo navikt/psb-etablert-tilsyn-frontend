@@ -1,0 +1,21 @@
+server {
+  listen       8484;
+  server_name  "${APP_HOSTNAME}";
+	location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+        }
+
+  # Health check for NAIS
+  location = /isAlive {
+    return 200 "Application:UP";
+    add_header Content-Type text/plain;
+  }
+
+  # Readiness check for NAIS
+  location = /isReady {
+    return 200 "Application:READY";
+    add_header Content-Type text/plain;
+  }
+
+}
