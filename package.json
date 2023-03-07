@@ -30,7 +30,7 @@
         "@testing-library/react": "^13.4.0",
         "@types/jest": "^29.1.1",
         "@typescript-eslint/eslint-plugin": "^5.39.0",
-        "@typescript-eslint/parser": "^5.39.0",
+        "@typescript-eslint/parser": "^5.54.1",
         "babel-loader": "^8.2.5",
         "css-loader": "^6.7.1",
         "css-minimizer-webpack-plugin": "^4.2.0",
