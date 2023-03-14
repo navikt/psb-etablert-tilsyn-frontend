@@ -1,4 +1,7 @@
-# Frontend for etablert tilsyn
+# Flyttet til https://github.com/navikt/k9-saksbehandling-frontend
+
+
+## Frontend for etablert tilsyn
 
 Dette er en frontend for "etablert tilsyn" i saksbehandlingen av pleiepenger ved sykt barn.
 
